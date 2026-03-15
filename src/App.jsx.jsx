@@ -1905,6 +1905,7 @@ function RetainerPage({ setPage }) {
   const [signForm, setSignForm] = useState({ name: "", email: "", studio: "", matter: "", date: new Date().toLocaleDateString() });
   const [signError, setSignError] = useState("");
   const [confirmed, setConfirmed] = useState(false);
+  const [execTimestamp] = useState(new Date());
   const scrollRef = useRef();
 
   const handleScroll = () => {
@@ -1922,6 +1923,201 @@ function RetainerPage({ setPage }) {
     setConfirmed(true);
   };
 
+  const handleDownloadPDF = () => {
+    const ts = execTimestamp.toISOString();
+    const dateStr = execTimestamp.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    const timeStr = execTimestamp.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short" });
+
+    const printWindow = window.open("", "_blank");
+    printWindow.document.write(`<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Retainer Agreement — ${signForm.name} — ${dateStr}</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Times New Roman', Times, serif; font-size: 12pt; color: #000; background: #fff; padding: 0; }
+  .page { max-width: 750px; margin: 0 auto; padding: 60px 60px 80px; }
+  h1 { font-size: 16pt; text-align: center; letter-spacing: 2px; margin-bottom: 6px; }
+  h2 { font-size: 13pt; font-weight: bold; margin-top: 22px; margin-bottom: 8px; border-bottom: 1px solid #999; padding-bottom: 4px; }
+  h3 { font-size: 11pt; font-weight: bold; margin-top: 14px; margin-bottom: 4px; }
+  p { margin-bottom: 10px; line-height: 1.7; }
+  .center { text-align: center; }
+  .header-block { text-align: center; border-bottom: 2px solid #000; padding-bottom: 16px; margin-bottom: 24px; }
+  .header-block .atty { font-size: 13pt; font-weight: bold; margin-bottom: 4px; }
+  .header-block .sub { font-size: 10pt; color: #333; line-height: 1.8; }
+  .sig-block { margin-top: 32px; border: 2px solid #000; padding: 24px; background: #f9f9f9; }
+  .sig-block .sig-title { font-size: 13pt; font-weight: bold; text-align: center; margin-bottom: 16px; letter-spacing: 1px; }
+  .sig-row { display: flex; gap: 40px; margin-top: 12px; }
+  .sig-field { flex: 1; border-bottom: 1px solid #000; padding-bottom: 2px; margin-bottom: 4px; }
+  .sig-label { font-size: 9pt; color: #555; margin-top: 2px; }
+  .sig-value { font-size: 11pt; font-weight: bold; }
+  .checkbox-record { margin: 8px 0; font-size: 10pt; line-height: 1.5; }
+  .checkbox-record::before { content: "☑  "; font-size: 12pt; }
+  .timestamp-box { margin-top: 20px; border: 1px solid #999; padding: 12px; background: #f0f0f0; font-size: 9pt; font-family: 'Courier New', monospace; line-height: 1.8; }
+  .disclaimer { margin-top: 20px; font-size: 9pt; color: #555; font-style: italic; line-height: 1.6; border-top: 1px solid #ccc; padding-top: 12px; }
+  .section-body { font-size: 11pt; line-height: 1.7; margin-bottom: 8px; }
+  .warning { font-weight: bold; }
+  .allcaps { font-size: 10pt; line-height: 1.6; }
+  @media print {
+    body { padding: 0; }
+    .page { padding: 40px; }
+    .no-print { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="no-print" style="background:#1a3a5c;color:white;padding:14px 20px;margin-bottom:24px;font-family:Arial,sans-serif;font-size:12px;display:flex;justify-content:space-between;align-items:center;">
+    <span>⬇ Save this page as PDF using your browser's Print function (Ctrl+P / Cmd+P) → "Save as PDF"</span>
+    <button onclick="window.print()" style="background:#00fff5;color:#050508;border:none;padding:8px 18px;font-weight:bold;cursor:pointer;font-size:12px;">PRINT / SAVE PDF</button>
+  </div>
+
+  <div class="header-block">
+    <div class="atty">ATTORNEY-CLIENT RETAINER AGREEMENT</div>
+    <div class="sub">
+      Wesley R. Williams, Esq. &nbsp;|&nbsp; California State Bar No. 269157<br/>
+      weswilliamsesq@gmail.com &nbsp;|&nbsp; 619.305.6485 &nbsp;|&nbsp; San Diego, California<br/>
+      <strong>ATTORNEY ADVERTISING</strong>
+    </div>
+  </div>
+
+  <p>This Agreement is made between the Client identified below ("Client") and Wesley R. Williams, Esq. ("Attorney"). In consideration of the mutual promises herein, the parties agree as follows:</p>
+
+  <h2>1. SCOPE OF REPRESENTATION</h2>
+  <p class="section-body">Attorney agrees to represent Client in connection with the specific matter described by Client at the time of engagement ("the Matter"), within the following practice areas: gaming law and video game commerce, real estate and title insurance, fintech, and digital assets. This Agreement covers only the Matter or Subscription scope expressly identified. Any additional matters outside the defined scope require a separate written agreement or amendment.</p>
+  <p class="section-body">Attorney's services may include, as applicable and agreed: legal research and analysis; drafting, reviewing, and negotiating contracts and agreements; regulatory compliance advice; and correspondence and communications on Client's behalf. Attorney will keep Client informed of the progress of the Matter and will respond within a reasonable time to Client's inquiries.</p>
+  <p class="section-body">This Agreement will not become binding on either party, and Attorney will not begin providing legal services, until Client has executed this Agreement electronically and payment, if applicable, has been processed.</p>
+  <p class="section-body warning">EXCLUSION — NO LITIGATION SERVICES: Attorney does not provide litigation services, court appearances, or representation in administrative, regulatory, arbitration, or judicial proceedings of any kind. This Agreement expressly excludes all litigation, government enforcement defense, and any matter requiring court or tribunal appearance. Clients requiring litigation services must retain separate litigation counsel.</p>
+
+  <h2>2. FEES, BILLING, AND TRUST ACCOUNT DISCLOSURE</h2>
+  <h3>A. Fee Structure.</h3>
+  <p class="section-body">Attorney's fees are charged on a flat fee or monthly subscription basis as agreed at engagement. No hourly billing applies unless separately agreed in writing for overage services.</p>
+  <h3>B. No Client Trust Account — Important Disclosure.</h3>
+  <p class="section-body allcaps">CLIENT IS ADVISED THAT ATTORNEY DOES NOT MAINTAIN A CLIENT TRUST ACCOUNT (IOLTA ACCOUNT). Attorney does not hold client funds in trust. All fees are earned upon receipt or as services are rendered per the agreed fee structure. For Subscription clients, invoices are generated and delivered automatically by Stripe, Inc. on Attorney's behalf prior to each monthly charge. For non-subscription matters, Attorney will submit invoices to Client for all fees and expenses as described in this Agreement.</p>
+  <h3>C. Invoicing and Payment.</h3>
+  <p class="section-body">For Subscription clients, Stripe, Inc. automatically generates and emails a PDF invoice to Client before each monthly charge and a receipt upon successful payment. For non-subscription flat fee or overage matters, Attorney will issue invoices due within thirty (30) days. Unpaid fees bear interest at twelve percent (12%) per annum after thirty (30) days.</p>
+  <h3>D. Rate Changes.</h3>
+  <p class="section-body">Attorney shall give Client thirty (30) days written notice of any change to the fee schedule.</p>
+
+  <h2>3. EXPENSES</h2>
+  <p class="section-body">All reasonable expenses incurred by Attorney in handling Client's matter shall be paid by Client as incurred, including filing fees, postage, travel, and other case expenses. Mileage is charged at the IRS standard mileage rate.</p>
+
+  <h2>4. NEGOTIATION AUTHORITY</h2>
+  <p class="section-body">Attorney is authorized to enter into negotiations on behalf of Client as Attorney deems appropriate within the scope of this Agreement. No binding settlement, resolution, or agreement that affects Client's legal rights or financial obligations shall be entered into without Client's prior written approval.</p>
+
+  <h2>5. SUBSCRIPTION TERMS AND AUTOMATIC RENEWAL</h2>
+  <p class="section-body">If Client has enrolled in the General Counsel Subscription at $2,500 per month, the monthly fee covers: (a) unlimited email and messaging access, responses within one business day; (b) one monthly strategy call of up to 45 minutes; (c) up to three standard commercial contract reviews per month; and (d) full access to the GameCompliance™ platform.</p>
+  <p class="section-body allcaps">THE SUBSCRIPTION WILL AUTOMATICALLY RENEW EACH MONTH AT $2,500 UNLESS CANCELLED. To cancel, Client must provide written notice to Attorney at weswilliamsesq@gmail.com at least thirty (30) days before the next billing date. No partial refunds are issued for mid-period cancellations.</p>
+  <p class="section-body allcaps">By executing this Agreement and enrolling in the Subscription, Client expressly authorizes Stripe, Inc. to charge Client's payment method on file the amount of $2,500.00 on a recurring monthly basis until the Subscription is cancelled in accordance with the cancellation terms above.</p>
+  <p class="section-body">Overage services are available at $350/hr under a separate written engagement agreement. All litigation remains excluded regardless of fee arrangement.</p>
+
+  <h2>6. ELECTRONIC SIGNATURE AND COMMUNICATIONS</h2>
+  <p class="section-body">The parties agree that this Agreement may be executed electronically. An electronic signature constitutes a valid and binding signature under the California Uniform Electronic Transactions Act (Cal. Civ. Code §§ 1633.1 et seq.) and the federal Electronic Signatures in Global and National Commerce Act (15 U.S.C. § 7001 et seq.). Client's affirmative click-through assent constitutes Client's electronic signature and is legally equivalent to a handwritten signature.</p>
+
+  <h2>7. CONFIDENTIALITY AND ATTORNEY-CLIENT PRIVILEGE</h2>
+  <p class="section-body">Attorney will maintain the confidentiality of all information Client discloses in the course of representation, subject to the exceptions in California Rules of Professional Conduct Rule 1.6 and applicable law.</p>
+
+  <h2>8. CONFLICTS OF INTEREST</h2>
+  <p class="section-body">Attorney has conducted a conflicts check based on information available at the time of engagement. If a conflict of interest arises during the representation, Attorney will promptly notify Client.</p>
+
+  <h2>9. CLIENT RESPONSIBILITIES</h2>
+  <p class="section-body">Client agrees to: (a) provide Attorney with timely, accurate, and complete information; (b) cooperate fully with Attorney; (c) keep Attorney advised of current contact information; (d) notify Attorney of any changes in business affiliation; (e) pay invoices in accordance with this Agreement; and (f) make decisions on matters requiring Client's authorization.</p>
+
+  <h2>10. ASSOCIATION OF OTHER ATTORNEYS</h2>
+  <p class="section-body">Attorney may, with Client's consent, associate other attorneys to assist in representation. Any referral fee arrangements will be disclosed to Client in writing and comply with California Rules of Professional Conduct Rule 7.2(b).</p>
+
+  <h2>11. DISCHARGE AND WITHDRAWAL</h2>
+  <p class="section-body">Client may discharge Attorney at any time with written notice. Attorney may withdraw from representation for good cause including non-payment of fees, client misconduct, or any other basis permitted under the California Rules of Professional Conduct, upon reasonable notice to Client.</p>
+
+  <h2>12. DISPUTE RESOLUTION AND JURY TRIAL WAIVER</h2>
+  <p class="section-body">Any dispute regarding Attorney's fees shall be subject to mandatory fee arbitration under the California State Bar's fee arbitration program (Bus. & Prof. Code §§ 6200-6206) before filing a civil action. All other disputes shall be resolved by judicial reference or other civil proceeding in San Diego County, California.</p>
+  <p class="section-body allcaps warning">JURY TRIAL WAIVER: By executing this Agreement, Client confirms that Client has read and understands the dispute resolution provisions and voluntarily agrees to resolution by judicial reference or other court proceeding. IN DOING SO, CLIENT AND ATTORNEY VOLUNTARILY WAIVE IMPORTANT CONSTITUTIONAL RIGHTS TO TRIAL BY JURY. Client is advised that Client has the right to have an independent attorney review this provision prior to signing.</p>
+
+  <h2>13. PREVAILING PARTY ATTORNEY FEES</h2>
+  <p class="section-body">In any dispute arising from this Agreement, the prevailing party shall be entitled to recover reasonable attorney's fees and costs from the non-prevailing party.</p>
+
+  <h2>14. TAX DISCLOSURE</h2>
+  <p class="section-body allcaps">ATTORNEY FEES MAY BE DEDUCTIBLE AS A BUSINESS EXPENSE UNDER APPLICABLE TAX LAW. CLIENT SHOULD CONSULT A QUALIFIED TAX PROFESSIONAL REGARDING THE DEDUCTIBILITY OF LEGAL FEES IN CLIENT'S SPECIFIC CIRCUMSTANCES. ATTORNEY MAKES NO REPRESENTATION REGARDING THE TAX TREATMENT OF ANY FEES PAID UNDER THIS AGREEMENT.</p>
+
+  <h2>15. GAMECOMPLIANCE™ DISCLAIMER</h2>
+  <p class="section-body">If Client was referred through the GameCompliance™ platform, Client acknowledges that: (a) use of the GameCompliance™ tool did not create an attorney-client relationship; (b) the analysis generated by GameCompliance™ constituted legal issue-spotting only and did not constitute legal advice; and (c) this Retainer Agreement, once executed, establishes the attorney-client relationship.</p>
+
+  <h2>16. GOVERNING LAW / SEVERABILITY</h2>
+  <p class="section-body">This Agreement shall be construed under and governed by the laws of the State of California. If any provision is found invalid or unenforceable, the remaining provisions shall continue in full force and effect.</p>
+
+  <h2>17. PARTIES BOUND / ENTIRE AGREEMENT</h2>
+  <p class="section-body">This Agreement shall be binding upon and inure to the benefit of the parties and their respective heirs, executors, administrators, legal representatives, successors, and assigns where permitted. This Agreement constitutes the sole and entire agreement between the parties and may be modified only by a written instrument signed by both parties.</p>
+
+  <h2>18. EFFECTIVE DATE</h2>
+  <p class="section-body">This Agreement is effective as of the date of electronic execution by Client. Attorney's services rendered prior to formal execution are covered by this Agreement, and Client acknowledges that the reasonable value of any such services is owed regardless of whether this Agreement is formally executed.</p>
+
+  <!-- SIGNATURE BLOCK -->
+  <div class="sig-block">
+    <div class="sig-title">EXECUTION RECORD — ELECTRONIC SIGNATURE</div>
+
+    <div class="sig-row">
+      <div style="flex:1">
+        <div class="sig-label">CLIENT FULL NAME</div>
+        <div class="sig-value">${signForm.name}</div>
+      </div>
+      <div style="flex:1">
+        <div class="sig-label">CLIENT EMAIL</div>
+        <div class="sig-value">${signForm.email}</div>
+      </div>
+    </div>
+
+    <div class="sig-row" style="margin-top:12px">
+      <div style="flex:1">
+        <div class="sig-label">STUDIO / COMPANY</div>
+        <div class="sig-value">${signForm.studio || "N/A"}</div>
+      </div>
+      <div style="flex:1">
+        <div class="sig-label">MATTER / SUBSCRIPTION TYPE</div>
+        <div class="sig-value">${signForm.matter}</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px">
+      <div class="sig-label" style="margin-bottom:8px">ACKNOWLEDGMENTS CONFIRMED BY CLIENT:</div>
+      <div class="checkbox-record">I have read, understood, and agree to all terms and conditions of this Attorney-Client Retainer Agreement.</div>
+      <div class="checkbox-record">I separately and specifically acknowledge the Jury Trial Waiver in Section 12 and voluntarily waive my constitutional right to a jury trial.</div>
+    </div>
+
+    <div class="timestamp-box">
+      EXECUTION DATE: ${dateStr}<br/>
+      EXECUTION TIME: ${timeStr}<br/>
+      EXECUTION TIMESTAMP (ISO 8601 / UTC): ${ts}<br/>
+      SIGNATURE METHOD: Electronic Click-Through (UETA Cal. Civ. Code §§ 1633.1 et seq. / eSign Act 15 U.S.C. § 7001)<br/>
+      ATTORNEY: Wesley R. Williams, Esq. — CA Bar No. 269157
+    </div>
+
+    <div style="margin-top:24px;display:flex;justify-content:space-between;gap:40px">
+      <div style="flex:1;border-top:1px solid #000;padding-top:8px">
+        <div style="font-size:14pt;font-weight:bold">/s/ ${signForm.name}</div>
+        <div style="font-size:9pt;color:#555">CLIENT — Electronic Signature</div>
+        <div style="font-size:9pt;color:#555">${dateStr}</div>
+      </div>
+      <div style="flex:1;border-top:1px solid #000;padding-top:8px">
+        <div style="font-size:14pt;font-weight:bold">/s/ Wesley R. Williams</div>
+        <div style="font-size:9pt;color:#555">ATTORNEY — Wesley R. Williams, Esq.</div>
+        <div style="font-size:9pt;color:#555">CA Bar No. 269157 — Countersignature pending</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    This document constitutes a legally binding attorney-client retainer agreement executed electronically pursuant to the California Uniform Electronic Transactions Act and the federal Electronic Signatures in Global and National Commerce Act. Retain this document for your records. Wesley R. Williams, Esq. is licensed to practice law in the State of California only. This website constitutes attorney advertising. Prior results do not guarantee a similar outcome.
+  </div>
+
+</div>
+</body>
+</html>`);
+    printWindow.document.close();
+    printWindow.focus();
+  };
+
   if (confirmed) return (
     <div style={{ maxWidth: "700px", margin: "0 auto", padding: "120px 32px 80px", textAlign: "center" }}>
       <div style={{ border: `4px solid ${C.green}`, background: C.surface, padding: "48px",
@@ -1933,13 +2129,34 @@ function RetainerPage({ setPage }) {
         <div style={{ fontFamily: "'Courier New', monospace", fontSize: "13px",
           color: "#88cc88", lineHeight: "2", marginBottom: "24px" }}>
           Congratulations, {signForm.name}.<br />
-          Your retainer agreement has been executed electronically and a confirmation will be sent to {signForm.email}.<br /><br />
+          Your retainer agreement has been executed electronically.<br /><br />
           Wesley R. Williams, Esq. will be in touch within one business day.
         </div>
-        <div style={{ fontSize: "7px", color: C.dim, letterSpacing: "2px", marginBottom: "24px" }}>
-          EXECUTION TIMESTAMP: {new Date().toISOString()}<br />
+        <div style={{ fontSize: "7px", color: C.dim, letterSpacing: "2px", marginBottom: "28px" }}>
+          EXECUTION TIMESTAMP: {execTimestamp.toISOString()}<br />
           CA BAR NO. 269157 · ELECTRONIC SIGNATURE VALID UNDER UETA
         </div>
+
+        {/* PDF Download CTA */}
+        <div style={{ border: `3px solid ${C.yellow}`, background: `${C.yellow}0a`,
+          padding: "20px", marginBottom: "24px", boxShadow: `0 0 20px ${C.yellow}33` }}>
+          <div style={{ fontSize: "8px", color: C.yellow, letterSpacing: "2px",
+            marginBottom: "10px", textShadow: `0 0 8px ${C.yellow}` }}>
+            ── SAVE YOUR COPY ──
+          </div>
+          <div style={{ fontFamily: "'Courier New', monospace", fontSize: "11px",
+            color: "#aaaa66", lineHeight: "1.8", marginBottom: "16px" }}>
+            Download a PDF copy of your signed retainer agreement for your records.
+            When the document opens, press <strong style={{ color: C.yellow }}>Ctrl+P</strong> (Windows)
+            or <strong style={{ color: C.yellow }}>Cmd+P</strong> (Mac) and select
+            <strong style={{ color: C.yellow }}> "Save as PDF"</strong>.
+          </div>
+          <button className="btn-arcade btn-yellow" onClick={handleDownloadPDF}
+            style={{ fontSize: "9px", padding: "12px 28px" }}>
+            ⬇ DOWNLOAD SIGNED RETAINER PDF
+          </button>
+        </div>
+
         <button className="btn-arcade btn-cyan" onClick={() => setPage("contact")}
           style={{ fontSize: "8px" }}>CONTACT ATTORNEY</button>
       </div>
