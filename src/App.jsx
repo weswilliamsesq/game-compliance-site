@@ -1206,7 +1206,7 @@ function GameCompliancePage({ setPage }) {
     try {
       const res = await fetch("/api/analyze", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ model: "claude-sonnet-4-5", max_tokens: 8000,
+        body: JSON.stringify({ model: "claude-sonnet-4-6", max_tokens: 8000,
           system: SYSTEM_PROMPT, messages: [{ role: "user", content: buildPrompt(form) }] }),
       });
       clearInterval(iv);
