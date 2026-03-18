@@ -1,4 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";  import React, { useState, useEffect, useRef } from "react";
+
+const handleSendEmail = (e) => {
+    if (e) e.preventDefault();
+    
+    const templateParams = {
+      from_name: gateForm?.name || "Website Visitor",
+      from_email: gateForm?.email || "",
+      message: gateForm?.matter || "No message provided",
+    };
+
+    window.emailjs.send(
+      "service_6g9c89l", 
+      "template_m7m4p3r", 
+      templateParams,
+      "wjbKawH6jrlAYYj1x"
+    ).then(() => {
+      setSent(true); 
+    }).catch((err) => {
+      alert("Email failed to send. Check console.");
+    });
+  };
 // ═══════════════════════════════════════════════════════════
 // DESIGN TOKENS
 // ═══════════════════════════════════════════════════════════
@@ -2582,7 +2603,7 @@ function ContactPage() {
                 value={cf.message} onChange={e => setCf(c => ({ ...c, message: e.target.value }))} />
             </div>
 
-            <button className="btn-arcade" onClick={() => setSent(true)}
+            <button className="btn_arcade" onClick={handleSendEmail}>
               style={{ background: C.orange, color: C.bg,
                 boxShadow: `4px 4px 0 #663300, 0 0 20px ${C.orange}88`,
                 padding: "14px", fontSize: "9px", letterSpacing: "1px", width: "100%" }}>
