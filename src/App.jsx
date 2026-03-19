@@ -2502,8 +2502,8 @@ const handleSendEmail = (e) => {
     console.log("SENDING TO EMAILJS...", templateParams);
 
     window.emailjs.send(
-      "service_6g9c89l", 
-      "template_m7m4p3r", 
+      "service_jsfyq4c", 
+      "template_pp23qgb", 
       templateParams,
       "wjbKawH6jrlAYYj1x"
     ).then((res) => {
