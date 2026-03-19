@@ -2485,7 +2485,12 @@ This Agreement is governed by the California Rules of Professional Conduct and a
 // ═══════════════════════════════════════════════════════════
 // CONTACT — HIGH SCORE ENTRY
 // ═══════════════════════════════════════════════════════════
-function ContactPage() {const [sent, setSent] = useState(false);
+function ContactPage() { useEffect(() => {    
+  // This turns on the connection the moment someone visits the contact section
+    if (window.emailjs) {
+      window.emailjs.init("wjbKawH6jrlAYYj1x");
+    }
+  }, []);onst [sent, setSent] = useState(false);
   const [cf, setCf] = useState({ name: "", email: "", company: "", matter: "", message: "" });
 const handleSendEmail = (e) => {
     if (e) e.preventDefault();
