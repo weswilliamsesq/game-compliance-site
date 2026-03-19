@@ -2489,7 +2489,7 @@ function ContactPage() { useEffect(() => {
     if (window.emailjs) {
       window.emailjs.init("wjbKawH6jrlAYYj1x");
     }
-  }, []);onst [sent, setSent] = useState(false);
+  }, []);const [sent, setSent] = useState(false);
   const [cf, setCf] = useState({ name: "", email: "", company: "", matter: "", message: "" });
 const handleSendEmail = (e) => {
     if (e) e.preventDefault();
