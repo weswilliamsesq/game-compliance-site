@@ -2611,7 +2611,7 @@ const handleSendEmail = (e) => {
             <button className="btn_arcade" onClick={handleSendEmail}>
               style={{ background: C.orange, color: C.bg,
                 boxShadow: `4px 4px 0 #663300, 0 0 20px ${C.orange}88`,
-                padding: "14px", fontSize: "9px", letterSpacing: "1px", width: "100%" }}>
+                padding: "14px", fontSize: "9px", letterSpacing: "1px", width: "100%" }}
               ► SEND MESSAGE ◄
             </button>
 
