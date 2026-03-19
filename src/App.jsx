@@ -1,25 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";  import React, { useState, useEffect, useRef } from "react";
 
-const handleSendEmail = (e) => {
-    if (e) e.preventDefault();
-    
-    const templateParams = {
-      from_name: gateForm?.name || "Website Visitor",
-      from_email: gateForm?.email || "",
-      message: gateForm?.matter || "No message provided",
-    };
 
-    window.emailjs.send(
-      "service_6g9c89l", 
-      "template_m7m4p3r", 
-      templateParams,
-      "wjbKawH6jrlAYYj1x"
-    ).then(() => {
-      setSent(true); 
-    }).catch((err) => {
-      alert("Email failed to send. Check console.");
-    });
-  };
 // ═══════════════════════════════════════════════════════════
 // DESIGN TOKENS
 // ═══════════════════════════════════════════════════════════
@@ -2504,10 +2485,34 @@ This Agreement is governed by the California Rules of Professional Conduct and a
 // ═══════════════════════════════════════════════════════════
 // CONTACT — HIGH SCORE ENTRY
 // ═══════════════════════════════════════════════════════════
-function ContactPage() {
-  const [sent, setSent] = useState(false);
+function ContactPage() {const [sent, setSent] = useState(false);
   const [cf, setCf] = useState({ name: "", email: "", company: "", matter: "", message: "" });
+const handleSendEmail = (e) => {
+    if (e) e.preventDefault();
+    
+    // Using 'cf' because I see 'const [cf, setCf]' on line 2490
+    const templateParams = {
+      from_name: cf?.name || "Website Visitor",
+      from_email: cf?.email || "",
+      message: cf?.matter || cf?.message || "New Inquiry",
+    };
 
+    console.log("SENDING TO EMAILJS...", templateParams);
+
+    window.emailjs.send(
+      "service_6g9c89l", 
+      "template_m7m4p3r", 
+      templateParams,
+      "wjbKawH6jrlAYYj1x"
+    ).then((res) => {
+      console.log("EMAILJS SUCCESS!", res);
+      setSent(true); 
+    }).catch((err) => {
+      console.error("EMAILJS FAILED:", err);
+      alert("Mail Error: " + JSON.stringify(err));
+    });
+  };
+  
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "120px 32px 80px" }}>
       <div style={{ textAlign: "center", marginBottom: "40px" }}>
