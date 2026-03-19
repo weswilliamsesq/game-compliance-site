@@ -869,10 +869,8 @@ function PracticePage({ setPage }) {
                 </div>
               </div>
 
-              <button className="btn-mc" onClick={() => setPage("contact")}
-                style={{ marginTop: "16px", width: "100%", padding: "12px" }}>
-                ▶ OPEN NEW WORLD (BOOK CONSULT)
-              </button>
+              <button className="btn-arcade btn-pink" onClick={() => setPage("contact")}>BOOK CONSULT</button>
+              
             </div>
           </div>
         </div>
