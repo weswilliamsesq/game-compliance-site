@@ -575,7 +575,7 @@ function HomePage({ setPage }) {
           <button className="btn-arcade btn-pink" onClick={() => setPage("contact")}>
             BOOK CONSULT
           </button>
-          <button className="btn-arcade btn-cyan" onClick={() => setPage("tool")}>
+          <button className="btn-arcade btn-cyan" onClick={() => setPage("game")}>
             FREE MINIGAME →
           </button>
         </div>
