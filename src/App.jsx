@@ -2088,20 +2088,23 @@ function RetainerPage({ setPage }) {
       EXECUTION DATE: ${dateStr}<br/>
       EXECUTION TIME: ${timeStr}<br/>
       EXECUTION TIMESTAMP (ISO 8601 / UTC): ${ts}<br/>
-      SIGNATURE METHOD: Electronic Click-Through (UETA Cal. Civ. Code §§ 1633.1 et seq. / eSign Act 15 U.S.C. § 7001)<br/>
-      ATTORNEY: Wesley R. Williams, Esq. — CA Bar No. 269157
-    </div>
-
-    <div style="margin-top:24px;display:flex;justify-content:space-between;gap:40px">
-      <div style="flex:1;border-top:1px solid #000;padding-top:8px">
-        <div style="font-size:14pt;font-weight:bold">/s/ ${signForm.name}</div>
-        <div style="font-size:9pt;color:#555">CLIENT — Electronic Signature</div>
-        <div style="font-size:9pt;color:#555">${dateStr}</div>
-      </div>
-      <div style="flex:1;border-top:1px solid #000;padding-top:8px">
-        <div style="font-size:14pt;font-weight:bold">/s/ Wesley R. Williams</div>
-        <div style="font-size:9pt;color:#555">ATTORNEY — Wesley R. Williams, Esq.</div>
-        <div style="font-size:9pt;color:#555">CA Bar No. 269157 — Countersignature pending</div>
+      SIGNATURE METHOD: Electronic Click-Through <div style={{ fontWeight: "bold", paddingTop: "8px" }}>
+  {isPaid ? (
+    // What shows AFTER Stripe payment is successful
+    <>
+      <div>/s/ Wesley R. Williams</div>
+      <div>ATTORNEY — Wesley R. Williams, Esq.</div>
+      <div>Bar No. 269157 — FULLY EXECUTED & PAID</div>
+    </>
+  ) : (
+    // What shows BEFORE payment
+    <>
+      <div style={{ height: "1.2em", borderBottom: "1px solid #ccc", width: "200px", marginBottom: "4px" }}></div>
+      <div>ATTORNEY — Wesley R. Williams, Esq.</div>
+      <div style={{ color: "red" }}>Bar No. 269157 — Countersignature pending...</div>
+    </>
+  )}
+</div>
       </div>
     </div>
   </div>
@@ -2482,12 +2485,18 @@ This Agreement is governed by the California Rules of Professional Conduct and a
 // ═══════════════════════════════════════════════════════════
 // CONTACT — HIGH SCORE ENTRY
 // ═══════════════════════════════════════════════════════════
-function ContactPage() { useEffect(() => {    
-  // This turns on the connection the moment someone visits the contact section
+useEffect(() => {
+    // 1. Initialize EmailJS connection
     if (window.emailjs) {
       window.emailjs.init("wjbKawH6jrlAYYj1x");
     }
-  }, []);const [sent, setSent] = useState(false);
+
+    // 2. Check the URL for the Stripe success flag
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("success") === "true") {
+      setIsPaid(true); // This "unlocks" your signature
+    }
+  }, []);const [sent, setSent] = useState(false); const [isPaid, setIsPaid] = useState(false);
   const [cf, setCf] = useState({ name: "", email: "", company: "", matter: "", message: "" });
 const handleSendEmail = (e) => {
     if (e) e.preventDefault();
@@ -2632,7 +2641,7 @@ style={{ background: C.orange, color: C.bg, boxShadow: `4px 4px 0 #663300, 0 0 2
       )}
     </div>
   );
-}
+
 
 // ═══════════════════════════════════════════════════════════
 // FOOTER
