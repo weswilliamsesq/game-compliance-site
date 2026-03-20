@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { jsPDF } from "jspdf";
+
 // ═══════════════════════════════════════════════════════════
 // DESIGN TOKENS
 // ═══════════════════════════════════════════════════════════
@@ -252,13 +252,10 @@ const GLOBAL_CSS = `
   }
   .ticker-content {
     display: inline-block;
-    white-space: nowrap;
-    animation: marquee 30s linear infinite;
-    font-size: 9px;
+    white-space: nowrap;}
     color: ${C.pink};
     letter-spacing: 2px;
-  }
-
+     }
   /* Stars background */
   .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
 
