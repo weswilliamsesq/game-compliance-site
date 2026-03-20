@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import { jsPDF } from "jspdf";
 // ═══════════════════════════════════════════════════════════
 // DESIGN TOKENS
 // ═══════════════════════════════════════════════════════════
