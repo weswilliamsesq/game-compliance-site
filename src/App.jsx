@@ -1922,7 +1922,7 @@ function RetainerPage({ setPage }) {
     setConfirmed(true);
   };
 
-  const handleDownloadPDF = () => {
+  const handleDownloadPDF = () => {const isPaid = new URLSearchParams(window.location.search).get("success") === "true";
     const ts = execTimestamp.toISOString();
     const dateStr = execTimestamp.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     const timeStr = execTimestamp.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short" });
