@@ -574,7 +574,7 @@ function HomePage({ setPage }) {
           <button className="btn-arcade btn-pink" onClick={() => setPage("contact")}>
             BOOK CONSULT
           </button>
-          <button className="btn-arcade btn-cyan" onClick={() => setPage("game")}>
+          <button className="btn-arcade btn-cyan" onClick={() => setPage("tool")}>
             FREE MINIGAME →
           </button>
         </div>
@@ -868,8 +868,10 @@ function PracticePage({ setPage }) {
                 </div>
               </div>
 
-              <button className="btn-arcade btn-pink" onClick={() => setPage("contact")}>BOOK CONSULT</button>
-              
+              <button className="btn-mc" onClick={() => setPage("contact")}
+                style={{ marginTop: "16px", width: "100%", padding: "12px" }}>
+                ▶ OPEN NEW WORLD (BOOK CONSULT)
+              </button>
             </div>
           </div>
         </div>
@@ -1204,7 +1206,7 @@ function GameCompliancePage({ setPage }) {
     try {
       const res = await fetch("/api/analyze", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ model: "claude-sonnet-4-6", max_tokens: 8000,
+        body: JSON.stringify({ model: "claude-sonnet-4-5", max_tokens: 8000,
           system: SYSTEM_PROMPT, messages: [{ role: "user", content: buildPrompt(form) }] }),
       });
       clearInterval(iv);
@@ -1906,46 +1908,6 @@ function RetainerPage({ setPage }) {
   const [execTimestamp] = useState(new Date());
   const scrollRef = useRef();
 
-  // Check if returning from Stripe payment — Stripe appends ?success=true to the return URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const isPaid = urlParams.get("success") === "true" || urlParams.get("page") === "retainer" && urlParams.get("success") === "true";
-  // Check if form data was saved before Stripe redirect
-  const savedForm = (() => { try { return JSON.parse(sessionStorage.getItem("retainer_form") || "null"); } catch { return null; } })();
-
-  useEffect(() => {
-    if (isPaid && savedForm) {
-      // Restore form from sessionStorage and mark as confirmed
-      setSignForm(savedForm);
-      setAgreed(true);
-      setJuryWaived(true);
-      setScrolled(true);
-      setConfirmed(true);
-      sessionStorage.removeItem("retainer_form");
-      // Send EmailJS attorney notification
-      const ts = new Date().toLocaleString();
-      const sendNotification = () => {
-        if (window.emailjs) {
-          window.emailjs.send("service_jsfyq4c", "template_pp23qgb", {
-            name: savedForm.name,
-            email: savedForm.email,
-            title: "NEW RETAINER SIGNED — " + savedForm.name,
-            message: "RETAINER EXECUTED — PAYMENT CONFIRMED\n\nClient: " + savedForm.name + "\nEmail: " + savedForm.email + "\nStudio/Company: " + (savedForm.studio || "N/A") + "\nMatter/Subscription: " + savedForm.matter + "\nExecution Date: " + savedForm.date + "\nTimestamp: " + ts + "\n\nStripe payment confirmed. Client has been shown the fully executed agreement PDF download.",
-            time: ts,
-          }, "wjbKawH6jrlAYYj1x")
-            .then(() => console.log("Attorney retainer notification sent"))
-            .catch(e => console.error("EmailJS notification error:", e));
-        } else {
-          // Retry after 1 second if EmailJS not loaded yet
-          setTimeout(sendNotification, 1000);
-        }
-      };
-      sendNotification();
-      // Clean up URL params without page reload
-      const cleanUrl = window.location.pathname;
-      window.history.replaceState({}, document.title, cleanUrl);
-    }
-  }, [isPaid]);
-
   const handleScroll = () => {
     const el = scrollRef.current;
     if (el && el.scrollTop + el.clientHeight >= el.scrollHeight - 20) setScrolled(true);
@@ -1958,15 +1920,7 @@ function RetainerPage({ setPage }) {
     if (!agreed) return setSignError("ERROR: MUST AGREE TO FULL TERMS (CHECKBOX 1)");
     if (!juryWaived) return setSignError("ERROR: MUST SEPARATELY ACKNOWLEDGE JURY TRIAL WAIVER (CHECKBOX 2)");
     setSignError("");
-    // Save form data to sessionStorage before leaving for Stripe
-    sessionStorage.setItem("retainer_form", JSON.stringify(signForm));
-    // Pre-fill Stripe checkout with client email if possible
-    const stripeUrl = "https://buy.stripe.com/5kQ4gz46xfGx5iQbvtb3q00" + 
-      "?prefilled_email=" + encodeURIComponent(signForm.email);
-    // NOTE: Configure your Stripe Payment Link success redirect URL to:
-    // https://www.game-compliance.com/?success=true
-    // In Stripe Dashboard → Payment Links → Edit → After payment → Redirect to website
-    window.location.href = stripeUrl;
+    setConfirmed(true);
   };
 
   const handleDownloadPDF = () => {
@@ -2135,13 +2089,20 @@ function RetainerPage({ setPage }) {
       EXECUTION DATE: ${dateStr}<br/>
       EXECUTION TIME: ${timeStr}<br/>
       EXECUTION TIMESTAMP (ISO 8601 / UTC): ${ts}<br/>
-      SIGNATURE METHOD: Electronic Click-Through <div style={{ fontWeight: "bold", paddingTop: "8px" }}>
-  <div style="font-weight: bold; padding-top: 8px;">
-    <div>/s/ Wesley R. Williams, Esq.</div>
-    <div>ATTORNEY — Wesley R. Williams, Esq.</div>
-    <div>CA State Bar No. 269157 — FULLY EXECUTED</div>
-  </div>
-</div>
+      SIGNATURE METHOD: Electronic Click-Through (UETA Cal. Civ. Code §§ 1633.1 et seq. / eSign Act 15 U.S.C. § 7001)<br/>
+      ATTORNEY: Wesley R. Williams, Esq. — CA Bar No. 269157
+    </div>
+
+    <div style="margin-top:24px;display:flex;justify-content:space-between;gap:40px">
+      <div style="flex:1;border-top:1px solid #000;padding-top:8px">
+        <div style="font-size:14pt;font-weight:bold">/s/ ${signForm.name}</div>
+        <div style="font-size:9pt;color:#555">CLIENT — Electronic Signature</div>
+        <div style="font-size:9pt;color:#555">${dateStr}</div>
+      </div>
+      <div style="flex:1;border-top:1px solid #000;padding-top:8px">
+        <div style="font-size:14pt;font-weight:bold">/s/ Wesley R. Williams</div>
+        <div style="font-size:9pt;color:#555">ATTORNEY — Wesley R. Williams, Esq.</div>
+        <div style="font-size:9pt;color:#555">CA Bar No. 269157 — Countersignature pending</div>
       </div>
     </div>
   </div>
@@ -2526,28 +2487,6 @@ function ContactPage() {
   const [sent, setSent] = useState(false);
   const [cf, setCf] = useState({ name: "", email: "", company: "", matter: "", message: "" });
 
-  const handleSendEmail = () => {
-    if (!cf.name.trim()) { alert("Please enter your name."); return; }
-    if (!cf.email.includes("@")) { alert("Please enter a valid email."); return; }
-    if (!cf.message.trim() && !cf.matter) { alert("Please enter a message."); return; }
-
-    const templateParams = {
-      name: cf.name,
-      email: cf.email,
-      title: "Contact Form — " + (cf.matter || "General Inquiry"),
-      message: "COMPANY: " + (cf.company || "N/A") + "\nPRACTICE AREA: " + (cf.matter || "N/A") + "\nMESSAGE: " + cf.message,
-      time: new Date().toLocaleString(),
-    };
-
-    if (window.emailjs) {
-      window.emailjs.send("service_jsfyq4c", "template_pp23qgb", templateParams, "wjbKawH6jrlAYYj1x")
-        .then(() => { setSent(true); })
-        .catch((err) => { console.error("EmailJS error:", err); alert("Failed to send. Please email weswilliamsesq@gmail.com directly."); });
-    } else {
-      alert("Email service not loaded. Please email weswilliamsesq@gmail.com directly.");
-    }
-  };
-  
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "120px 32px 80px" }}>
       <div style={{ textAlign: "center", marginBottom: "40px" }}>
@@ -2643,8 +2582,10 @@ function ContactPage() {
                 value={cf.message} onChange={e => setCf(c => ({ ...c, message: e.target.value }))} />
             </div>
 
-            <button className="btn-arcade" onClick={handleSendEmail}
-style={{ background: C.orange, color: C.bg, boxShadow: `4px 4px 0 #663300, 0 0 20px ${C.orange}88`, padding: "14px", fontSize: "9px", letterSpacing: "1px", width: "100%", border: "none", cursor: "pointer" }}>
+            <button className="btn-arcade" onClick={() => setSent(true)}
+              style={{ background: C.orange, color: C.bg,
+                boxShadow: `4px 4px 0 #663300, 0 0 20px ${C.orange}88`,
+                padding: "14px", fontSize: "9px", letterSpacing: "1px", width: "100%" }}>
               ► SEND MESSAGE ◄
             </button>
 
@@ -3325,4 +3266,3 @@ export default function App() {
     </>
   );
 }
-
