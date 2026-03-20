@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-
 // ═══════════════════════════════════════════════════════════
 // DESIGN TOKENS
 // ═══════════════════════════════════════════════════════════
@@ -252,10 +251,13 @@ const GLOBAL_CSS = `
   }
   .ticker-content {
     display: inline-block;
-    white-space: nowrap;}
+    white-space: nowrap;
+    animation: marquee 30s linear infinite;
+    font-size: 9px;
     color: ${C.pink};
     letter-spacing: 2px;
-     }
+  }
+
   /* Stars background */
   .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
 
@@ -572,7 +574,7 @@ function HomePage({ setPage }) {
           <button className="btn-arcade btn-pink" onClick={() => setPage("contact")}>
             BOOK CONSULT
           </button>
-          <button className="btn-arcade btn-cyan" onClick={() => setPage("game")}>
+          <button className="btn-arcade btn-cyan" onClick={() => setPage("tool")}>
             FREE MINIGAME →
           </button>
         </div>
@@ -866,8 +868,10 @@ function PracticePage({ setPage }) {
                 </div>
               </div>
 
-              <button className="btn-arcade btn-pink" onClick={() => setPage("contact")}>BOOK CONSULT</button>
-              
+              <button className="btn-mc" onClick={() => setPage("contact")}
+                style={{ marginTop: "16px", width: "100%", padding: "12px" }}>
+                ▶ OPEN NEW WORLD (BOOK CONSULT)
+              </button>
             </div>
           </div>
         </div>
@@ -1202,7 +1206,7 @@ function GameCompliancePage({ setPage }) {
     try {
       const res = await fetch("/api/analyze", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ model: "claude-sonnet-4-6", max_tokens: 8000,
+        body: JSON.stringify({ model: "claude-sonnet-4-5", max_tokens: 8000,
           system: SYSTEM_PROMPT, messages: [{ role: "user", content: buildPrompt(form) }] }),
       });
       clearInterval(iv);
@@ -1919,7 +1923,7 @@ function RetainerPage({ setPage }) {
     setConfirmed(true);
   };
 
-  const handleDownloadPDF = () => {const isPaid = new URLSearchParams(window.location.search).get("success") === "true";
+  const handleDownloadPDF = () => {
     const ts = execTimestamp.toISOString();
     const dateStr = execTimestamp.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     const timeStr = execTimestamp.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short" });
@@ -2085,21 +2089,20 @@ function RetainerPage({ setPage }) {
       EXECUTION DATE: ${dateStr}<br/>
       EXECUTION TIME: ${timeStr}<br/>
       EXECUTION TIMESTAMP (ISO 8601 / UTC): ${ts}<br/>
-      SIGNATURE METHOD: Electronic Click-Through <div style={{ fontWeight: "bold", paddingTop: "8px" }}>
-  ${isPaid ? `
-  <div style="font-weight: bold; padding-top: 8px;">
-    <div>/s/ Wesley R. Williams</div>
-    <div>ATTORNEY — Wesley R. Williams, Esq.</div>
-    <div>Bar No. 269157 — FULLY EXECUTED & PAID</div>
-  </div>
-` : `
-  <div style="font-weight: bold; padding-top: 8px;">
-    <div style="height: 1.2em; border-bottom: 1px solid #ccc; width: 200px; margin-bottom: 4px;"></div>
-    <div>ATTORNEY — Wesley R. Williams, Esq.</div>
-    <div style="color: red;">Bar No. 269157 — Countersignature pending...</div>
-  </div>
-`}
-</div>
+      SIGNATURE METHOD: Electronic Click-Through (UETA Cal. Civ. Code §§ 1633.1 et seq. / eSign Act 15 U.S.C. § 7001)<br/>
+      ATTORNEY: Wesley R. Williams, Esq. — CA Bar No. 269157
+    </div>
+
+    <div style="margin-top:24px;display:flex;justify-content:space-between;gap:40px">
+      <div style="flex:1;border-top:1px solid #000;padding-top:8px">
+        <div style="font-size:14pt;font-weight:bold">/s/ ${signForm.name}</div>
+        <div style="font-size:9pt;color:#555">CLIENT — Electronic Signature</div>
+        <div style="font-size:9pt;color:#555">${dateStr}</div>
+      </div>
+      <div style="flex:1;border-top:1px solid #000;padding-top:8px">
+        <div style="font-size:14pt;font-weight:bold">/s/ Wesley R. Williams</div>
+        <div style="font-size:9pt;color:#555">ATTORNEY — Wesley R. Williams, Esq.</div>
+        <div style="font-size:9pt;color:#555">CA Bar No. 269157 — Countersignature pending</div>
       </div>
     </div>
   </div>
@@ -2480,45 +2483,10 @@ This Agreement is governed by the California Rules of Professional Conduct and a
 // ═══════════════════════════════════════════════════════════
 // CONTACT — HIGH SCORE ENTRY
 // ═══════════════════════════════════════════════════════════
-useEffect(() => {
-    // 1. Initialize EmailJS connection
-    if (window.emailjs) {
-      window.emailjs.init("wjbKawH6jrlAYYj1x");
-    }
-
-    // 2. Check the URL for the Stripe success flag
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("success") === "true") {
-      setIsPaid(true); // This "unlocks" your signature
-    }
-  }, []);const [sent, setSent] = useState(false); const [isPaid, setIsPaid] = useState(false);
+function ContactPage() {
+  const [sent, setSent] = useState(false);
   const [cf, setCf] = useState({ name: "", email: "", company: "", matter: "", message: "" });
-const handleSendEmail = (e) => {
-    if (e) e.preventDefault();
-    
-    // Using 'cf' because I see 'const [cf, setCf]' on line 2490
-    const templateParams = {
-      from_name: cf?.name || "Website Visitor",
-      from_email: cf?.email || "",
-      message: cf?.matter || cf?.message || "New Inquiry",
-    };
 
-    console.log("SENDING TO EMAILJS...", templateParams);
-
-    window.emailjs.send(
-      "service_jsfyq4c", 
-      "template_pp23qgb", 
-      templateParams,
-      "wjbKawH6jrlAYYj1x"
-    ).then((res) => {
-      console.log("EMAILJS SUCCESS!", res);
-      setSent(true); 
-    }).catch((err) => {
-      console.error("EMAILJS FAILED:", err);
-      alert("Mail Error: " + JSON.stringify(err));
-    });
-  };
-  
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "120px 32px 80px" }}>
       <div style={{ textAlign: "center", marginBottom: "40px" }}>
@@ -2614,8 +2582,10 @@ const handleSendEmail = (e) => {
                 value={cf.message} onChange={e => setCf(c => ({ ...c, message: e.target.value }))} />
             </div>
 
-            <button className="btn_arcade" onClick={handleSendEmail}
-style={{ background: C.orange, color: C.bg, boxShadow: `4px 4px 0 #663300, 0 0 20px ${C.orange}88`, padding: "14px", fontSize: "9px", letterSpacing: "1px", width: "100%", border: "none", cursor: "pointer" }}>
+            <button className="btn-arcade" onClick={() => setSent(true)}
+              style={{ background: C.orange, color: C.bg,
+                boxShadow: `4px 4px 0 #663300, 0 0 20px ${C.orange}88`,
+                padding: "14px", fontSize: "9px", letterSpacing: "1px", width: "100%" }}>
               ► SEND MESSAGE ◄
             </button>
 
@@ -2636,7 +2606,7 @@ style={{ background: C.orange, color: C.bg, boxShadow: `4px 4px 0 #663300, 0 0 2
       )}
     </div>
   );
-
+}
 
 // ═══════════════════════════════════════════════════════════
 // FOOTER
@@ -3296,4 +3266,3 @@ export default function App() {
     </>
   );
 }
-
