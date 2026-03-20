@@ -684,7 +684,7 @@ function AboutPage({ setPage }) {
           {[
             `Wesley R. Williams is a California-licensed attorney and real estate broker with 30+ years navigating the most complex intersections in law. He entered the crypto space in early 2017 — before most attorneys had heard the word "blockchain" — and has been continuously active through every market cycle and regulatory shift since.`,
             `After years of mastering title insurance and real estate transactions, Wes leveled up by joining Xsolla, one of the world's leading video game payment platforms, where he operated as a one-man legal department for four years. Commercial contracts, M&A, international regulatory compliance, blockchain integrations — all in the final boss dungeon of gaming fintech.`,
-            `He co-hosted the CryptoLaw Podcast and speaks at industry conferences including the Utah Land Title Association and American Escrow Association. His GameCompliance™ engine represents the convergence of all three verticals — built by someone who actually lives at the intersection.`,
+            `He co-hosted the CryptoLaw Podcast and speaks at industry conferences . His GameCompliance™ engine represents the convergence of all three verticals — built by someone who actually lives at the intersection.`,
           ].map((p, i) => (
             <p key={i} style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
               lineHeight: "1.8", color: i === 0 ? "#ccddff" : "#8899bb",
