@@ -350,7 +350,7 @@ function Stars() {
 // TICKER TAPE
 // ═══════════════════════════════════════════════════════════
 function Ticker() {
-  const msg = "★ WESLEY R. WILLIAMS ESQ ★ CA BAR NO. 269157 ★ REAL ESTATE ★ GAMING LAW ★ DIGITAL ASSETS ★ GAMECOMPLIANCE™ ★ FREE ANALYSIS ★ INSERT COIN TO BEGIN ★ CRYPTO SINCE 2017 ★ XSOLLA VETERAN ★ LEVEL UP YOUR LEGAL GAME ★ ";
+  const msg = "★ WESLEY R. WILLIAMS ESQ ★ CA BAR NO. 269157 ★ REAL ESTATE ★ GAMING LAW ★ DIGITAL ASSETS ★ GAMECOMPLIANCE™ ★ FREE ANALYSIS ★ INSERT COIN TO BEGIN ★ CRYPTO SINCE 2017 ★ GAMING PAYMENTS VETERAN ★ LEVEL UP YOUR LEGAL GAME ★ ";
   return (
     <div className="ticker-wrap">
       <div className="ticker-content">{msg.repeat(3)}</div>
@@ -683,7 +683,7 @@ function AboutPage({ setPage }) {
 
           {[
             `Wesley R. Williams is a California-licensed attorney and real estate broker with 30+ years navigating the most complex intersections in law. He entered the crypto space in early 2017 — before most attorneys had heard the word "blockchain" — and has been continuously active through every market cycle and regulatory shift since.`,
-            `After years of mastering title insurance and real estate transactions, Wes leveled up by joining Xsolla, one of the world's leading video game payment platforms, where he operated as a one-man legal department for four years. Commercial contracts, M&A, international regulatory compliance, blockchain integrations — all in the final boss dungeon of gaming fintech.`,
+            `After years of mastering title insurance and real estate transactions, Wes leveled up by joining a major global video game payments and commerce platform, one of the world's leading video game payment platforms, where he operated as a one-man legal department for four years. Commercial contracts, M&A, international regulatory compliance, blockchain integrations — all in the final boss dungeon of gaming fintech.`,
             `He co-hosted the CryptoLaw Podcast and speaks at industry conferences including the Utah Land Title Association and American Escrow Association. His GameCompliance™ engine represents the convergence of all three verticals — built by someone who actually lives at the intersection.`,
           ].map((p, i) => (
             <p key={i} style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
@@ -732,7 +732,7 @@ function AboutPage({ setPage }) {
           marginBottom: "12px" }}>── ACHIEVEMENTS UNLOCKED ──</div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
           {[
-            "CA BAR NO. 269157","CA REAL ESTATE BROKER","XSOLLA IN-HOUSE COUNSEL",
+            "CA BAR NO. 269157","CA REAL ESTATE BROKER","GAMING PAYMENTS IN-HOUSE COUNSEL",
             "CRYPTOLAW PODCAST CO-HOST","ULTA CONFERENCE SPEAKER","AEA SPEAKER","CRYPTO SINCE 2017",
           ].map(a => (
             <div key={a} style={{
@@ -925,7 +925,7 @@ function PracticePage({ setPage }) {
             </h3>
             <p style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
               color: "#88ccdd", lineHeight: "1.8", marginBottom: "12px" }}>
-              Four years as in-house counsel at Xsolla — one of the world's leading video game payment platforms. Full-stack gaming law: virtual currency, loot boxes, developer agreements, COPPA/GDPR, and GameCompliance™.
+              Four years as in-house counsel at a major global video game payments and commerce platform — one of the world's leading video game payment platforms. Full-stack gaming law: virtual currency, loot boxes, developer agreements, COPPA/GDPR, and GameCompliance™.
             </p>
           </div>
           <div>
