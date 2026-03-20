@@ -2485,6 +2485,17 @@ This Agreement is governed by the California Rules of Professional Conduct and a
 // ═══════════════════════════════════════════════════════════
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+
+  const handleSendEmail = () => {
+    if (!cf.name.trim()) { alert("Please enter your name."); return; }
+    if (!cf.email.includes("@")) { alert("Please enter a valid email."); return; }
+    if (!cf.message.trim()) { alert("Please enter a message."); return; }
+    setSending(true);
+    const params = { name: cf.name, email: cf.email, title: "New Contact - " + cf.name, message: "FROM: " + cf.name + " | EMAIL: " + cf.email + " | AREA: " + cf.matter + " | MSG: " + cf.message, time: new Date().toLocaleString() };
+    const send = () => { if (window.emailjs) { window.emailjs.send("service_jsfyq4c","template_pp23qgb",params,"wjbKawH6jrlAYYj1x").then(()=>{setSent(true);setSending(false);}).catch(e=>{setSending(false);alert("Failed. Email weswilliamsesq@gmail.com directly.");console.error(e);}); } else { setTimeout(send,500); } };
+    send();
+  };
   const [cf, setCf] = useState({ name: "", email: "", company: "", matter: "", message: "" });
 
   return (
@@ -2582,7 +2593,7 @@ function ContactPage() {
                 value={cf.message} onChange={e => setCf(c => ({ ...c, message: e.target.value }))} />
             </div>
 
-            <button className="btn-arcade" onClick={() => setSent(true)}
+            <button className="btn-arcade" onClick={handleSendEmail}
               style={{ background: C.orange, color: C.bg,
                 boxShadow: `4px 4px 0 #663300, 0 0 20px ${C.orange}88`,
                 padding: "14px", fontSize: "9px", letterSpacing: "1px", width: "100%" }}>
@@ -3266,3 +3277,4 @@ export default function App() {
     </>
   );
 }
+
