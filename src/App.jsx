@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import emailjs from "@emailjs/browser";
 // ═══════════════════════════════════════════════════════════
 // DESIGN TOKENS
 // ═══════════════════════════════════════════════════════════
@@ -350,7 +351,7 @@ function Stars() {
 // TICKER TAPE
 // ═══════════════════════════════════════════════════════════
 function Ticker() {
-  const msg = "★ WESLEY R. WILLIAMS ESQ ★ CA BAR NO. 269157 ★ REAL ESTATE ★ GAMING LAW ★ DIGITAL ASSETS ★ GAMECOMPLIANCE™ ★ FREE ANALYSIS ★ INSERT COIN TO BEGIN ★ CRYPTO SINCE 2017 ★ XSOLLA VETERAN ★ LEVEL UP YOUR LEGAL GAME ★ ";
+  const msg = "★ WESLEY R. WILLIAMS ESQ ★ CA BAR NO. 269157 ★ REAL ESTATE ★ GAMING LAW ★ DIGITAL ASSETS ★ GAMECOMPLIANCE™ ★ FREE ANALYSIS ★ INSERT COIN TO BEGIN ★ CRYPTO SINCE 2017 ★ LEVEL UP YOUR LEGAL GAME ★ ";
   return (
     <div className="ticker-wrap">
       <div className="ticker-content">{msg.repeat(3)}</div>
@@ -683,8 +684,8 @@ function AboutPage({ setPage }) {
 
           {[
             `Wesley R. Williams is a California-licensed attorney and real estate broker with 30+ years navigating the most complex intersections in law. He entered the crypto space in early 2017 — before most attorneys had heard the word "blockchain" — and has been continuously active through every market cycle and regulatory shift since.`,
-            `After years of mastering title insurance and real estate transactions, Wes leveled up by joining Xsolla, one of the world's leading video game payment platforms, where he operated as a one-man legal department for four years. Commercial contracts, M&A, international regulatory compliance, blockchain integrations — all in the final boss dungeon of gaming fintech.`,
-            `He co-hosted the CryptoLaw Podcast and speaks at industry conferences including the Utah Land Title Association and American Escrow Association. His GameCompliance™ engine represents the convergence of all three verticals — built by someone who actually lives at the intersection.`,
+            `After years of mastering title insurance and real estate transactions, Wes leveled up into gaming law and fintech, operating as in-house counsel at a leading video game payment platform for four years. Commercial contracts, M&A, international regulatory compliance, blockchain integrations — all in the final boss dungeon of gaming fintech.`,
+            `He co-hosted the CryptoLaw Podcast and speaks at industry conferences on real estate, gaming law, and digital assets. His GameCompliance™ engine represents the convergence of all three verticals — built by someone who actually lives at the intersection.`,
           ].map((p, i) => (
             <p key={i} style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
               lineHeight: "1.8", color: i === 0 ? "#ccddff" : "#8899bb",
@@ -732,7 +733,7 @@ function AboutPage({ setPage }) {
           marginBottom: "12px" }}>── ACHIEVEMENTS UNLOCKED ──</div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
           {[
-            "CA BAR NO. 269157","CA REAL ESTATE BROKER","XSOLLA IN-HOUSE COUNSEL",
+            "CA BAR NO. 269157","CA REAL ESTATE BROKER","IN-HOUSE COUNSEL VETERAN",
             "CRYPTOLAW PODCAST CO-HOST","ULTA CONFERENCE SPEAKER","AEA SPEAKER","CRYPTO SINCE 2017",
           ].map(a => (
             <div key={a} style={{
@@ -925,7 +926,7 @@ function PracticePage({ setPage }) {
             </h3>
             <p style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
               color: "#88ccdd", lineHeight: "1.8", marginBottom: "12px" }}>
-              Four years as in-house counsel at Xsolla — one of the world's leading video game payment platforms. Full-stack gaming law: virtual currency, loot boxes, developer agreements, COPPA/GDPR, and GameCompliance™.
+              Four years as in-house counsel at a leading video game payment platform. Full-stack gaming law: virtual currency, loot boxes, developer agreements, COPPA/GDPR, and GameCompliance™.
             </p>
           </div>
           <div>
@@ -2485,7 +2486,37 @@ This Agreement is governed by the California Rules of Professional Conduct and a
 // ═══════════════════════════════════════════════════════════
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const [cf, setCf] = useState({ name: "", email: "", company: "", matter: "", message: "" });
+
+  const handleSend = async () => {
+    setError("");
+    if (!cf.name || !cf.email || !cf.message) {
+      setError("REQUIRED: NAME, EMAIL, AND MESSAGE");
+      return;
+    }
+    setSending(true);
+    try {
+      await emailjs.send(
+        "service_jsfyq4c",
+        "template_pp23qgb",
+        {
+          name: cf.name,
+          email: cf.email,
+          title: "New Contact - " + cf.name,
+          message: "FROM: " + cf.name + " | EMAIL: " + cf.email + " | AREA: " + (cf.matter || "Not specified") + " | MSG: " + cf.message,
+        },
+        "wjbKawH6jrlAYYj1x"
+      );
+      setSent(true);
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setError("SEND FAILED — TRY EMAIL DIRECTLY: weswilliamsesq@gmail.com");
+    } finally {
+      setSending(false);
+    }
+  };
 
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "120px 32px 80px" }}>
@@ -2582,12 +2613,21 @@ function ContactPage() {
                 value={cf.message} onChange={e => setCf(c => ({ ...c, message: e.target.value }))} />
             </div>
 
-            <button className="btn-arcade" onClick={() => setSent(true)}
-              style={{ background: C.orange, color: C.bg,
-                boxShadow: `4px 4px 0 #663300, 0 0 20px ${C.orange}88`,
-                padding: "14px", fontSize: "9px", letterSpacing: "1px", width: "100%" }}>
-              ► SEND MESSAGE ◄
+            <button className="btn-arcade" onClick={handleSend} disabled={sending}
+              style={{ background: sending ? C.darker : C.orange, color: C.bg,
+                boxShadow: sending ? "none" : `4px 4px 0 #663300, 0 0 20px ${C.orange}88`,
+                padding: "14px", fontSize: "9px", letterSpacing: "1px", width: "100%",
+                opacity: sending ? 0.7 : 1 }}>
+              {sending ? "► SENDING... ◄" : "► SEND MESSAGE ◄"}
             </button>
+
+            {error && (
+              <div style={{ fontSize: "7px", color: C.pink, letterSpacing: "1px",
+                textAlign: "center", padding: "8px", border: `2px solid ${C.pink}44`,
+                background: `${C.pink}11` }}>
+                ⚠ {error}
+              </div>
+            )}
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginTop: "8px" }}>
               <div style={{ border: `2px solid ${C.orange}33`, padding: "12px", textAlign: "center" }}>
