@@ -2089,21 +2089,19 @@ function RetainerPage({ setPage }) {
       EXECUTION TIME: ${timeStr}<br/>
       EXECUTION TIMESTAMP (ISO 8601 / UTC): ${ts}<br/>
       SIGNATURE METHOD: Electronic Click-Through <div style={{ fontWeight: "bold", paddingTop: "8px" }}>
-  {isPaid ? (
-    // What shows AFTER Stripe payment is successful
-    <>
-      <div>/s/ Wesley R. Williams</div>
-      <div>ATTORNEY — Wesley R. Williams, Esq.</div>
-      <div>Bar No. 269157 — FULLY EXECUTED & PAID</div>
-    </>
-  ) : (
-    // What shows BEFORE payment
-    <>
-      <div style={{ height: "1.2em", borderBottom: "1px solid #ccc", width: "200px", marginBottom: "4px" }}></div>
-      <div>ATTORNEY — Wesley R. Williams, Esq.</div>
-      <div style={{ color: "red" }}>Bar No. 269157 — Countersignature pending...</div>
-    </>
-  )}
+  ${isPaid ? `
+  <div style="font-weight: bold; padding-top: 8px;">
+    <div>/s/ Wesley R. Williams</div>
+    <div>ATTORNEY — Wesley R. Williams, Esq.</div>
+    <div>Bar No. 269157 — FULLY EXECUTED & PAID</div>
+  </div>
+` : `
+  <div style="font-weight: bold; padding-top: 8px;">
+    <div style="height: 1.2em; border-bottom: 1px solid #ccc; width: 200px; margin-bottom: 4px;"></div>
+    <div>ATTORNEY — Wesley R. Williams, Esq.</div>
+    <div style="color: red;">Bar No. 269157 — Countersignature pending...</div>
+  </div>
+`}
 </div>
       </div>
     </div>
