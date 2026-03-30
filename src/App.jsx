@@ -3469,34 +3469,45 @@ function TermsPage({ setPage }) {
 export default function App() {
   const [page, setPage] = useState("home");
   const [cookieConsent, setCookieConsent] = useState(null);
+  const [attorneyPDFData, setAttorneyPDFData] = useState(null);
   useEffect(() => { window.scrollTo(0, 0); }, [page]);
 
-  // Attorney PDF link handler — auto-generates PDF when Wes clicks link from email
+  // Attorney PDF link handler — detects URL param from retainer notification email
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const retainerParam = urlParams.get("retainer");
     if (retainerParam) {
       try {
         const p = new URLSearchParams(decodeURIComponent(retainerParam));
-        const execTs = new Date(p.get("ts") || new Date());
-        const dateStr = execTs.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-        const timeStr = execTs.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short" });
-        const tl = p.get("tl") || "General Counsel";
-        const tp = p.get("tp") || "2,500";
-        const tierData = TIERS.find(t => t.label === tl) || TIERS[1];
-        const tcr = tierData.id === "starter" ? "one (1)" : tierData.id === "enterprise" ? "unlimited" : "three (3)";
-        const tcs = tierData.id === "starter" ? "no included strategy calls" : tierData.id === "enterprise" ? "two (2) strategy calls of up to 45 minutes each per month" : "one (1) strategy call of up to 45 minutes per month";
-        const tea = tierData.id === "starter" ? "two (2) email legal queries per month, with responses within two (2) business days" : "unlimited email and messaging access for legal questions, with responses within one (1) business day";
+        setAttorneyPDFData({
+          name:   p.get("n") || "",
+          email:  p.get("e") || "",
+          studio: p.get("s") || "",
+          matter: p.get("m") || "",
+          tl:     p.get("tl") || "General Counsel",
+          tp:     p.get("tp") || "2,500",
+          ts:     p.get("ts") || new Date().toISOString(),
+        });
+        window.history.replaceState({}, document.title, window.location.pathname);
+      } catch (e) {
+        console.error("Attorney PDF link error:", e);
+      }
+    }
+  }, []);
 
-        // Build and open the attorney PDF
-        const win = window.open("", "_blank");
-        if (win) {
-          // Reuse the same PDF generation — inline here for the attorney link
-          const name = p.get("n") || "";
-          const email = p.get("e") || "";
-          const studio = p.get("s") || "";
-          const matter = p.get("m") || "";
-          win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"/>
+  const generateAttorneyPDF = () => {
+    if (!attorneyPDFData) return;
+    const { name, email, studio, matter, tl, tp, ts } = attorneyPDFData;
+    const execTs = new Date(ts);
+    const dateStr = execTs.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    const timeStr = execTs.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short" });
+    const tierData = TIERS.find(t => t.label === tl) || TIERS[1];
+    const tcr = tierData.id === "starter" ? "one (1)" : tierData.id === "enterprise" ? "unlimited" : "three (3)";
+    const tcs = tierData.id === "starter" ? "no included strategy calls" : tierData.id === "enterprise" ? "two (2) strategy calls of up to 45 minutes each per month" : "one (1) strategy call of up to 45 minutes per month";
+    const tea = tierData.id === "starter" ? "two (2) email legal queries per month, with responses within two (2) business days" : "unlimited email and messaging access for legal questions, with responses within one (1) business day";
+    const win = window.open("", "_blank");
+    if (win) {
+      win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"/>
 <title>ATTORNEY COPY — Retainer — ${name} — ${dateStr}</title>
 <style>
   body { font-family: 'Times New Roman', serif; font-size: 12pt; color: #000; background: #fff; }
@@ -3544,8 +3555,8 @@ export default function App() {
 <p>Attorney does not maintain a client trust account (IOLTA). All fees are deposited directly into Attorney's operating account with Client's express consent. Stripe, Inc. processes all subscription payments automatically.</p>
 <h2>3. Subscription Scope</h2>
 <p>The ${tl} Subscription covers: (a) ${tea}; (b) ${tcs}; (c) up to ${tcr} standard commercial contract review(s) per month; and (d) full access to the GameCompliance&trade; platform. <strong>THE SUBSCRIPTION WILL AUTOMATICALLY RENEW EACH MONTH AT $${tp} UNLESS CANCELLED WITH 30 DAYS WRITTEN NOTICE.</strong></p>
-<h2>4. Dispute Resolution & Jury Trial Waiver</h2>
-<p>Fee disputes subject to State Bar fee arbitration (Bus. & Prof. Code §§ 6200-6206). All other disputes resolved by judicial reference in San Diego County. <strong>BOTH PARTIES VOLUNTARILY WAIVE CONSTITUTIONAL RIGHT TO JURY TRIAL.</strong></p>
+<h2>4. Dispute Resolution &amp; Jury Trial Waiver</h2>
+<p>Fee disputes subject to State Bar fee arbitration (Bus. &amp; Prof. Code §§ 6200-6206). All other disputes resolved by judicial reference in San Diego County. <strong>BOTH PARTIES VOLUNTARILY WAIVE CONSTITUTIONAL RIGHT TO JURY TRIAL.</strong></p>
 <h2>5. Governing Law</h2>
 <p>This Agreement is governed by California law. All obligations performable in San Diego County, California.</p>
 <div class="sig-block">
@@ -3556,7 +3567,7 @@ export default function App() {
   </div>
   <div class="sig-row" style="margin-top:14px">
     <div style="flex:1"><div class="sig-label">STUDIO / COMPANY</div><div class="sig-value">${studio || "N/A"}</div></div>
-    <div style="flex:1"><div class="sig-label">TIER & MATTER</div><div class="sig-value">${tl} — $${tp}/mo | ${matter}</div></div>
+    <div style="flex:1"><div class="sig-label">TIER &amp; MATTER</div><div class="sig-value">${tl} — $${tp}/mo | ${matter}</div></div>
   </div>
   <div style="margin-top:20px">
     <div class="sig-label" style="margin-bottom:8px;font-weight:bold;">CLIENT ACKNOWLEDGMENTS:</div>
@@ -3566,8 +3577,8 @@ export default function App() {
   <div class="timestamp-box">
     EXECUTION DATE: ${dateStr}<br/>
     EXECUTION TIME: ${timeStr}<br/>
-    EXECUTION TIMESTAMP (ISO 8601 / UTC): ${execTs.toISOString()}<br/>
-    SIGNATURE METHOD: Electronic Click-Through — UETA Cal. Civ. Code §§ 1633.1 / eSign Act 15 U.S.C. § 7001<br/>
+    EXECUTION TIMESTAMP (ISO 8601): ${execTs.toISOString()}<br/>
+    SIGNATURE METHOD: Electronic Click-Through — UETA / eSign Act<br/>
     ATTORNEY: Wesley R. Williams, Esq. — CA State Bar No. 269157
   </div>
   <div style="margin-top:28px;display:flex;justify-content:space-between;gap:40px">
@@ -3581,20 +3592,12 @@ export default function App() {
     </div>
   </div>
 </div>
-<div class="footer">ATTORNEY COPY — This document constitutes a fully executed, legally binding attorney-client retainer agreement. Wesley R. Williams, Esq. is licensed to practice law in the State of California only. Attorney Advertising under California Rules of Professional Conduct Rule 7.1.</div>
+<div class="footer">ATTORNEY COPY — Fully executed attorney-client retainer agreement. Wesley R. Williams, Esq. is licensed to practice law in California only. Attorney Advertising under California Rules of Professional Conduct Rule 7.1.</div>
 </div></body></html>`);
-          win.document.close();
-          win.focus();
-        }
-        // Clean up URL
-        window.history.replaceState({}, document.title, window.location.pathname);
-      } catch (e) {
-        console.error("Attorney PDF link error:", e);
-      }
+      win.document.close();
+      win.focus();
     }
-  }, []);
-
-
+  };
   const pages = {
     home:     <HomePage      setPage={setPage} />,
     about:    <AboutPage     setPage={setPage} />,
@@ -3610,15 +3613,47 @@ export default function App() {
   return (
     <>
       <style>{GLOBAL_CSS}</style>
-      {/* Skip navigation — first focusable element on page for keyboard/screen reader users */}
       <a href="#main-content" className="skip-nav">Skip to main content</a>
       <Stars />
       <Nav page={page} setPage={setPage} />
-      <main id="main-content" style={{ position: "relative", zIndex: 1 }} tabIndex={-1}>
+
+      {/* Attorney PDF banner — shown when Wes clicks link from retainer notification email */}
+      {attorneyPDFData && (
+        <div style={{
+          position: "fixed", top: 0, left: 0, right: 0, zIndex: 99999,
+          background: "#1a3a5c", color: "white", padding: "16px 28px",
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+          boxShadow: "0 4px 20px rgba(0,0,0,0.5)", fontFamily: "Arial, sans-serif",
+          gap: "16px", flexWrap: "wrap",
+        }}>
+          <div>
+            <div style={{ fontSize: "14px", fontWeight: "bold", marginBottom: "4px" }}>
+              ⚖️ ATTORNEY COPY READY — {attorneyPDFData.name} ({attorneyPDFData.tl} — ${attorneyPDFData.tp}/mo)
+            </div>
+            <div style={{ fontSize: "12px", opacity: 0.8 }}>
+              Click the button to open and print your fully executed retainer agreement.
+            </div>
+          </div>
+          <div style={{ display: "flex", gap: "10px", flexShrink: 0 }}>
+            <button onClick={generateAttorneyPDF}
+              style={{ background: "#00fff5", color: "#050508", border: "none",
+                padding: "10px 24px", fontWeight: "bold", cursor: "pointer",
+                fontSize: "13px", whiteSpace: "nowrap" }}>
+              🖨 OPEN ATTORNEY PDF
+            </button>
+            <button onClick={() => setAttorneyPDFData(null)}
+              style={{ background: "transparent", color: "white", border: "2px solid white",
+                padding: "10px 16px", cursor: "pointer", fontSize: "12px" }}>
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
+      <main id="main-content" style={{ position: "relative", zIndex: 1, marginTop: attorneyPDFData ? "80px" : 0 }} tabIndex={-1}>
         {pages[page] || pages.home}
       </main>
       <Footer setPage={setPage} />
-      {/* Cookie consent banner — shown until user makes a choice */}
       {cookieConsent === null && (
         <CookieBanner
           onAccept={() => setCookieConsent(true)}
@@ -3629,3 +3664,4 @@ export default function App() {
     </>
   );
 }
+
