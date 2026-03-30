@@ -1987,20 +1987,34 @@ function RetainerPage({ setPage }) {
     const ts = new Date();
     const dateStr = ts.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     const timeStr = ts.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short" });
+
+    // Build attorney PDF link — encodes all retainer data into URL params
+    const params = new URLSearchParams({
+      n: signForm.name,
+      e: signForm.email,
+      s: signForm.studio || "",
+      m: signForm.matter,
+      tl: tierLabel,
+      tp: tierPrice,
+      ts: ts.toISOString(),
+    });
+    const attorneyPDFLink = window.location.origin + "?retainer=" + encodeURIComponent(params.toString());
+
     emailjs.send(
       "service_jsfyq4c",
       "template_53eb1wl",
       {
-        client_name:    signForm.name,
-        client_email:   signForm.email,
-        client_studio:  signForm.studio || "N/A",
-        tier:           tierLabel + " — $" + tierPrice + "/mo",
-        client_matter:  signForm.matter,
-        exec_date:      dateStr,
-        exec_time:      timeStr,
-        exec_timestamp: ts.toISOString(),
-        name:           signForm.name,
-        email:          signForm.email,
+        client_name:      signForm.name,
+        client_email:     signForm.email,
+        client_studio:    signForm.studio || "N/A",
+        tier:             tierLabel + " — $" + tierPrice + "/mo",
+        client_matter:    signForm.matter,
+        exec_date:        dateStr,
+        exec_time:        timeStr,
+        exec_timestamp:   ts.toISOString(),
+        name:             signForm.name,
+        email:            signForm.email,
+        attorney_pdf_link: attorneyPDFLink,
       },
       "wjbKawH6jrlAYYj1x"
     ).catch(err => console.error("EmailJS retainer notification error:", err));
@@ -3454,8 +3468,132 @@ function TermsPage({ setPage }) {
 // ═══════════════════════════════════════════════════════════
 export default function App() {
   const [page, setPage] = useState("home");
-  const [cookieConsent, setCookieConsent] = useState(null); // null=not yet decided
+  const [cookieConsent, setCookieConsent] = useState(null);
   useEffect(() => { window.scrollTo(0, 0); }, [page]);
+
+  // Attorney PDF link handler — auto-generates PDF when Wes clicks link from email
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const retainerParam = urlParams.get("retainer");
+    if (retainerParam) {
+      try {
+        const p = new URLSearchParams(decodeURIComponent(retainerParam));
+        const execTs = new Date(p.get("ts") || new Date());
+        const dateStr = execTs.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+        const timeStr = execTs.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short" });
+        const tl = p.get("tl") || "General Counsel";
+        const tp = p.get("tp") || "2,500";
+        const tierData = TIERS.find(t => t.label === tl) || TIERS[1];
+        const tcr = tierData.id === "starter" ? "one (1)" : tierData.id === "enterprise" ? "unlimited" : "three (3)";
+        const tcs = tierData.id === "starter" ? "no included strategy calls" : tierData.id === "enterprise" ? "two (2) strategy calls of up to 45 minutes each per month" : "one (1) strategy call of up to 45 minutes per month";
+        const tea = tierData.id === "starter" ? "two (2) email legal queries per month, with responses within two (2) business days" : "unlimited email and messaging access for legal questions, with responses within one (1) business day";
+
+        // Build and open the attorney PDF
+        const win = window.open("", "_blank");
+        if (win) {
+          // Reuse the same PDF generation — inline here for the attorney link
+          const name = p.get("n") || "";
+          const email = p.get("e") || "";
+          const studio = p.get("s") || "";
+          const matter = p.get("m") || "";
+          win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"/>
+<title>ATTORNEY COPY — Retainer — ${name} — ${dateStr}</title>
+<style>
+  body { font-family: 'Times New Roman', serif; font-size: 12pt; color: #000; background: #fff; }
+  .page { max-width: 750px; margin: 0 auto; padding: 50px 50px 70px; }
+  .header { text-align: center; border-bottom: 3px solid #000; padding-bottom: 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 16pt; letter-spacing: 2px; margin-bottom: 6px; }
+  .header .sub { font-size: 10pt; color: #444; line-height: 1.8; }
+  .atty-banner { background: #1a3a5c; color: white; padding: 12px 20px; margin-bottom: 20px; font-family: Arial, sans-serif; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
+  .tier-box { border: 2px solid #000; padding: 12px 18px; margin: 16px 0; background: #f7f7f7; }
+  h2 { font-size: 12pt; font-weight: bold; margin-top: 22px; margin-bottom: 8px; border-bottom: 1px solid #999; padding-bottom: 4px; text-transform: uppercase; }
+  p { margin-bottom: 10px; line-height: 1.75; font-size: 11pt; }
+  .sig-block { margin-top: 36px; border: 2px solid #000; padding: 28px; background: #f9f9f9; }
+  .sig-title { font-size: 13pt; font-weight: bold; text-align: center; margin-bottom: 20px; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 12px; }
+  .sig-row { display: flex; gap: 40px; margin-top: 16px; }
+  .sig-label { font-size: 9pt; color: #555; margin-bottom: 2px; }
+  .sig-value { font-size: 11pt; font-weight: bold; padding-bottom: 4px; border-bottom: 1px solid #000; min-height: 22px; }
+  .sig-name { font-size: 15pt; font-style: italic; font-weight: bold; border-bottom: 1px solid #000; padding-bottom: 3px; margin-bottom: 4px; }
+  .sig-name-atty { font-size: 15pt; font-style: italic; font-weight: bold; color: #1a3a5c; border-bottom: 1px solid #000; padding-bottom: 3px; margin-bottom: 4px; }
+  .timestamp-box { margin-top: 20px; border: 1px solid #aaa; padding: 14px; background: #f0f0f0; font-size: 9pt; font-family: 'Courier New', monospace; line-height: 1.9; }
+  .checkbox-record { margin: 8px 0; font-size: 10pt; line-height: 1.6; }
+  .checkbox-record::before { content: "☑  "; font-size: 12pt; }
+  .footer { margin-top: 24px; font-size: 9pt; color: #555; font-style: italic; border-top: 1px solid #ccc; padding-top: 14px; line-height: 1.7; }
+  @media print { .atty-banner { display: none !important; } .page { padding: 30px; } }
+</style></head><body><div class="page">
+<div class="atty-banner">
+  <span>⚖️ ATTORNEY COPY — Fully Executed Retainer Agreement</span>
+  <button onclick="window.print()" style="background:#00fff5;color:#050508;border:none;padding:8px 20px;font-weight:bold;cursor:pointer;">🖨 PRINT / SAVE PDF</button>
+</div>
+<div class="header">
+  <h1>ATTORNEY-CLIENT RETAINER AGREEMENT — ATTORNEY COPY</h1>
+  <div class="sub">Wesley R. Williams, Esq. &nbsp;|&nbsp; CA State Bar No. 269157<br/>
+  weswilliamsesq@gmail.com &nbsp;|&nbsp; 619.305.6485 &nbsp;|&nbsp; San Diego, California<br/>
+  <strong>ATTORNEY ADVERTISING</strong></div>
+</div>
+<div class="tier-box">
+  <strong>SUBSCRIPTION TIER: ${tl.toUpperCase()} — $${tp}/MONTH</strong><br/>
+  Client: ${name}${studio ? " | " + studio : ""}<br/>
+  Effective Date: ${dateStr}
+</div>
+<p>This Agreement is made between the Client identified below ("Client") and Wesley R. Williams, Esq. ("Attorney"). In consideration of the mutual promises herein, the parties agree as follows:</p>
+<h2>1. Scope of Representation</h2>
+<p>Attorney agrees to represent Client within the following practice areas: gaming law and video game commerce, real estate and title insurance, fintech, and digital assets. This Agreement covers only the Matter or Subscription scope expressly identified. Any additional matters outside the defined scope require a separate written agreement.</p>
+<p><strong>EXCLUSION — NO LITIGATION SERVICES:</strong> Attorney does not provide litigation services, court appearances, or representation in any proceedings of any kind.</p>
+<h2>2. Fees — ${tl} Subscription at $${tp}/Month</h2>
+<p>Attorney does not maintain a client trust account (IOLTA). All fees are deposited directly into Attorney's operating account with Client's express consent. Stripe, Inc. processes all subscription payments automatically.</p>
+<h2>3. Subscription Scope</h2>
+<p>The ${tl} Subscription covers: (a) ${tea}; (b) ${tcs}; (c) up to ${tcr} standard commercial contract review(s) per month; and (d) full access to the GameCompliance&trade; platform. <strong>THE SUBSCRIPTION WILL AUTOMATICALLY RENEW EACH MONTH AT $${tp} UNLESS CANCELLED WITH 30 DAYS WRITTEN NOTICE.</strong></p>
+<h2>4. Dispute Resolution & Jury Trial Waiver</h2>
+<p>Fee disputes subject to State Bar fee arbitration (Bus. & Prof. Code §§ 6200-6206). All other disputes resolved by judicial reference in San Diego County. <strong>BOTH PARTIES VOLUNTARILY WAIVE CONSTITUTIONAL RIGHT TO JURY TRIAL.</strong></p>
+<h2>5. Governing Law</h2>
+<p>This Agreement is governed by California law. All obligations performable in San Diego County, California.</p>
+<div class="sig-block">
+  <div class="sig-title">EXECUTION RECORD — FULLY EXECUTED — ATTORNEY COPY</div>
+  <div class="sig-row">
+    <div style="flex:1"><div class="sig-label">CLIENT NAME</div><div class="sig-value">${name}</div></div>
+    <div style="flex:1"><div class="sig-label">CLIENT EMAIL</div><div class="sig-value">${email}</div></div>
+  </div>
+  <div class="sig-row" style="margin-top:14px">
+    <div style="flex:1"><div class="sig-label">STUDIO / COMPANY</div><div class="sig-value">${studio || "N/A"}</div></div>
+    <div style="flex:1"><div class="sig-label">TIER & MATTER</div><div class="sig-value">${tl} — $${tp}/mo | ${matter}</div></div>
+  </div>
+  <div style="margin-top:20px">
+    <div class="sig-label" style="margin-bottom:8px;font-weight:bold;">CLIENT ACKNOWLEDGMENTS:</div>
+    <div class="checkbox-record">General Agreement — read, understood, and agreed to all terms including No Trust Account disclosure and automatic renewal.</div>
+    <div class="checkbox-record">Jury Trial Waiver — separately and specifically acknowledged; constitutional right to jury trial voluntarily waived.</div>
+  </div>
+  <div class="timestamp-box">
+    EXECUTION DATE: ${dateStr}<br/>
+    EXECUTION TIME: ${timeStr}<br/>
+    EXECUTION TIMESTAMP (ISO 8601 / UTC): ${execTs.toISOString()}<br/>
+    SIGNATURE METHOD: Electronic Click-Through — UETA Cal. Civ. Code §§ 1633.1 / eSign Act 15 U.S.C. § 7001<br/>
+    ATTORNEY: Wesley R. Williams, Esq. — CA State Bar No. 269157
+  </div>
+  <div style="margin-top:28px;display:flex;justify-content:space-between;gap:40px">
+    <div style="flex:1">
+      <div class="sig-name">/s/ ${name}</div>
+      <div style="font-size:9pt;color:#444"><strong>CLIENT — Electronic Signature</strong><br/>${name}${studio ? "<br/>" + studio : ""}<br/>Date: ${dateStr}</div>
+    </div>
+    <div style="flex:1">
+      <div class="sig-name-atty">/s/ Wesley R. Williams</div>
+      <div style="font-size:9pt;color:#444"><strong>ATTORNEY — Countersignature</strong><br/>Wesley R. Williams, Esq.<br/>CA State Bar No. 269157<br/>Date: ${dateStr}</div>
+    </div>
+  </div>
+</div>
+<div class="footer">ATTORNEY COPY — This document constitutes a fully executed, legally binding attorney-client retainer agreement. Wesley R. Williams, Esq. is licensed to practice law in the State of California only. Attorney Advertising under California Rules of Professional Conduct Rule 7.1.</div>
+</div></body></html>`);
+          win.document.close();
+          win.focus();
+        }
+        // Clean up URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+      } catch (e) {
+        console.error("Attorney PDF link error:", e);
+      }
+    }
+  }, []);
+
 
   const pages = {
     home:     <HomePage      setPage={setPage} />,
