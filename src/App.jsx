@@ -1168,6 +1168,24 @@ function GameCompliancePage({ setPage }) {
     if (!gateForm.email.includes("@")) return setGateError("ERROR: VALID EMAIL REQUIRED");
     if (!gateForm.ageConfirm) return setGateError("ERROR: MUST CONFIRM AGE 18+ TO CONTINUE");
     if (!gateForm.toolConsent) return setGateError("ERROR: MUST AGREE TO TERMS OF USE & PRIVACY POLICY");
+
+    // Send lead notification to Wes using existing contact template
+    emailjs.send(
+      "service_jsfyq4c",
+      "template_pp23qgb",
+      {
+        name:    "GameCompliance™ Lead: " + gateForm.name,
+        email:   gateForm.email,
+        title:   "🎮 NEW GAMECOMPLIANCE™ USER — " + gateForm.name,
+        message: "NEW TOOL USER\n\nName: " + gateForm.name +
+                 "\nEmail: " + gateForm.email +
+                 "\nStudio: " + (gateForm.studio || "Not provided") +
+                 "\nTime: " + new Date().toLocaleString("en-US", { timeZoneName: "short" }) +
+                 "\n\nACTION: Follow up to convert to paid engagement.",
+      },
+      "wjbKawH6jrlAYYj1x"
+    ).catch(err => console.error("EmailJS gate notification error:", err));
+
     setGateError(""); setGateScreen(false);
   };
 
