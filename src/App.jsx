@@ -755,7 +755,27 @@ function AboutPage({ setPage }) {
 // PRACTICE AREAS — LEVEL SELECT
 // ═══════════════════════════════════════════════════════════
 function PracticePage({ setPage }) {
-  const [activeLevel, setActiveLevel] = useState(null);
+
+  const reToolkit = [
+    { icon: "⚔️", label: "CLAIMS MASTERY",        text: "Navigated the claims arena from both sides — serving as In-House Claims Counsel for major underwriters and as Outside Counsel for boutique firms." },
+    { icon: "🛡️", label: "DIVERSE REPRESENTATION", text: "Proven track record representing Title Insurers, Escrow Agents, Real Estate Brokers/Agents, Developers, and PropTech innovators." },
+    { icon: "🗺️", label: "COMPLIANCE ARCHITECTURE",text: "Expert in RESPA/Section 8 guardrails, ALTA/NSPS 2026 Land Title Survey Standards, and navigating the shifting landscape of federal all-cash reporting requirements." },
+    { icon: "⛓️", label: "DIGITAL FRONTIER",       text: "Bridging traditional property law with blockchain-based settlements and tokenized real property." },
+  ];
+
+  const gameSpellbook = [
+    { icon: "🎯", label: "MONETIZATION DEFENSE",  text: "Expert guidance on loot boxes, gacha mechanics, and dark patterns, ensuring compliance with FTC transparency standards and the 2026 PEGI age-rating updates." },
+    { icon: "🔒", label: "GLOBAL PRIVACY",         text: "Mastering the rules of play for COPPA, GDPR, and CCPA/CPRA, with a focus on minor-safety protocols in immersive environments." },
+    { icon: "⚙️", label: "COMMERCE ENGINE",        text: "Architecting the legal framework for the proprietary GameCompliance™ engine to streamline global cross-border payments." },
+    { icon: "📜", label: "ECOSYSTEM MANAGEMENT",   text: "Structuring developer and platform agreements that balance IP protection with rapid scalability." },
+  ];
+
+  const fintechSpellbook = [
+    { icon: "💸", label: "MONEY MOVEMENT",         text: "Expert navigation of State Money Transmitter Licensing (MTL) and the Money Transmission Modernization Act (MTMA), currently adopted by over 30 states." },
+    { icon: "🏗️", label: "PAYMENT INFRASTRUCTURE", text: "Architecting Banking-as-a-Service (BaaS) partnerships, payment orchestration, and FinCEN MSB registration." },
+    { icon: "🧾", label: "CONSUMER PROTECTION",    text: "Deep mastery of Regulation E (EFTA) and Regulation Z (TILA), including emerging standards for Earned Wage Access (EWA) and BNPL." },
+    { icon: "🔮", label: "DIGITAL ASSETS",         text: "Tracking the March 2026 SEC/CFTC joint five-category token taxonomy (digital commodities, collectibles, tools, stablecoins, securities) and its implications for DeFi protocols, NFT structuring, and institutional stablecoin rails — pending CLARITY Act codification." },
+  ];
 
   return (
     <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "120px 32px 80px" }}>
@@ -769,29 +789,25 @@ function PracticePage({ setPage }) {
         </h1>
       </div>
 
-      {/* LEVEL 1 — REAL ESTATE (MINECRAFT STYLE) */}
+      {/* ── LEVEL 1 — REAL ESTATE WORLD (MINECRAFT) ── */}
       <div style={{ marginBottom: "40px", border: `4px solid ${C.mcGrass}`,
-        background: "#0a1a0a", boxShadow: `0 0 30px ${C.mcGrass}44`,
-        overflow: "hidden" }}>
+        background: "#0a1a0a", boxShadow: `0 0 30px ${C.mcGrass}44`, overflow: "hidden" }}>
 
-        {/* Minecraft sky header */}
+        {/* Sky header */}
         <div style={{
           background: `linear-gradient(180deg, ${C.mcSky} 0%, #a8d8f0 100%)`,
           padding: "16px 24px", display: "flex", justifyContent: "space-between",
           alignItems: "center", borderBottom: `4px solid #000`,
         }}>
           <div style={{ fontFamily: "'Press Start 2P'", fontSize: "10px",
-            color: "#1a1a2e", textShadow: "2px 2px 0 rgba(255,255,255,0.5)",
-            letterSpacing: "2px" }}>
+            color: "#1a1a2e", textShadow: "2px 2px 0 rgba(255,255,255,0.5)", letterSpacing: "2px" }}>
             LEVEL 1 — REAL ESTATE WORLD
           </div>
-          <div style={{ fontSize: "8px", color: "#1a1a2e", fontFamily: "'Press Start 2P'" }}>
-            ★★★★★
-          </div>
+          <div style={{ fontSize: "8px", color: "#1a1a2e", fontFamily: "'Press Start 2P'" }}>★★★★★</div>
         </div>
 
-        {/* Minecraft ground bar */}
-        <div style={{ display: "flex", height: "48px" }}>
+        {/* Minecraft ground strip */}
+        <div style={{ display: "flex", height: "40px" }}>
           {Array.from({ length: 24 }, (_, i) => (
             <div key={i} style={{
               flex: 1, height: "100%",
@@ -803,228 +819,205 @@ function PracticePage({ setPage }) {
         </div>
 
         <div style={{ padding: "32px 28px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px" }}>
-
-            {/* Left: description */}
-            <div>
-              <div style={{ display: "flex", gap: "12px", alignItems: "center", marginBottom: "20px" }}>
-                <McBlock color={C.mcGrass} size={48} icon="🏛️" />
-                <McBlock color={C.mcDirt}  size={40} icon="📜" />
-                <McBlock color={C.mcStone} size={32} icon="⚖️" />
-              </div>
+          {/* Header row */}
+          <div style={{ display: "flex", gap: "14px", alignItems: "center", marginBottom: "16px" }}>
+            <McBlock color={C.mcGrass} size={44} icon="🏛️" />
+            <McBlock color={C.mcDirt}  size={36} icon="📜" />
+            <McBlock color={C.mcStone} size={28} icon="⚖️" />
+            <div style={{ marginLeft: "8px" }}>
               <h3 style={{ fontSize: "11px", color: C.mcGrass, letterSpacing: "2px",
-                marginBottom: "16px", textShadow: `0 0 10px ${C.mcGrass}` }}>
-                REAL ESTATE &amp;<br />TITLE INSURANCE
+                textShadow: `0 0 10px ${C.mcGrass}`, marginBottom: "4px" }}>
+                TITLE, ESCROW &amp; PROPERTY LAW
               </h3>
-              <p style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
-                color: "#99bb77", lineHeight: "1.8", marginBottom: "16px" }}>
-                Thirty years of XP in title insurance and real estate. From residential closings to complex commercial deals, RESPA compliance, escrow law, and the emerging intersection of blockchain-based settlement with traditional property law.
-              </p>
-              <p style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
-                color: "#778866", lineHeight: "1.8" }}>
-                Wes advises title companies, escrow agents, and developers navigating California's regulatory environment — including stablecoin payment rails and tokenized real property.
-              </p>
+              <div style={{ fontSize: "7px", color: C.mcGold, letterSpacing: "1px" }}>LEVEL 1 · 30+ YEARS XP</div>
             </div>
+          </div>
 
-            {/* Right: Minecraft inventory */}
-            <div>
-              <div style={{ fontSize: "8px", color: C.mcGold, letterSpacing: "2px",
-                marginBottom: "16px", textShadow: `0 0 6px ${C.mcGold}` }}>
-                ── INVENTORY / PRACTICE ITEMS ──
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "4px" }}>
-                {[
-                  { icon: "📋", label: "TITLE INS",  color: C.mcGold    },
-                  { icon: "🏠", label: "ESCROW",     color: C.mcDirt    },
-                  { icon: "📜", label: "RESPA",      color: C.mcStone   },
-                  { icon: "🔑", label: "CLOSINGS",   color: C.mcWood    },
-                  { icon: "⛓️", label: "BLOCKCHAIN", color: C.mcDiamond },
-                  { icon: "💰", label: "STABLECOIN", color: C.mcGold    },
-                  { icon: "🏗️", label: "DEV LAW",   color: C.mcGrass   },
-                  { icon: "🗺️", label: "LAND USE",  color: C.mcDirt    },
-                ].map((item, i) => (
-                  <div key={i} className="mc-block" style={{
-                    background: "#2a2a2a",
-                    border: "3px solid #555",
-                    boxShadow: "inset -2px -2px 0 rgba(0,0,0,0.6), inset 2px 2px 0 rgba(255,255,255,0.1)",
-                    padding: "8px 4px", textAlign: "center", cursor: "crosshair",
-                  }}>
-                    <div style={{ fontSize: "20px", marginBottom: "4px" }}>{item.icon}</div>
-                    <div style={{ fontSize: "6px", color: item.color,
-                      textShadow: `0 0 4px ${item.color}`, lineHeight: "1.2" }}>{item.label}</div>
-                  </div>
-                ))}
-              </div>
+          {/* Body text */}
+          <p style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
+            color: "#99bb77", lineHeight: "1.9", marginBottom: "24px",
+            borderLeft: `3px solid ${C.mcGrass}44`, paddingLeft: "14px" }}>
+            With thirty years of XP, Wes delivers elite-level counsel on the intricate mechanics of Title and Escrow Law, state licensing, and consumer regulations. He provides the regulatory "map" for high-volume residential operations and complex commercial acquisitions alike.
+          </p>
 
-              {/* MC health bar */}
-              <div style={{ marginTop: "20px" }}>
-                <div style={{ fontSize: "7px", color: C.dim, marginBottom: "6px", letterSpacing: "1px" }}>
-                  EXPERIENCE LEVEL: 30+
-                </div>
-                <div style={{ height: "16px", background: "#111", border: "3px solid #555",
-                  boxShadow: "inset -1px -1px 0 rgba(0,0,0,0.5)" }}>
-                  <div style={{ height: "100%", width: "99%",
-                    background: `linear-gradient(90deg, ${C.mcGold}, #88cc00)`,
-                    boxShadow: `0 0 8px ${C.mcGold}` }} />
+          {/* Toolkit grid */}
+          <div style={{ fontSize: "8px", color: C.mcGold, letterSpacing: "2px",
+            marginBottom: "14px", textShadow: `0 0 6px ${C.mcGold}` }}>── THE REAL ESTATE TOOLKIT ──</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "24px" }}>
+            {reToolkit.map((item, i) => (
+              <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start",
+                padding: "12px", background: `${C.mcGrass}08`,
+                border: `2px solid ${C.mcGrass}33` }}>
+                <span style={{ fontSize: "16px", flexShrink: 0 }}>{item.icon}</span>
+                <div>
+                  <div style={{ fontSize: "6px", color: C.mcGold, letterSpacing: "1px",
+                    marginBottom: "4px", textShadow: `0 0 4px ${C.mcGold}` }}>{item.label}</div>
+                  <div style={{ fontFamily: "'Courier New', monospace", fontSize: "10px",
+                    color: "#778866", lineHeight: "1.6" }}>{item.text}</div>
                 </div>
               </div>
+            ))}
+          </div>
 
-              <button className="btn-mc" onClick={() => setPage("contact")}
-                style={{ marginTop: "16px", width: "100%", padding: "12px" }}>
-                ▶ OPEN NEW WORLD (BOOK CONSULT)
-              </button>
+          {/* XP bar + CTA */}
+          <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: "7px", color: C.dim, marginBottom: "5px", letterSpacing: "1px" }}>EXPERIENCE LEVEL: 30+</div>
+              <div style={{ height: "14px", background: "#111", border: "3px solid #555",
+                boxShadow: "inset -1px -1px 0 rgba(0,0,0,0.5)" }}>
+                <div style={{ height: "100%", width: "99%",
+                  background: `linear-gradient(90deg, ${C.mcGold}, #88cc00)`,
+                  boxShadow: `0 0 8px ${C.mcGold}` }} />
+              </div>
             </div>
+            <button className="btn-mc" onClick={() => setPage("contact")}
+              style={{ padding: "12px 20px", whiteSpace: "nowrap" }}>
+              ▶ OPEN NEW WORLD (BOOK CONSULT)
+            </button>
           </div>
         </div>
 
-        {/* Minecraft dirt footer */}
-        <div style={{ display: "flex", height: "24px", borderTop: "4px solid #000" }}>
+        {/* Dirt footer */}
+        <div style={{ display: "flex", height: "20px", borderTop: "4px solid #000" }}>
           {Array.from({ length: 48 }, (_, i) => (
             <div key={i} style={{
-              flex: 1,
-              background: i % 2 === 0 ? C.mcDirt : "#7a5530",
+              flex: 1, background: i % 2 === 0 ? C.mcDirt : "#7a5530",
               borderRight: "1px solid rgba(0,0,0,0.3)",
             }} />
           ))}
         </div>
       </div>
 
-      {/* LEVEL 2 — GAMING LAW (ARCADE STYLE) */}
+      {/* ── LEVEL 2 — GAME LAW ARENA (ARCADE / BOSS LEVEL) ── */}
       <div style={{ marginBottom: "40px", border: `4px solid ${C.cyan}`,
         background: C.surface, boxShadow: `0 0 30px ${C.cyan}33` }}>
 
         <div style={{ background: `linear-gradient(135deg, #001a33 0%, #003366 100%)`,
           padding: "16px 24px", borderBottom: `4px solid ${C.cyan}`,
-          display: "flex", justifyContent: "space-between" }}>
+          display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div className="neon-cyan" style={{ fontSize: "10px", letterSpacing: "2px" }}>
             LEVEL 2 — GAME LAW ARENA
           </div>
-          <div style={{ fontSize: "8px", color: C.cyan }}>BOSS LEVEL</div>
+          <div style={{ fontSize: "8px", color: C.cyan, fontFamily: "'Press Start 2P'" }}>BOSS LEVEL</div>
         </div>
 
-        {/* Arcade scanline strip */}
-        <div style={{ height: "8px", background: `repeating-linear-gradient(90deg, ${C.cyan} 0px, ${C.cyan} 4px, transparent 4px, transparent 8px)`, opacity: 0.3 }} />
+        {/* Scanline accent */}
+        <div style={{ height: "6px", background: `repeating-linear-gradient(90deg, ${C.cyan} 0px, ${C.cyan} 4px, transparent 4px, transparent 8px)`, opacity: 0.3 }} />
 
-        <div style={{ padding: "32px 28px", display: "grid",
-          gridTemplateColumns: "1fr 1fr", gap: "32px" }}>
-          <div>
-            <div style={{ display: "flex", gap: "8px", marginBottom: "20px" }}>
-              {["🎮","👾","🕹️"].map((ico, i) => (
-                <div key={i} style={{
-                  width: "52px", height: "52px",
-                  background: `${C.cyan}11`,
-                  border: `3px solid ${C.cyan}`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "22px", boxShadow: `0 0 10px ${C.cyan}44`,
-                  animation: `float ${2 + i * 0.5}s ease-in-out infinite`,
-                }}>{ico}</div>
-              ))}
+        <div style={{ padding: "32px 28px" }}>
+          {/* Header row */}
+          <div style={{ display: "flex", gap: "12px", alignItems: "center", marginBottom: "16px" }}>
+            {["🎮","👾","🕹️"].map((ico, i) => (
+              <div key={i} style={{
+                width: "44px", height: "44px", background: `${C.cyan}11`,
+                border: `3px solid ${C.cyan}`, display: "flex", alignItems: "center",
+                justifyContent: "center", fontSize: "20px", boxShadow: `0 0 10px ${C.cyan}44`,
+                animation: `float ${2 + i * 0.5}s ease-in-out infinite`,
+              }}>{ico}</div>
+            ))}
+            <div style={{ marginLeft: "8px" }}>
+              <h3 className="neon-cyan" style={{ fontSize: "11px", letterSpacing: "2px", marginBottom: "4px" }}>
+                VIDEO GAME &amp; COMMERCE LAW
+              </h3>
+              <div style={{ fontSize: "7px", color: C.cyan, letterSpacing: "1px", opacity: 0.7 }}>LEVEL 2 · BOSS LEVEL · 4 YRS IN-HOUSE XP</div>
             </div>
-            <h3 className="neon-cyan" style={{ fontSize: "11px", letterSpacing: "2px",
-              marginBottom: "16px", lineHeight: "1.5" }}>
-              VIDEO GAME &amp;<br />COMMERCE LAW
-            </h3>
-            <p style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
-              color: "#88ccdd", lineHeight: "1.8", marginBottom: "12px" }}>
-              Four years as in-house counsel at a leading video game payment platform. Full-stack gaming law: virtual currency, loot boxes, developer agreements, COPPA/GDPR, and GameCompliance™.
-            </p>
           </div>
-          <div>
-            <div style={{ fontSize: "7px", color: C.cyan, letterSpacing: "2px", marginBottom: "16px" }}>
-              ── UNLOCKED ABILITIES ──
-            </div>
-            {[
-              { ability: "VIRTUAL CURRENCY REGULATION", power: 98, color: C.cyan    },
-              { ability: "LOOT BOX / GAMBLING LAW",     power: 95, color: C.pink    },
-              { ability: "COPPA · GDPR · CCPA",         power: 92, color: C.yellow  },
-              { ability: "DEVELOPER AGREEMENTS",         power: 96, color: C.green   },
-              { ability: "NFT / BLOCKCHAIN ITEMS",       power: 90, color: C.purple  },
-              { ability: "GAMECOMPLIANCE™ ENGINE",        power: 99, color: C.orange  },
-            ].map(a => (
-              <div key={a.ability} style={{ marginBottom: "8px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between",
-                  fontSize: "6px", marginBottom: "3px" }}>
-                  <span style={{ color: C.dim }}>{a.ability}</span>
-                  <span style={{ color: a.color }}>{a.power}</span>
-                </div>
-                <div style={{ height: "10px", background: "#111", border: `2px solid ${a.color}44` }}>
-                  <div style={{ height: "100%", width: `${a.power}%`,
-                    background: a.color, boxShadow: `0 0 4px ${a.color}` }} />
+
+          {/* Body text */}
+          <p style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
+            color: "#88ccdd", lineHeight: "1.9", marginBottom: "24px",
+            borderLeft: `3px solid ${C.cyan}44`, paddingLeft: "14px" }}>
+            Battle-tested with four years as in-house counsel for a premier global video game payment platform. Wes provides full-stack legal support for the gaming industry — tackling virtual currency regulation, loot box mechanics, and complex developer ecosystems.
+          </p>
+
+          {/* Spellbook grid */}
+          <div style={{ fontSize: "8px", color: C.cyan, letterSpacing: "2px",
+            marginBottom: "14px", textShadow: `0 0 6px ${C.cyan}` }}>── THE GAMING SPELLBOOK ──</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "24px" }}>
+            {gameSpellbook.map((item, i) => (
+              <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start",
+                padding: "12px", background: `${C.cyan}08`, border: `2px solid ${C.cyan}33` }}>
+                <span style={{ fontSize: "16px", flexShrink: 0 }}>{item.icon}</span>
+                <div>
+                  <div style={{ fontSize: "6px", color: C.cyan, letterSpacing: "1px",
+                    marginBottom: "4px", textShadow: `0 0 4px ${C.cyan}` }}>{item.label}</div>
+                  <div style={{ fontFamily: "'Courier New', monospace", fontSize: "10px",
+                    color: "#556677", lineHeight: "1.6" }}>{item.text}</div>
                 </div>
               </div>
             ))}
-            <button className="btn-arcade btn-cyan" onClick={() => setPage("tool")}
-              style={{ fontSize: "8px", padding: "10px 20px", marginTop: "12px" }}>
-              PLAY GAMECOMPLIANCE™ FREE
-            </button>
           </div>
+
+          <button className="btn-arcade btn-cyan" onClick={() => setPage("tool")}
+            style={{ fontSize: "8px", padding: "12px 28px" }}>
+            PLAY GAMECOMPLIANCE™ FREE
+          </button>
         </div>
       </div>
 
-      {/* LEVEL 3 — DIGITAL ASSETS (CYBER/NEON) */}
+      {/* ── LEVEL 3 — FINTECH & PAYMENTS DIMENSION (CYBER/NEON) ── */}
       <div style={{ border: `4px solid ${C.purple}`,
         background: "#0a0014", boxShadow: `0 0 30px ${C.purple}44` }}>
 
         <div style={{ background: `linear-gradient(135deg, #150026 0%, #200040 100%)`,
           padding: "16px 24px", borderBottom: `4px solid ${C.purple}`,
-          display: "flex", justifyContent: "space-between" }}>
+          display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div className="neon-purple" style={{ fontSize: "10px", letterSpacing: "2px" }}>
-            LEVEL 3 — CRYPTO DIMENSION
+            LEVEL 3 — FINTECH &amp; PAYMENTS DIMENSION
           </div>
-          <div style={{ fontSize: "8px", color: C.purple }}>SECRET LEVEL</div>
+          <div style={{ fontSize: "8px", color: C.purple, fontFamily: "'Press Start 2P'" }}>SECRET LEVEL</div>
         </div>
 
-        <div style={{ padding: "32px 28px", display: "grid",
-          gridTemplateColumns: "1fr 1fr", gap: "32px" }}>
-          <div>
-            <div style={{ display: "flex", gap: "8px", marginBottom: "20px" }}>
-              {["⛓️","💎","🔮"].map((ico, i) => (
-                <div key={i} style={{
-                  width: "52px", height: "52px",
-                  background: `${C.purple}11`,
-                  border: `3px solid ${C.purple}`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "22px", boxShadow: `0 0 15px ${C.purple}66`,
-                  animation: `neonPulse ${1.5 + i * 0.3}s ease-in-out infinite`,
-                }}>{ico}</div>
-              ))}
+        <div style={{ padding: "32px 28px" }}>
+          {/* Header row */}
+          <div style={{ display: "flex", gap: "12px", alignItems: "center", marginBottom: "16px" }}>
+            {["⛓️","💎","🔮"].map((ico, i) => (
+              <div key={i} style={{
+                width: "44px", height: "44px", background: `${C.purple}11`,
+                border: `3px solid ${C.purple}`, display: "flex", alignItems: "center",
+                justifyContent: "center", fontSize: "20px", boxShadow: `0 0 15px ${C.purple}66`,
+                animation: `neonPulse ${1.5 + i * 0.3}s ease-in-out infinite`,
+              }}>{ico}</div>
+            ))}
+            <div style={{ marginLeft: "8px" }}>
+              <h3 className="neon-purple" style={{ fontSize: "11px", letterSpacing: "2px", marginBottom: "4px" }}>
+                FINTECH, PAYMENTS &amp; DIGITAL ASSETS
+              </h3>
+              <div style={{ fontSize: "7px", color: C.purple, letterSpacing: "1px", opacity: 0.7 }}>LEVEL 3 · SECRET LEVEL · CRYPTO SINCE 2017</div>
             </div>
-            <h3 className="neon-purple" style={{ fontSize: "11px", letterSpacing: "2px",
-              marginBottom: "16px", lineHeight: "1.5" }}>
-              FINTECH &amp;<br />DIGITAL ASSETS
-            </h3>
-            <p style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
-              color: "#bb88dd", lineHeight: "1.8" }}>
-              In the crypto space since 2017. Co-hosted the CryptoLaw Podcast. Tracks GENIUS Act, CLARITY Act, and state-level digital asset legislation in real time. Stablecoins, token classification, FinCEN MSB, DeFi compliance, NFT legal structures.
-            </p>
           </div>
-          <div>
-            <div style={{ fontSize: "7px", color: C.purple, letterSpacing: "2px", marginBottom: "16px" }}>
-              ── CRYPTO SPELLBOOK ──
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
-              {[
-                "STABLECOINS","TOKEN CLASS.","FINCEN·MSB","NFT LAW",
-                "DEFI COMPLY","GENIUS ACT","CLARITY ACT","BLOCKCHAIN",
-              ].map(spell => (
-                <div key={spell} style={{
-                  padding: "8px", border: `2px solid ${C.purple}44`,
-                  background: `${C.purple}0a`, textAlign: "center",
-                  fontSize: "6px", color: C.purple,
-                  textShadow: `0 0 6px ${C.purple}`,
-                  letterSpacing: "1px",
-                }}>
-                  {spell}
+
+          {/* Body text */}
+          <p style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
+            color: "#bb88dd", lineHeight: "1.9", marginBottom: "24px",
+            borderLeft: `3px solid ${C.purple}44`, paddingLeft: "14px" }}>
+            Wes designs the legal architecture for the future of money. From stealth-stage startups to global payment processors, he ensures that moving value remains seamless and compliant across the "Secret Levels" of financial regulation.
+          </p>
+
+          {/* Spellbook grid */}
+          <div style={{ fontSize: "8px", color: C.purple, letterSpacing: "2px",
+            marginBottom: "14px", textShadow: `0 0 6px ${C.purple}` }}>── THE FINTECH SPELLBOOK ──</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "24px" }}>
+            {fintechSpellbook.map((item, i) => (
+              <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start",
+                padding: "12px", background: `${C.purple}08`, border: `2px solid ${C.purple}33` }}>
+                <span style={{ fontSize: "16px", flexShrink: 0 }}>{item.icon}</span>
+                <div>
+                  <div style={{ fontSize: "6px", color: C.purple, letterSpacing: "1px",
+                    marginBottom: "4px", textShadow: `0 0 4px ${C.purple}` }}>{item.label}</div>
+                  <div style={{ fontFamily: "'Courier New', monospace", fontSize: "10px",
+                    color: "#6655aa", lineHeight: "1.6" }}>{item.text}</div>
                 </div>
-              ))}
-            </div>
-            <button className="btn-arcade" onClick={() => setPage("contact")}
-              style={{ fontSize: "8px", padding: "10px 20px", marginTop: "16px", width: "100%",
-                background: C.purple, color: C.white,
-                boxShadow: `4px 4px 0 #440066, 0 0 20px ${C.purple}88` }}>
-              SUMMON ATTORNEY
-            </button>
+              </div>
+            ))}
           </div>
+
+          <button className="btn-arcade" onClick={() => setPage("contact")}
+            style={{ fontSize: "8px", padding: "12px 28px",
+              background: C.purple, color: C.white,
+              boxShadow: `4px 4px 0 #440066, 0 0 20px ${C.purple}88` }}>
+            SUMMON ATTORNEY
+          </button>
         </div>
       </div>
     </div>
@@ -1132,16 +1125,11 @@ function ArcadeCheckItem({ label, checked, onClick, color = C.cyan }) {
 }
 
 // ─────────────────────────────────────────────────────────
-// GAMECOMPLIANCE USAGE LIMITS
-// FREE_LIMIT: number of free analyses per device
-// SUBSCRIBER_CODE: the access code you email to paying clients
-//   ⚠️  CHANGE THIS TO A PRIVATE CODE BEFORE GOING LIVE
-//   e.g. "GC-WRW-2025" — email it to subscribers after retainer execution
+// GAMECOMPLIANCE — FREE, UNLIMITED, NO PAYWALL
+// Tool is a client acquisition funnel for indie developers.
 // ─────────────────────────────────────────────────────────
-const FREE_LIMIT = 2;
-const SUBSCRIBER_CODE = "GC-WRW-2025"; // ← CHANGE THIS
+const FREE_LIMIT = Infinity;
 const STORAGE_KEY_USAGE  = "gc_usage_count";
-const STORAGE_KEY_ACCESS = "gc_subscriber";
 
 function GameCompliancePage({ setPage }) {
   const [gateScreen, setGateScreen] = useState(true);
@@ -1155,32 +1143,15 @@ function GameCompliancePage({ setPage }) {
   const [error, setError] = useState(null);
   const [blinkOn, setBlinkOn] = useState(true);
 
-  // Usage tracking — stored in localStorage so it persists across sessions
+  // Usage tracking
   const [usageCount, setUsageCount] = useState(() => {
     try { return parseInt(localStorage.getItem(STORAGE_KEY_USAGE) || "0", 10); } catch { return 0; }
   });
-  const [isSubscriber, setIsSubscriber] = useState(() => {
-    try { return localStorage.getItem(STORAGE_KEY_ACCESS) === "true"; } catch { return false; }
-  });
-  const [accessCodeInput, setAccessCodeInput] = useState("");
-  const [accessCodeError, setAccessCodeError] = useState("");
-
-  const atLimit = !isSubscriber && usageCount >= FREE_LIMIT;
 
   const incrementUsage = () => {
     const next = usageCount + 1;
     setUsageCount(next);
     try { localStorage.setItem(STORAGE_KEY_USAGE, String(next)); } catch {}
-  };
-
-  const redeemAccessCode = () => {
-    if (accessCodeInput.trim().toUpperCase() === SUBSCRIBER_CODE.toUpperCase()) {
-      setIsSubscriber(true);
-      try { localStorage.setItem(STORAGE_KEY_ACCESS, "true"); } catch {}
-      setAccessCodeError("");
-    } else {
-      setAccessCodeError("INVALID CODE · CHECK YOUR EMAIL FROM WESLEY R. WILLIAMS ESQ.");
-    }
   };
 
   useEffect(() => {
@@ -1205,8 +1176,16 @@ function GameCompliancePage({ setPage }) {
     let idx = 0;
     const iv = setInterval(() => { idx = Math.min(idx + 1, LOADING_MSGS.length - 1); setLoadingMsg(LOADING_MSGS[idx]); }, 1800);
     try {
-      const res = await fetch("/api/analyze", {
-        method: "POST", headers: { "Content-Type": "application/json" },
+      const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
+      if (!apiKey) { clearInterval(iv); setError("API KEY NOT CONFIGURED — CHECK .env FILE"); setToolScreen("intake"); return; }
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true",
+        },
         body: JSON.stringify({ model: "claude-sonnet-4-5", max_tokens: 8000,
           system: SYSTEM_PROMPT, messages: [{ role: "user", content: buildPrompt(form) }] }),
       });
@@ -1411,146 +1390,17 @@ function GameCompliancePage({ setPage }) {
           GAMECOMPLIANCE™ ENGINE v1.0
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          {isSubscriber ? (
-            <div style={{ fontSize: "7px", color: C.mcGold, letterSpacing: "1px",
-              textShadow: `0 0 8px ${C.mcGold}` }}>
-              ★ SUBSCRIBER · UNLIMITED ACCESS
-            </div>
-          ) : (
-            <div style={{ fontSize: "7px", letterSpacing: "1px" }}>
-              <span style={{ color: C.dim }}>FREE ANALYSES: </span>
-              {Array.from({ length: FREE_LIMIT }).map((_, i) => (
-                <span key={i} style={{
-                  display: "inline-block", width: "12px", height: "12px",
-                  background: i < usageCount ? C.darker : C.green,
-                  border: `2px solid ${i < usageCount ? "#333" : C.green}`,
-                  marginLeft: "4px",
-                  boxShadow: i < usageCount ? "none" : `0 0 6px ${C.green}`,
-                }} />
-              ))}
-              <span style={{ color: C.dim, marginLeft: "8px" }}>
-                {Math.max(0, FREE_LIMIT - usageCount)} REMAINING
-              </span>
-            </div>
-          )}
+          <div style={{ fontSize: "7px", color: C.green, letterSpacing: "1px",
+            textShadow: `0 0 8px ${C.green}` }}>
+            ★ FREE
+          </div>
           <div style={{ fontSize: "7px", color: C.dim }}>
             W.R. WILLIAMS ESQ · CA BAR 269157
           </div>
         </div>
       </div>
 
-      {/* ── PAYWALL SCREEN — shown when free limit hit ── */}
-      {atLimit && toolScreen !== "results" && (
-        <div style={{ textAlign: "center" }}>
-
-          {/* Pixelated game over banner */}
-          <div style={{
-            border: `4px solid ${C.pink}`,
-            background: `linear-gradient(135deg, #1a0008 0%, #0a0005 100%)`,
-            padding: "40px 32px", marginBottom: "28px",
-            boxShadow: `0 0 40px ${C.pink}55`,
-          }}>
-            <div style={{ fontSize: "32px", marginBottom: "16px",
-              animation: "float 2s ease-in-out infinite" }}>🪙</div>
-            <div className="neon-pink" style={{ fontSize: "clamp(14px, 3vw, 22px)",
-              letterSpacing: "3px", marginBottom: "8px",
-              animation: "neonPulse 1.5s ease-in-out infinite" }}>
-              FREE CREDITS USED
-            </div>
-            <div style={{ fontSize: "8px", color: C.dim, letterSpacing: "2px",
-              marginBottom: "24px" }}>
-              YOU'VE USED BOTH FREE ANALYSES
-            </div>
-            <div style={{ fontFamily: "'Courier New', monospace", fontSize: "13px",
-              color: "#bb8899", lineHeight: "1.8", maxWidth: "500px",
-              margin: "0 auto 28px" }}>
-              Subscribe to the General Counsel plan for unlimited GameCompliance™ analyses,
-              plus contract review, monthly strategy calls, and full legal coverage
-              at <strong style={{ color: C.mcGold }}>$2,500/month</strong>.
-            </div>
-            <div style={{ display: "flex", gap: "12px", justifyContent: "center",
-              flexWrap: "wrap", marginBottom: "32px" }}>
-              <button className="btn-arcade btn-pink" onClick={() => setPage("pricing")}
-                style={{ fontSize: "9px", padding: "14px 28px" }}>
-                ► SUBSCRIBE · $2,500/MO ◄
-              </button>
-              <button className="btn-arcade" onClick={() => setPage("contact")}
-                style={{ fontSize: "9px", padding: "14px 24px",
-                  background: "transparent", color: C.cyan,
-                  border: `3px solid ${C.cyan}`,
-                  boxShadow: `0 0 10px ${C.cyan}44` }}>
-                BOOK FREE CONSULT
-              </button>
-            </div>
-
-            {/* What subscribers get */}
-            <div style={{ border: `2px solid ${C.mcGold}33`, background: `${C.mcGold}08`,
-              padding: "20px", maxWidth: "480px", margin: "0 auto", textAlign: "left" }}>
-              <div style={{ fontSize: "7px", color: C.mcGold, letterSpacing: "2px",
-                marginBottom: "14px", textAlign: "center",
-                textShadow: `0 0 8px ${C.mcGold}` }}>── SUBSCRIBER UNLOCKS ──</div>
-              {[
-                "Unlimited GameCompliance™ analyses",
-                "Up to 3 contract reviews per month",
-                "Monthly 45-min strategy call",
-                "Unlimited email/messaging access",
-                "Regulatory alerts when laws change",
-                "Scope: gaming · real estate · fintech",
-              ].map((item, i) => (
-                <div key={i} style={{ display: "flex", gap: "10px",
-                  fontSize: "11px", color: "#997755", fontFamily: "'Courier New', monospace",
-                  padding: "5px 0",
-                  borderBottom: i < 5 ? `1px solid ${C.mcGold}11` : "none" }}>
-                  <span style={{ color: C.mcGold }}>★</span> {item}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Access code redemption */}
-          <div style={{ border: `3px solid ${C.cyan}44`, background: C.surface,
-            padding: "28px", maxWidth: "480px", margin: "0 auto" }}>
-            <div style={{ fontSize: "8px", color: C.cyan, letterSpacing: "2px",
-              marginBottom: "8px", textShadow: `0 0 8px ${C.cyan}` }}>
-              ── ALREADY A SUBSCRIBER? ──
-            </div>
-            <div style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
-              color: C.dim, lineHeight: "1.7", marginBottom: "20px" }}>
-              Enter the access code emailed to you by Wesley R. Williams, Esq.
-              after your retainer was executed.
-            </div>
-            <div style={{ display: "flex", gap: "10px" }}>
-              <input
-                type="text"
-                placeholder="ENTER ACCESS CODE..."
-                className="arcade-input"
-                style={{ borderColor: C.cyan, color: C.cyan, flex: 1,
-                  textTransform: "uppercase", letterSpacing: "2px" }}
-                value={accessCodeInput}
-                onChange={e => setAccessCodeInput(e.target.value)}
-                onKeyDown={e => e.key === "Enter" && redeemAccessCode()}
-              />
-              <button className="btn-arcade btn-cyan" onClick={redeemAccessCode}
-                style={{ fontSize: "8px", padding: "10px 16px", whiteSpace: "nowrap" }}>
-                REDEEM
-              </button>
-            </div>
-            {accessCodeError && (
-              <div style={{ fontSize: "8px", color: C.pink, marginTop: "10px",
-                padding: "8px", border: `2px solid ${C.pink}`,
-                textShadow: `0 0 6px ${C.pink}` }}>{accessCodeError}</div>
-            )}
-            <div style={{ fontFamily: "'Courier New', monospace", fontSize: "11px",
-              color: "#444455", marginTop: "12px", lineHeight: "1.8" }}>
-              Don't have a code? Subscribe above and your code will be
-              emailed within one business day of retainer execution.
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── TOOL SCREENS — only shown when not at limit (or already on results) ── */}
-      {(!atLimit || toolScreen === "results") && (
+      {/* ── TOOL SCREENS ── */}
       <div>
 
       {/* Welcome */}
@@ -1882,18 +1732,210 @@ function GameCompliancePage({ setPage }) {
             </div>
           </div>
 
-          <button onClick={() => { setToolScreen("welcome"); setStep(0); setResults(null); }}
-            style={{ background: "transparent", color: C.dim, border: `2px solid ${C.darker}`,
+          <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
+            <button onClick={() => { setToolScreen("welcome"); setStep(0); setResults(null); }}
+              style={{ background: "transparent", color: C.dim, border: `2px solid ${C.darker}`,
+                padding: "10px 20px", fontSize: "7px", letterSpacing: "1px", cursor: "crosshair",
+                fontFamily: "'Press Start 2P'" }}>
+              ◄ NEW GAME
+            </button>
+            <button onClick={() => {
+              const dateStr = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+              const timeStr = new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", timeZoneName: "short" });
+              const win = window.open("", "_blank");
+              win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"/>
+<title>GameCompliance™ Analysis Report — ${dateStr}</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Courier New', monospace; font-size: 11pt; color: #000; background: #fff; }
+  .page { max-width: 750px; margin: 0 auto; padding: 50px 50px 70px; }
+  .header { text-align: center; border-bottom: 3px solid #000; padding-bottom: 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 16pt; letter-spacing: 2px; margin-bottom: 6px; }
+  .header .sub { font-size: 10pt; color: #444; line-height: 1.8; }
+  .disclaimer { border: 2px solid #cc8800; background: #fffbe6; padding: 14px; margin-bottom: 20px; font-size: 10pt; line-height: 1.7; }
+  .risk-banner { text-align: center; font-size: 20pt; font-weight: bold; letter-spacing: 3px; padding: 16px; margin-bottom: 20px;
+    border: 3px solid #000; background: #f5f5f5; }
+  .risk-HIGH { color: #cc0000; border-color: #cc0000; }
+  .risk-MEDIUM { color: #cc8800; border-color: #cc8800; }
+  .risk-LOW { color: #007700; border-color: #007700; }
+  .summary { font-style: italic; text-align: center; color: #444; margin-bottom: 20px; font-size: 11pt; line-height: 1.7; }
+  .score-row { display: flex; gap: 12px; margin-bottom: 20px; }
+  .score-box { flex: 1; border: 2px solid #999; padding: 12px; text-align: center; }
+  .score-box .num { font-size: 28pt; font-weight: bold; }
+  .score-box .lbl { font-size: 8pt; color: #555; letter-spacing: 1px; margin-top: 4px; }
+  .high-num { color: #cc0000; } .med-num { color: #cc8800; } .low-num { color: #007755; }
+  .priority { border: 2px solid #cc8800; background: #fffbe6; padding: 14px; margin-bottom: 20px; }
+  .priority .label { font-size: 8pt; color: #cc8800; letter-spacing: 2px; margin-bottom: 6px; font-weight: bold; }
+  .section-title { font-size: 10pt; font-weight: bold; letter-spacing: 2px; margin: 20px 0 12px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+  .issue { border-left: 5px solid #999; padding: 12px 14px; margin-bottom: 12px; background: #fafafa; }
+  .issue-HIGH { border-left-color: #cc0000; }
+  .issue-MEDIUM { border-left-color: #cc8800; }
+  .issue-LOW { border-left-color: #007755; }
+  .issue-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .sev-tag { font-size: 8pt; font-weight: bold; padding: 2px 8px; color: white; }
+  .sev-HIGH { background: #cc0000; } .sev-MEDIUM { background: #cc8800; } .sev-LOW { background: #007755; }
+  .issue-title { font-size: 11pt; font-weight: bold; margin-bottom: 4px; }
+  .issue-trigger { font-size: 9pt; color: #666; margin-bottom: 6px; }
+  .issue-body { font-size: 10pt; line-height: 1.7; margin-bottom: 8px; }
+  .remediation { font-size: 10pt; line-height: 1.7; padding-left: 12px; border-left: 2px solid #007755; color: #005533; }
+  .docs { margin-top: 20px; }
+  .doc-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  .cta { margin-top: 24px; border: 2px solid #000; padding: 20px; text-align: center; background: #f5f5f5; }
+  .footer { margin-top: 24px; font-size: 9pt; color: #666; font-style: italic; border-top: 1px solid #ccc; padding-top: 12px; line-height: 1.7; }
+  .no-print { background: #1a3a5c; color: white; padding: 12px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; font-family: Arial, sans-serif; font-size: 12px; }
+  @media print { .no-print { display: none !important; } .page { padding: 30px; } }
+</style></head><body><div class="page">
+<div class="no-print">
+  <span>⬇ Save as PDF: Press Ctrl+P (Windows) or Cmd+P (Mac) → select "Save as PDF"</span>
+  <button onclick="window.print()" style="background:#00fff5;color:#050508;border:none;padding:8px 20px;font-weight:bold;cursor:pointer;font-size:13px;">🖨 PRINT / SAVE PDF</button>
+</div>
+<div class="header">
+  <h1>GAMECOMPLIANCE™ ANALYSIS REPORT</h1>
+  <div class="sub">Wesley R. Williams, Esq. &nbsp;|&nbsp; CA State Bar No. 269157<br/>
+  weswilliamsesq@gmail.com &nbsp;|&nbsp; 619.305.6485 &nbsp;|&nbsp; San Diego, California<br/>
+  Report Generated: ${dateStr} at ${timeStr}<br/>
+  <strong>ATTORNEY ADVERTISING — NOT LEGAL ADVICE</strong></div>
+</div>
+<div class="disclaimer">⚠ IMPORTANT DISCLAIMER: This report constitutes legal issue-spotting only. It does not constitute legal advice, create an attorney-client relationship, or substitute for consultation with a licensed attorney. Consult Wesley R. Williams, Esq. (CA Bar No. 269157) before acting on any item in this report.</div>
+<div class="risk-banner risk-${results.overallRisk}">OVERALL RISK: ${results.overallRisk}</div>
+<div class="summary">${results.gameSummary}</div>
+<div class="score-row">
+  <div class="score-box"><div class="num high-num">${results.issues?.filter(i=>i.severity==="HIGH").length||0}</div><div class="lbl">HIGH RISK</div></div>
+  <div class="score-box"><div class="num med-num">${results.issues?.filter(i=>i.severity==="MEDIUM").length||0}</div><div class="lbl">MED RISK</div></div>
+  <div class="score-box"><div class="num low-num">${results.issues?.filter(i=>i.severity==="LOW").length||0}</div><div class="lbl">LOW RISK</div></div>
+</div>
+<div class="priority"><div class="label">⚡ PRIORITY MISSION:</div>${results.priorityAction}</div>
+<div class="section-title">IDENTIFIED ISSUES (${results.issues?.length})</div>
+${results.issues?.map(issue => `
+<div class="issue issue-${issue.severity}">
+  <div class="issue-header"><span class="sev-tag sev-${issue.severity}">${issue.severity}</span><span style="font-size:9pt;color:#888">${issue.domain}</span></div>
+  <div class="issue-title">${issue.title}</div>
+  <div class="issue-trigger">Triggered by: ${issue.mechanic}</div>
+  <div class="issue-body">${issue.explanation}</div>
+  <div style="font-size:9pt;color:#007755;font-weight:bold;margin-bottom:4px;">► REMEDIATION:</div>
+  <div class="remediation">${issue.remediation}</div>
+</div>`).join("")}
+${results.documentsNeeded?.length ? `
+<div class="section-title">REQUIRED DOCUMENTS</div>
+<div class="docs">${results.documentsNeeded.map(doc=>`<div class="doc-item"><span>📄</span><div><strong>${doc.name}</strong><br/><span style="font-size:10pt;color:#555">${doc.reason}</span></div></div>`).join("")}</div>` : ""}
+<div class="cta">
+  <strong>NEXT STEP: RETAIN COUNSEL</strong><br/><br/>
+  Wesley R. Williams, Esq. offers a free 30-minute consultation for developers who use GameCompliance™.<br/>
+  <strong>weswilliamsesq@gmail.com &nbsp;|&nbsp; 619.305.6485</strong><br/><br/>
+  game-compliance.com
+</div>
+<div class="footer">This report was generated by GameCompliance™, an AI-powered legal issue-spotting tool created by Wesley R. Williams, Esq. (CA Bar No. 269157). This report does not constitute legal advice or create an attorney-client relationship. Wesley R. Williams is licensed to practice law in the State of California only. This constitutes attorney advertising under California Rules of Professional Conduct Rule 7.1. Prior results do not guarantee a similar outcome.</div>
+</div></body></html>`);
+              win.document.close(); win.focus();
+            }}
+            style={{ background: C.cyan, color: C.bg, border: "none",
               padding: "10px 20px", fontSize: "7px", letterSpacing: "1px", cursor: "crosshair",
-              fontFamily: "'Press Start 2P'" }}>
-            ◄ NEW GAME
-          </button>
+              fontFamily: "'Press Start 2P'", boxShadow: `4px 4px 0 #006666` }}>
+              ⬇ SAVE REPORT AS PDF
+            </button>
+          </div>
         </div>
       )}
-      </div>)} {/* end !atLimit tool screens wrapper */}
+      </div>
     </div>
   );
 }
+
+// ═══════════════════════════════════════════════════════════
+// SUBSCRIPTION TIERS — used by PricingPage and RetainerPage
+// ═══════════════════════════════════════════════════════════
+
+// ⚠️  STRIPE SETUP — THREE PRODUCTS REQUIRED:
+// TIER 1 "Starter / Issue Spotter" — $500/month recurring
+//   → stripe.com → Products → Add Product → set recurring price → Payment Link → copy URL below
+// TIER 2 "General Counsel" — $2,500/month recurring
+//   → stripe.com → Products → Add Product → set recurring price → Payment Link → copy URL below
+// TIER 3 "Enterprise / Fractional GC" — $5,000/month recurring
+//   → stripe.com → Products → Add Product → set recurring price → Payment Link → copy URL below
+const STRIPE_LINKS = {
+  starter:    "https://buy.stripe.com/00w00j5aB9i926E2YXb3q01",
+  counsel:    "https://buy.stripe.com/00wbJ17iJ9i98v2arpb3q02",
+  enterprise: "https://buy.stripe.com/cNi14n32tfGxeTq2YXb3q03",
+};
+
+const TIERS = [
+  {
+    id: "starter",
+    color: C.cyan,
+    colorDark: "#006666",
+    label: "STARTER",
+    sublabel: "Issue Spotter",
+    price: "500",
+    badge: "ENTRY LEVEL",
+    emoji: "🎮",
+    desc: "For solo devs and early-stage studios who need legal issue-spotting and light guidance.",
+    included: [
+      { icon: "📧", label: "EMAIL ACCESS (2 QUERIES/MO)",     desc: "Two legal questions per month answered within 2 business days" },
+      { icon: "⚡", label: "REGULATORY ALERTS",               desc: "Notified when gaming, fintech, or RE laws change" },
+      { icon: "📋", label: "1 CONTRACT REVIEW/MONTH",         desc: "One standard commercial agreement reviewed and redlined" },
+    ],
+    notIncluded: [
+      "Strategy calls",
+      "More than 1 contract review/month*",
+      "Litigation or court appearances",
+      "M&A or complex transactions*",
+    ],
+    overage: "$350/hr",
+    autoRenew: "500.00",
+  },
+  {
+    id: "counsel",
+    color: C.mcGold,
+    colorDark: "#5a3d00",
+    label: "GENERAL COUNSEL",
+    sublabel: "Full-Service GC",
+    price: "2,500",
+    badge: "BEST VALUE",
+    emoji: "⚖️",
+    desc: "Comprehensive outside general counsel for growing studios and funded companies.",
+    included: [
+      { icon: "📧", label: "UNLIMITED EMAIL & MESSAGING",     desc: "Legal questions answered within 1 business day" },
+      { icon: "📞", label: "MONTHLY STRATEGY CALL (45 MIN)", desc: "One scheduled call per month to discuss your legal landscape" },
+      { icon: "📋", label: "CONTRACT REVIEW (3/MONTH)",       desc: "Standard commercial agreements reviewed and redlined" },
+      { icon: "⚡", label: "REGULATORY ALERTS",               desc: "Notified when laws change that affect your business" },
+      { icon: "⚖️", label: "SCOPE: GAMING · RE · FINTECH",   desc: "Matters within gaming law, real estate, and digital assets" },
+    ],
+    notIncluded: [
+      "Litigation or court appearances",
+      "Government enforcement defense",
+      "More than 3 contract reviews/month*",
+      "M&A or complex transactions*",
+    ],
+    overage: "$350/hr",
+    autoRenew: "2,500.00",
+  },
+  {
+    id: "enterprise",
+    color: C.purple,
+    colorDark: "#440088",
+    label: "ENTERPRISE",
+    sublabel: "Fractional GC",
+    price: "5,000",
+    badge: "WHITE GLOVE",
+    emoji: "👑",
+    desc: "Fractional General Counsel for funded studios, platforms, and fintech companies.",
+    included: [
+      { icon: "📧", label: "UNLIMITED EMAIL & MESSAGING",     desc: "Legal questions answered same business day" },
+      { icon: "📞", label: "BI-WEEKLY STRATEGY CALLS (45 MIN)", desc: "Two 45-minute strategy calls per month" },
+      { icon: "📋", label: "CONTRACT REVIEW (UNLIMITED)",     desc: "Unlimited standard commercial agreements reviewed and redlined" },
+      { icon: "⚡", label: "PRIORITY REGULATORY ALERTS",      desc: "First-in-line notification when laws change" },
+      { icon: "🤝", label: "VENDOR & PARTNER NEGOTIATION",    desc: "Active negotiation support on commercial deals within scope" },
+      { icon: "📑", label: "CUSTOM TEMPLATE LIBRARY",        desc: "Bespoke contract templates drafted for your business" },
+    ],
+    notIncluded: [
+      "Litigation or court appearances",
+      "Government enforcement defense",
+      "M&A transactions (available at overage)*",
+    ],
+    overage: "$350/hr",
+    autoRenew: "5,000.00",
+  },
+];
 
 // ═══════════════════════════════════════════════════════════
 // RETAINER AGREEMENT PAGE
@@ -1903,7 +1945,8 @@ function RetainerPage({ setPage }) {
   const [agreed, setAgreed] = useState(false);
   const [juryWaived, setJuryWaived] = useState(false);
   const [signed, setSigned] = useState(false);
-  const [signForm, setSignForm] = useState({ name: "", email: "", studio: "", matter: "", date: new Date().toLocaleDateString() });
+  const [selectedTierObj, setSelectedTierObj] = useState(null); // tier selection step
+  const [signForm, setSignForm] = useState({ name: "", email: "", studio: "", matter: "", tier: "", date: new Date().toLocaleDateString() });
   const [signError, setSignError] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [execTimestamp] = useState(new Date());
@@ -1921,13 +1964,56 @@ function RetainerPage({ setPage }) {
     if (!agreed) return setSignError("ERROR: MUST AGREE TO FULL TERMS (CHECKBOX 1)");
     if (!juryWaived) return setSignError("ERROR: MUST SEPARATELY ACKNOWLEDGE JURY TRIAL WAIVER (CHECKBOX 2)");
     setSignError("");
+
+    // Send notification email to Wes
+    const ts = new Date();
+    const dateStr = ts.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    const timeStr = ts.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short" });
+    emailjs.send(
+      "service_jsfyq4c",
+      "template_53eb1wl",
+      {
+        client_name:    signForm.name,
+        client_email:   signForm.email,
+        client_studio:  signForm.studio || "N/A",
+        tier:           tierLabel + " — $" + tierPrice + "/mo",
+        client_matter:  signForm.matter,
+        exec_date:      dateStr,
+        exec_time:      timeStr,
+        exec_timestamp: ts.toISOString(),
+        name:           signForm.name,
+        email:          signForm.email,
+      },
+      "wjbKawH6jrlAYYj1x"
+    ).catch(err => console.error("EmailJS retainer notification error:", err));
+
     setConfirmed(true);
   };
+
+  // Tier info helpers
+  const tierLabel = selectedTierObj ? selectedTierObj.label : (signForm.tier || "General Counsel");
+  const tierPrice = selectedTierObj ? selectedTierObj.price : "2,500";
+  const tierAutoRenew = selectedTierObj ? selectedTierObj.autoRenew : "2,500.00";
+  const tierContractReviews = selectedTierObj
+    ? (selectedTierObj.id === "starter" ? "one (1)" : selectedTierObj.id === "enterprise" ? "unlimited" : "three (3)")
+    : "three (3)";
+  const tierCallSchedule = selectedTierObj
+    ? (selectedTierObj.id === "starter" ? "no included strategy calls" : selectedTierObj.id === "enterprise" ? "two (2) strategy calls of up to 45 minutes each per month" : "one (1) strategy call of up to 45 minutes per month")
+    : "one (1) strategy call of up to 45 minutes per month";
+  const tierEmailAccess = selectedTierObj
+    ? (selectedTierObj.id === "starter" ? "two (2) email legal queries per month, with responses within two (2) business days" : "unlimited email and messaging access for legal questions, with responses within one (1) business day")
+    : "unlimited email and messaging access for legal questions, with responses within one (1) business day";
 
   const handleDownloadPDF = () => {
     const ts = execTimestamp.toISOString();
     const dateStr = execTimestamp.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     const timeStr = execTimestamp.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short" });
+    const tl = tierLabel;
+    const tp = tierPrice;
+    const tar = tierAutoRenew;
+    const tcr = tierContractReviews;
+    const tcs = tierCallSchedule;
+    const tea = tierEmailAccess;
 
     const printWindow = window.open("", "_blank");
     printWindow.document.write(`<!DOCTYPE html>
@@ -1937,42 +2023,48 @@ function RetainerPage({ setPage }) {
 <title>Retainer Agreement — ${signForm.name} — ${dateStr}</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Times New Roman', Times, serif; font-size: 12pt; color: #000; background: #fff; padding: 0; }
+  body { font-family: 'Times New Roman', Times, serif; font-size: 12pt; color: #000; background: #fff; }
   .page { max-width: 750px; margin: 0 auto; padding: 60px 60px 80px; }
-  h1 { font-size: 16pt; text-align: center; letter-spacing: 2px; margin-bottom: 6px; }
-  h2 { font-size: 13pt; font-weight: bold; margin-top: 22px; margin-bottom: 8px; border-bottom: 1px solid #999; padding-bottom: 4px; }
+  h1 { font-size: 16pt; text-align: center; letter-spacing: 1px; margin-bottom: 6px; }
+  h2 { font-size: 12pt; font-weight: bold; margin-top: 22px; margin-bottom: 8px; border-bottom: 1px solid #999; padding-bottom: 4px; text-transform: uppercase; }
   h3 { font-size: 11pt; font-weight: bold; margin-top: 14px; margin-bottom: 4px; }
-  p { margin-bottom: 10px; line-height: 1.7; }
-  .center { text-align: center; }
+  p { margin-bottom: 10px; line-height: 1.75; font-size: 11pt; }
   .header-block { text-align: center; border-bottom: 2px solid #000; padding-bottom: 16px; margin-bottom: 24px; }
-  .header-block .atty { font-size: 13pt; font-weight: bold; margin-bottom: 4px; }
-  .header-block .sub { font-size: 10pt; color: #333; line-height: 1.8; }
-  .sig-block { margin-top: 32px; border: 2px solid #000; padding: 24px; background: #f9f9f9; }
-  .sig-block .sig-title { font-size: 13pt; font-weight: bold; text-align: center; margin-bottom: 16px; letter-spacing: 1px; }
-  .sig-row { display: flex; gap: 40px; margin-top: 12px; }
-  .sig-field { flex: 1; border-bottom: 1px solid #000; padding-bottom: 2px; margin-bottom: 4px; }
-  .sig-label { font-size: 9pt; color: #555; margin-top: 2px; }
-  .sig-value { font-size: 11pt; font-weight: bold; }
-  .checkbox-record { margin: 8px 0; font-size: 10pt; line-height: 1.5; }
+  .header-block .atty { font-size: 14pt; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px; }
+  .header-block .sub { font-size: 10pt; color: #333; line-height: 1.9; }
+  .tier-box { border: 2px solid #000; padding: 12px 18px; margin: 16px 0; background: #f7f7f7; }
+  .tier-box .tier-label { font-size: 11pt; font-weight: bold; margin-bottom: 4px; }
+  .tier-box .tier-detail { font-size: 10pt; color: #333; line-height: 1.7; }
+  .sig-block { margin-top: 36px; border: 2px solid #000; padding: 28px; background: #f9f9f9; page-break-inside: avoid; }
+  .sig-title { font-size: 13pt; font-weight: bold; text-align: center; margin-bottom: 20px; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 12px; }
+  .sig-row { display: flex; gap: 40px; margin-top: 16px; }
+  .sig-label { font-size: 9pt; color: #555; margin-bottom: 2px; }
+  .sig-value { font-size: 11pt; font-weight: bold; padding-bottom: 4px; border-bottom: 1px solid #000; min-height: 22px; }
+  .checkbox-record { margin: 8px 0; font-size: 10pt; line-height: 1.6; padding-left: 4px; }
   .checkbox-record::before { content: "☑  "; font-size: 12pt; }
-  .timestamp-box { margin-top: 20px; border: 1px solid #999; padding: 12px; background: #f0f0f0; font-size: 9pt; font-family: 'Courier New', monospace; line-height: 1.8; }
-  .disclaimer { margin-top: 20px; font-size: 9pt; color: #555; font-style: italic; line-height: 1.6; border-top: 1px solid #ccc; padding-top: 12px; }
-  .section-body { font-size: 11pt; line-height: 1.7; margin-bottom: 8px; }
+  .timestamp-box { margin-top: 20px; border: 1px solid #aaa; padding: 14px; background: #f0f0f0; font-size: 9pt; font-family: 'Courier New', monospace; line-height: 1.9; }
+  .sig-line-block { flex: 1; }
+  .sig-name { font-size: 15pt; font-style: italic; font-family: 'Times New Roman', serif; font-weight: bold; border-bottom: 1px solid #000; padding-bottom: 3px; margin-bottom: 4px; min-height: 28px; }
+  .sig-name-atty { font-size: 15pt; font-style: italic; font-family: 'Times New Roman', serif; font-weight: bold; color: #1a3a5c; border-bottom: 1px solid #000; padding-bottom: 3px; margin-bottom: 4px; }
+  .sig-caption { font-size: 9pt; color: #444; line-height: 1.6; }
+  .disclaimer { margin-top: 24px; font-size: 9pt; color: #555; font-style: italic; line-height: 1.7; border-top: 1px solid #ccc; padding-top: 14px; }
   .warning { font-weight: bold; }
-  .allcaps { font-size: 10pt; line-height: 1.6; }
+  .allcaps { font-size: 10.5pt; line-height: 1.7; text-transform: uppercase; }
+  .section-body { font-size: 11pt; line-height: 1.75; margin-bottom: 10px; }
+  .indent { padding-left: 24px; }
   @media print {
-    body { padding: 0; }
-    .page { padding: 40px; }
-    .no-print { display: none; }
+    .no-print { display: none !important; }
+    .page { padding: 36px; }
+    body { font-size: 11pt; }
   }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <div class="no-print" style="background:#1a3a5c;color:white;padding:14px 20px;margin-bottom:24px;font-family:Arial,sans-serif;font-size:12px;display:flex;justify-content:space-between;align-items:center;">
-    <span>⬇ Save this page as PDF using your browser's Print function (Ctrl+P / Cmd+P) → "Save as PDF"</span>
-    <button onclick="window.print()" style="background:#00fff5;color:#050508;border:none;padding:8px 18px;font-weight:bold;cursor:pointer;font-size:12px;">PRINT / SAVE PDF</button>
+  <div class="no-print" style="background:#1a3a5c;color:white;padding:14px 20px;margin-bottom:24px;font-family:Arial,sans-serif;font-size:12px;display:flex;justify-content:space-between;align-items:center;gap:16px;">
+    <span>⬇ Both parties: save this page as PDF using your browser's Print function (Ctrl+P / Cmd+P) &rarr; "Save as PDF"</span>
+    <button onclick="window.print()" style="background:#00fff5;color:#050508;border:none;padding:8px 20px;font-weight:bold;cursor:pointer;font-size:13px;white-space:nowrap;flex-shrink:0;">🖨 PRINT / SAVE PDF</button>
   </div>
 
   <div class="header-block">
@@ -1980,83 +2072,98 @@ function RetainerPage({ setPage }) {
     <div class="sub">
       Wesley R. Williams, Esq. &nbsp;|&nbsp; California State Bar No. 269157<br/>
       weswilliamsesq@gmail.com &nbsp;|&nbsp; 619.305.6485 &nbsp;|&nbsp; San Diego, California<br/>
-      <strong>ATTORNEY ADVERTISING</strong>
+      <strong>ATTORNEY ADVERTISING</strong> &nbsp;|&nbsp; Wesley R. Williams is licensed to practice law in California only.
+    </div>
+  </div>
+
+  <div class="tier-box">
+    <div class="tier-label">SUBSCRIPTION TIER: ${tl.toUpperCase()} — $${tp}/MONTH</div>
+    <div class="tier-detail">
+      Engagement Type: ${signForm.matter || "Subscription"}<br/>
+      Client: ${signForm.name}${signForm.studio ? " | " + signForm.studio : ""}<br/>
+      Effective Date: ${dateStr}
     </div>
   </div>
 
   <p>This Agreement is made between the Client identified below ("Client") and Wesley R. Williams, Esq. ("Attorney"). In consideration of the mutual promises herein, the parties agree as follows:</p>
 
-  <h2>1. SCOPE OF REPRESENTATION</h2>
-  <p class="section-body">Attorney agrees to represent Client in connection with the specific matter described by Client at the time of engagement ("the Matter"), within the following practice areas: gaming law and video game commerce, real estate and title insurance, fintech, and digital assets. This Agreement covers only the Matter or Subscription scope expressly identified. Any additional matters outside the defined scope require a separate written agreement or amendment.</p>
+  <h2>1. Scope of Representation</h2>
+  <p class="section-body">Attorney agrees to represent Client in connection with the specific matter described by Client at the time of engagement (the "Matter"), within the following practice areas: gaming law and video game commerce, real estate and title insurance, fintech, and digital assets. This Agreement covers only the Matter or Subscription scope expressly identified. Any additional matters outside the defined scope require a separate written agreement or amendment.</p>
   <p class="section-body">Attorney's services may include, as applicable and agreed: legal research and analysis; drafting, reviewing, and negotiating contracts and agreements; regulatory compliance advice; and correspondence and communications on Client's behalf. Attorney will keep Client informed of the progress of the Matter and will respond within a reasonable time to Client's inquiries.</p>
-  <p class="section-body">This Agreement will not become binding on either party, and Attorney will not begin providing legal services, until Client has executed this Agreement electronically and payment, if applicable, has been processed.</p>
-  <p class="section-body warning">EXCLUSION — NO LITIGATION SERVICES: Attorney does not provide litigation services, court appearances, or representation in administrative, regulatory, arbitration, or judicial proceedings of any kind. This Agreement expressly excludes all litigation, government enforcement defense, and any matter requiring court or tribunal appearance. Clients requiring litigation services must retain separate litigation counsel.</p>
+  <p class="section-body">This Agreement will not become binding on either party, and Attorney will not begin providing legal services, until Client has executed this Agreement electronically and any required payment has been processed.</p>
+  <p class="section-body warning">EXCLUSION — NO LITIGATION SERVICES: Attorney does not provide litigation services, court appearances, or representation in administrative, regulatory, arbitration, or judicial proceedings of any kind. This Agreement expressly excludes all litigation, government enforcement defense, and any matter requiring court or tribunal appearance. Clients requiring litigation services must retain separate litigation counsel. Nothing in this Agreement shall be construed to create an obligation on the part of Attorney to appear in any court or proceeding.</p>
 
-  <h2>2. FEES, BILLING, AND TRUST ACCOUNT DISCLOSURE</h2>
+  <h2>2. Fees, Billing, and Trust Account Disclosure</h2>
   <h3>A. Fee Structure.</h3>
-  <p class="section-body">Attorney's fees are charged on a flat fee or monthly subscription basis as agreed at engagement. No hourly billing applies unless separately agreed in writing for overage services.</p>
-  <h3>B. No Client Trust Account — Important Disclosure.</h3>
-  <p class="section-body allcaps">CLIENT IS ADVISED THAT ATTORNEY DOES NOT MAINTAIN A CLIENT TRUST ACCOUNT (IOLTA ACCOUNT). Attorney does not hold client funds in trust. All fees are earned upon receipt or as services are rendered per the agreed fee structure. For Subscription clients, invoices are generated and delivered automatically by Stripe, Inc. on Attorney's behalf prior to each monthly charge. For non-subscription matters, Attorney will submit invoices to Client for all fees and expenses as described in this Agreement.</p>
+  <p class="section-body">Attorney's fees are charged on a flat fee or monthly subscription basis as agreed at engagement. No hourly billing applies unless separately agreed in writing for overage services. The applicable fee structure for this engagement is the <strong>${tl}</strong> Subscription at <strong>$${tp} per month</strong>, as further described in Section 5.</p>
+  <h3>B. No Client Trust Account — Important Disclosure (California Rule of Professional Conduct 1.15(b)).</h3>
+  <p class="section-body warning">Attorney does not maintain a client trust account (IOLTA). All fees paid under this Agreement, including monthly Subscription fees, will be deposited directly into Attorney's operating account.</p>
+  <p class="section-body">CLIENT ACKNOWLEDGMENT AND CONSENT: Client understands and agrees that: (i) Client has the right to require that any flat-fee or Subscription payment be deposited into a client trust account until the fee is earned; and (ii) Client is entitled to a refund of any portion of a fee paid in advance that has not been earned in the event the representation terminates or the services for which the fee was paid are not completed. By signing this Agreement, Client expressly consents to the deposit of all fees, including the monthly Subscription fee, directly into Attorney's operating account.</p>
   <h3>C. Invoicing and Payment.</h3>
-  <p class="section-body">For Subscription clients, Stripe, Inc. automatically generates and emails a PDF invoice to Client before each monthly charge and a receipt upon successful payment. For non-subscription flat fee or overage matters, Attorney will issue invoices due within thirty (30) days. Unpaid fees bear interest at twelve percent (12%) per annum after thirty (30) days.</p>
+  <p class="section-body">For Subscription clients, Stripe, Inc. automatically generates and emails a PDF invoice to Client before each monthly charge and a receipt upon successful payment. No manual invoice submission is required for recurring Subscription fees. For non-subscription flat fee or overage matters, Attorney will issue invoices which are due within thirty (30) days of the invoice date. Any unpaid balance shall bear interest at the rate of ten percent (10%) per annum or the maximum rate permitted by law, whichever is less.</p>
   <h3>D. Rate Changes.</h3>
-  <p class="section-body">Attorney shall give Client thirty (30) days written notice of any change to the fee schedule.</p>
+  <p class="section-body">Attorney shall give Client thirty (30) days written notice of any change to the fee schedule. If Client does not agree to the new rate schedule, Client may terminate this Agreement.</p>
+  <h3>E. No Guarantees.</h3>
+  <p class="section-body">No promises or guarantees as to the outcome of any matter have been made to Client by Attorney. No other representations have been made to Client except those set out in this Agreement.</p>
 
-  <h2>3. EXPENSES</h2>
-  <p class="section-body">All reasonable expenses incurred by Attorney in handling Client's matter shall be paid by Client as incurred, including filing fees, postage, travel, and other case expenses. Mileage is charged at the IRS standard mileage rate.</p>
+  <h2>3. Expenses</h2>
+  <p class="section-body">All reasonable expenses incurred by Attorney in handling Client's matter shall be paid by Client as incurred. Expenses include but are not limited to: filing fees, postage, overnight fees, state regulatory filing fees, copy costs, certified copies, transcripts, records, travel, parking, and any other case expenses. Online research fees are charged at service provider standard fee. Filing fees are charged at service provider standard fee. Mileage is charged at the IRS standard mileage rate.</p>
 
-  <h2>4. NEGOTIATION AUTHORITY</h2>
-  <p class="section-body">Attorney is authorized to enter into negotiations on behalf of Client as Attorney deems appropriate within the scope of this Agreement. No binding settlement, resolution, or agreement that affects Client's legal rights or financial obligations shall be entered into without Client's prior written approval.</p>
+  <h2>4. Negotiation Authority</h2>
+  <p class="section-body">Attorney is authorized to enter into negotiations on behalf of Client in connection with the Matter as Attorney deems appropriate, including contract negotiations, regulatory inquiries, and commercial disputes within the scope of this Agreement. Notwithstanding the foregoing, no binding settlement, resolution, or agreement that affects Client's legal rights or financial obligations shall be entered into without Client's prior written approval. Attorney will present all material settlement or resolution proposals to Client before any commitment is made.</p>
 
-  <h2>5. SUBSCRIPTION TERMS AND AUTOMATIC RENEWAL</h2>
-  <p class="section-body">If Client has enrolled in the General Counsel Subscription at $2,500 per month, the monthly fee covers: (a) unlimited email and messaging access, responses within one business day; (b) one monthly strategy call of up to 45 minutes; (c) up to three standard commercial contract reviews per month; and (d) full access to the GameCompliance™ platform.</p>
-  <p class="section-body allcaps">THE SUBSCRIPTION WILL AUTOMATICALLY RENEW EACH MONTH AT $2,500 UNLESS CANCELLED. To cancel, Client must provide written notice to Attorney at weswilliamsesq@gmail.com at least thirty (30) days before the next billing date. No partial refunds are issued for mid-period cancellations.</p>
-  <p class="section-body allcaps">By executing this Agreement and enrolling in the Subscription, Client expressly authorizes Stripe, Inc. to charge Client's payment method on file the amount of $2,500.00 on a recurring monthly basis until the Subscription is cancelled in accordance with the cancellation terms above.</p>
-  <p class="section-body">Overage services are available at $350/hr under a separate written engagement agreement. All litigation remains excluded regardless of fee arrangement.</p>
+  <h2>5. Subscription Terms and Automatic Renewal</h2>
+  <p class="section-body">Client has enrolled in the <strong>${tl} Subscription</strong> at <strong>$${tp} per month</strong> (the "Subscription"). The monthly Subscription fee covers the following services within the defined practice areas: (a) ${tea}; (b) ${tcs}; (c) up to ${tcr} standard commercial contract review(s) per month; and (d) full access to the GameCompliance&trade; compliance platform and regulatory alert service. Subscription services are subject to the litigation exclusion in Section 1 above.</p>
+  <p class="section-body warning allcaps">AUTOMATIC RENEWAL DISCLOSURE — REQUIRED BY CALIFORNIA BUSINESS &amp; PROFESSIONS CODE §17601 ET SEQ.: THE SUBSCRIPTION WILL AUTOMATICALLY RENEW EACH MONTH AT $${tp} UNLESS CANCELLED. Your subscription will be charged to the payment method on file on the same calendar date each month. To cancel, Client must provide written notice to Attorney at weswilliamsesq@gmail.com at least thirty (30) days before the next billing date. Cancellation takes effect at the end of the then-current billing period. No partial refunds are issued for mid-period cancellations except as required by law or as set forth below.</p>
+  <p class="section-body">Overage Services. Work outside the Subscription scope — including matters exceeding the included contract review allotment per month, complex transactions, M&amp;A, and government enforcement matters not requiring court appearance — is available at $350/hr, billed separately under a written engagement agreement. All litigation remains excluded regardless of fee arrangement.</p>
+  <p class="section-body">Modification of Subscription Terms. Attorney reserves the right to modify Subscription pricing or scope upon sixty (60) days written notice. Client may cancel without penalty during the notice period.</p>
+  <p class="section-body warning">PAYMENT PROCESSING AND RECURRING CHARGE AUTHORIZATION: Subscription payments are processed by Stripe, Inc. Attorney does not store Client's payment card information. By executing this Agreement and enrolling in the Subscription, Client expressly authorizes Stripe, Inc. to charge Client's payment method on file the amount of $${tar} on a recurring monthly basis, on the same calendar date each month, until the Subscription is cancelled in accordance with the cancellation terms above. This authorization remains in effect until Client provides written cancellation notice as specified herein. Failed payments result in a 7-day grace period before further action, including possible suspension or withdrawal as provided in Section 9.</p>
+  <p class="section-body">Earned Fee / Refund on Termination. The monthly Subscription fee is earned on a pro-rata daily basis throughout each billing month. If this Agreement terminates mid-month, Attorney will refund the unearned portion of that month's fee (calculated as the number of unused days in the month divided by the total days in the month, multiplied by the monthly fee), unless the parties agree otherwise in writing.</p>
 
-  <h2>6. ELECTRONIC SIGNATURE AND COMMUNICATIONS</h2>
-  <p class="section-body">The parties agree that this Agreement may be executed electronically. An electronic signature constitutes a valid and binding signature under the California Uniform Electronic Transactions Act (Cal. Civ. Code §§ 1633.1 et seq.) and the federal Electronic Signatures in Global and National Commerce Act (15 U.S.C. § 7001 et seq.). Client's affirmative click-through assent constitutes Client's electronic signature and is legally equivalent to a handwritten signature.</p>
+  <h2>6. Electronic Signature and Communications</h2>
+  <p class="section-body">The parties agree that this Agreement may be executed electronically. An electronic signature constitutes a valid and binding signature under the California Uniform Electronic Transactions Act (Cal. Civ. Code §§ 1633.1 et seq.) and the federal Electronic Signatures in Global and National Commerce Act (15 U.S.C. § 7001 et seq.). Client's affirmative click-through assent constitutes Client's electronic signature and is legally equivalent to a handwritten signature. The parties consent to communicate by electronic mail, which satisfies any writing requirements under the California Rules of Professional Conduct.</p>
 
-  <h2>7. CONFIDENTIALITY AND ATTORNEY-CLIENT PRIVILEGE</h2>
-  <p class="section-body">Attorney will maintain the confidentiality of all information Client discloses in the course of representation, subject to the exceptions in California Rules of Professional Conduct Rule 1.6 and applicable law.</p>
+  <h2>7. Confidentiality and Attorney-Client Privilege</h2>
+  <p class="section-body">Attorney will maintain the confidentiality of all information Client discloses in the course of representation, subject to the exceptions in California Rules of Professional Conduct Rule 1.6 and applicable law. All communications between Client and Attorney made for the purpose of seeking or providing legal advice are protected by the attorney-client privilege.</p>
 
-  <h2>8. CONFLICTS OF INTEREST</h2>
-  <p class="section-body">Attorney has conducted a conflicts check based on information available at the time of engagement. If a conflict of interest arises during the representation, Attorney will promptly notify Client.</p>
+  <h2>8. Conflicts of Interest</h2>
+  <p class="section-body">Attorney has conducted a conflicts check based on information available at the time of engagement. If a conflict of interest arises during the representation, Attorney will promptly notify Client and address the conflict in accordance with the California Rules of Professional Conduct.</p>
 
-  <h2>9. CLIENT RESPONSIBILITIES</h2>
-  <p class="section-body">Client agrees to: (a) provide Attorney with timely, accurate, and complete information; (b) cooperate fully with Attorney; (c) keep Attorney advised of current contact information; (d) notify Attorney of any changes in business affiliation; (e) pay invoices in accordance with this Agreement; and (f) make decisions on matters requiring Client's authorization.</p>
+  <h2>9. Discharge and Withdrawal</h2>
+  <p class="section-body">Client's Right to Discharge. Client may discharge Attorney at any time, with or without cause, by providing written notice to Attorney.</p>
+  <p class="section-body">Attorney's Right to Withdraw. Attorney may withdraw from the representation only as permitted by the California Rules of Professional Conduct (including Rule 1.16) and applicable law. Attorney may withdraw if Client breaches a material term of this Agreement, including failure to pay the monthly Subscription fee when due. Attorney will first provide Client with reasonable written notice of the breach and at least ten (10) days to cure. If the breach is not cured, Attorney may cease providing further services and withdraw from the representation.</p>
+  <p class="section-body">Upon any termination, Attorney will: (a) take all reasonable steps to avoid foreseeable prejudice to Client's interests; (b) promptly return to Client all Client files and documents in Attorney's possession; (c) promptly refund any portion of fees paid in advance that have not been earned, calculated on a pro-rata daily basis; and (d) deliver a final accounting of any amounts still owed for services already performed.</p>
 
-  <h2>10. ASSOCIATION OF OTHER ATTORNEYS</h2>
-  <p class="section-body">Attorney may, with Client's consent, associate other attorneys to assist in representation. Any referral fee arrangements will be disclosed to Client in writing and comply with California Rules of Professional Conduct Rule 7.2(b).</p>
+  <h2>10. Association of Other Attorneys or Services</h2>
+  <p class="section-body">Attorney may, at Attorney's sole discretion, employ any other person or service necessary to assist in this representation. Should it become advisable to refer this matter or associate with another attorney or law firm, Attorney will provide Client with information regarding any division of fee arrangement, including the identity of all participating lawyers, the basis for fee division, and each party's share. Attorney will request Client's written consent before any such arrangement is made.</p>
 
-  <h2>11. DISCHARGE AND WITHDRAWAL</h2>
-  <p class="section-body">Client may discharge Attorney at any time with written notice. Attorney may withdraw from representation for good cause including non-payment of fees, client misconduct, or any other basis permitted under the California Rules of Professional Conduct, upon reasonable notice to Client.</p>
+  <h2>11. Dispute Resolution and Fee Arbitration</h2>
+  <p class="section-body">Client has the right to request mandatory fee arbitration through the State Bar of California Fee Arbitration Program before filing a lawsuit, pursuant to California Business and Professions Code §§ 6200–6206. Client may exercise this right by notifying Attorney in writing within thirty (30) days of receiving a final billing statement. If Client elects not to proceed under the State Bar fee arbitration procedures within thirty (30) days, any dispute over fees, charges, costs, expenses, or any other dispute between Client and Attorney will be resolved via judicial reference without jury. The sole and exclusive venue for fee arbitration and any legal dispute shall be San Diego County, California, and/or the Southern District of California (if Federal Court).</p>
+  <p class="section-body warning">JURY TRIAL WAIVER: BY EXECUTING THIS AGREEMENT, CLIENT CONFIRMS THAT CLIENT HAS READ AND UNDERSTANDS THE DISPUTE RESOLUTION PROVISIONS ABOVE AND VOLUNTARILY AGREES TO RESOLUTION BY JUDICIAL REFERENCE OR OTHER COURT PROCEEDING AS WARRANTED IN THE EVENT CLIENT DOES NOT ELECT STATE BAR FEE ARBITRATION PROCEDURES. IN DOING SO, CLIENT AND ATTORNEY VOLUNTARILY WAIVE IMPORTANT CONSTITUTIONAL RIGHTS TO TRIAL BY JURY. CLIENT IS ADVISED THAT CLIENT HAS THE RIGHT TO HAVE AN INDEPENDENT ATTORNEY REVIEW THIS DISPUTE RESOLUTION PROVISION AND THIS ENTIRE AGREEMENT PRIOR TO SIGNING.</p>
 
-  <h2>12. DISPUTE RESOLUTION AND JURY TRIAL WAIVER</h2>
-  <p class="section-body">Any dispute regarding Attorney's fees shall be subject to mandatory fee arbitration under the California State Bar's fee arbitration program (Bus. & Prof. Code §§ 6200-6206) before filing a civil action. All other disputes shall be resolved by judicial reference or other civil proceeding in San Diego County, California.</p>
-  <p class="section-body allcaps warning">JURY TRIAL WAIVER: By executing this Agreement, Client confirms that Client has read and understands the dispute resolution provisions and voluntarily agrees to resolution by judicial reference or other court proceeding. IN DOING SO, CLIENT AND ATTORNEY VOLUNTARILY WAIVE IMPORTANT CONSTITUTIONAL RIGHTS TO TRIAL BY JURY. Client is advised that Client has the right to have an independent attorney review this provision prior to signing.</p>
+  <h2>12. Prevailing Party Attorney Fees</h2>
+  <p class="section-body">In the event either party brings an action to enforce any provision of this Agreement, the prevailing party shall be entitled to recover reasonable attorney fees and costs incurred in such action.</p>
 
-  <h2>13. PREVAILING PARTY ATTORNEY FEES</h2>
-  <p class="section-body">In any dispute arising from this Agreement, the prevailing party shall be entitled to recover reasonable attorney's fees and costs from the non-prevailing party.</p>
+  <h2>13. Tax Disclosure and Acknowledgment</h2>
+  <p class="section-body warning allcaps">CLIENT IS ADVISED TO OBTAIN INDEPENDENT AND COMPETENT TAX ADVICE REGARDING THESE LEGAL MATTERS SINCE LEGAL TRANSACTIONS CAN GIVE RISE TO TAX CONSEQUENCES. ATTORNEY HAS NOT AGREED TO RENDER ANY TAX ADVICE AND IS NOT RESPONSIBLE FOR ANY ADVICE REGARDING TAX MATTERS OR PREPARATION OF TAX RETURNS OR OTHER FILINGS, INCLUDING BUT NOT LIMITED TO STATE AND FEDERAL INCOME AND INHERITANCE TAX RETURNS. CLIENT SHOULD OBTAIN PROFESSIONAL HELP REGARDING THE VALUATION AND LOCATION OF ALL ASSETS WHICH MAY BE THE SUBJECT OF A LEGAL MATTER.</p>
 
-  <h2>14. TAX DISCLOSURE</h2>
-  <p class="section-body allcaps">ATTORNEY FEES MAY BE DEDUCTIBLE AS A BUSINESS EXPENSE UNDER APPLICABLE TAX LAW. CLIENT SHOULD CONSULT A QUALIFIED TAX PROFESSIONAL REGARDING THE DEDUCTIBILITY OF LEGAL FEES IN CLIENT'S SPECIFIC CIRCUMSTANCES. ATTORNEY MAKES NO REPRESENTATION REGARDING THE TAX TREATMENT OF ANY FEES PAID UNDER THIS AGREEMENT.</p>
+  <h2>14. Disclaimer — GameCompliance™</h2>
+  <p class="section-body">If Client was referred through the GameCompliance™ platform, Client acknowledges that: (a) use of the GameCompliance™ tool did not create an attorney-client relationship; (b) the analysis generated by GameCompliance™ constituted legal issue-spotting only and did not constitute legal advice; and (c) this Retainer Agreement, once executed, establishes the attorney-client relationship for the specific Matter or Subscription identified herein.</p>
 
-  <h2>15. GAMECOMPLIANCE™ DISCLAIMER</h2>
-  <p class="section-body">If Client was referred through the GameCompliance™ platform, Client acknowledges that: (a) use of the GameCompliance™ tool did not create an attorney-client relationship; (b) the analysis generated by GameCompliance™ constituted legal issue-spotting only and did not constitute legal advice; and (c) this Retainer Agreement, once executed, establishes the attorney-client relationship.</p>
+  <h2>15. California Law — Governing Law and Construction</h2>
+  <p class="section-body">This Agreement shall be construed under the laws of California. All obligations of the parties created hereunder are performable in San Diego County, California. If any provision of this Agreement is held invalid, illegal, or unenforceable for any reason, such invalidity shall not affect any other provision, and this Agreement shall be construed as if such provision had never been contained herein.</p>
 
-  <h2>16. GOVERNING LAW / SEVERABILITY</h2>
-  <p class="section-body">This Agreement shall be construed under and governed by the laws of the State of California. If any provision is found invalid or unenforceable, the remaining provisions shall continue in full force and effect.</p>
+  <h2>16. Parties Bound — Entire Agreement</h2>
+  <p class="section-body">This Agreement shall be binding upon and inure to the benefit of the parties and their respective heirs, executors, administrators, legal representatives, successors, and assigns where permitted. This Agreement constitutes the sole and entire agreement between the parties, supersedes all prior understandings or written or oral agreements concerning the subject matter hereof, and may be modified only by a written instrument signed by both parties.</p>
 
-  <h2>17. PARTIES BOUND / ENTIRE AGREEMENT</h2>
-  <p class="section-body">This Agreement shall be binding upon and inure to the benefit of the parties and their respective heirs, executors, administrators, legal representatives, successors, and assigns where permitted. This Agreement constitutes the sole and entire agreement between the parties and may be modified only by a written instrument signed by both parties.</p>
+  <h2>17. Effective Date and Duplicate Copy</h2>
+  <p class="section-body">This Agreement will govern all legal services beginning on the date that Attorney began performing work for Client. The date of electronic execution is used for reference only. <strong>Client will be required to pay Attorney the reasonable value of services performed by Attorney, even if this Agreement never formally takes effect.</strong> Attorney will not begin providing legal services until Client has executed this Agreement electronically and any required payment has been processed. Attorney will provide Client with a fully executed duplicate copy of this Agreement as required by Business and Professions Code § 6148.</p>
 
-  <h2>18. EFFECTIVE DATE</h2>
-  <p class="section-body">This Agreement is effective as of the date of electronic execution by Client. Attorney's services rendered prior to formal execution are covered by this Agreement, and Client acknowledges that the reasonable value of any such services is owed regardless of whether this Agreement is formally executed.</p>
+  <p style="font-size:10pt;color:#555;margin-top:18px;padding-top:10px;border-top:1px solid #ddd;">This Agreement is governed by the California Rules of Professional Conduct and applicable provisions of the California Business and Professions Code, including Business and Professions Code §§ 6200–6206 (fee arbitration) and §§ 17601 et seq. (automatic renewal).</p>
 
   <!-- SIGNATURE BLOCK -->
   <div class="sig-block">
-    <div class="sig-title">EXECUTION RECORD — ELECTRONIC SIGNATURE</div>
+    <div class="sig-title">EXECUTION RECORD — FULLY EXECUTED AGREEMENT</div>
 
     <div class="sig-row">
       <div style="flex:1">
@@ -2069,47 +2176,55 @@ function RetainerPage({ setPage }) {
       </div>
     </div>
 
-    <div class="sig-row" style="margin-top:12px">
+    <div class="sig-row" style="margin-top:14px">
       <div style="flex:1">
         <div class="sig-label">STUDIO / COMPANY</div>
         <div class="sig-value">${signForm.studio || "N/A"}</div>
       </div>
       <div style="flex:1">
-        <div class="sig-label">MATTER / SUBSCRIPTION TYPE</div>
-        <div class="sig-value">${signForm.matter}</div>
+        <div class="sig-label">SUBSCRIPTION TIER &amp; MATTER</div>
+        <div class="sig-value">${tl} — $${tp}/mo | ${signForm.matter}</div>
       </div>
     </div>
 
     <div style="margin-top:20px">
-      <div class="sig-label" style="margin-bottom:8px">ACKNOWLEDGMENTS CONFIRMED BY CLIENT:</div>
-      <div class="checkbox-record">I have read, understood, and agree to all terms and conditions of this Attorney-Client Retainer Agreement.</div>
-      <div class="checkbox-record">I separately and specifically acknowledge the Jury Trial Waiver in Section 12 and voluntarily waive my constitutional right to a jury trial.</div>
+      <div class="sig-label" style="margin-bottom:8px;font-weight:bold;">CLIENT ACKNOWLEDGMENTS (BOTH CHECKED AT TIME OF EXECUTION):</div>
+      <div class="checkbox-record">I have read, understood, and agree to all terms and conditions of this Attorney-Client Retainer Agreement, including the No Trust Account disclosure in Section 2(B) and the automatic renewal terms in Section 5.</div>
+      <div class="checkbox-record">I separately and specifically acknowledge the Jury Trial Waiver in Section 11 and voluntarily waive my constitutional right to a jury trial. I understand I may have an independent attorney review this provision before signing.</div>
     </div>
 
     <div class="timestamp-box">
       EXECUTION DATE: ${dateStr}<br/>
       EXECUTION TIME: ${timeStr}<br/>
       EXECUTION TIMESTAMP (ISO 8601 / UTC): ${ts}<br/>
-      SIGNATURE METHOD: Electronic Click-Through (UETA Cal. Civ. Code §§ 1633.1 et seq. / eSign Act 15 U.S.C. § 7001)<br/>
-      ATTORNEY: Wesley R. Williams, Esq. — CA Bar No. 269157
+      SIGNATURE METHOD: Electronic Click-Through Assent<br/>
+      LEGAL BASIS: UETA — Cal. Civ. Code §§ 1633.1 et seq. / eSign Act — 15 U.S.C. § 7001 et seq.<br/>
+      ATTORNEY: Wesley R. Williams, Esq. — CA State Bar No. 269157
     </div>
 
-    <div style="margin-top:24px;display:flex;justify-content:space-between;gap:40px">
-      <div style="flex:1;border-top:1px solid #000;padding-top:8px">
-        <div style="font-size:14pt;font-weight:bold">/s/ ${signForm.name}</div>
-        <div style="font-size:9pt;color:#555">CLIENT — Electronic Signature</div>
-        <div style="font-size:9pt;color:#555">${dateStr}</div>
+    <div style="margin-top:28px;display:flex;justify-content:space-between;gap:40px">
+      <div class="sig-line-block">
+        <div class="sig-name">/s/ ${signForm.name}</div>
+        <div class="sig-caption">
+          <strong>CLIENT — Electronic Signature</strong><br/>
+          ${signForm.name}${signForm.studio ? "<br/>" + signForm.studio : ""}<br/>
+          Date: ${dateStr}
+        </div>
       </div>
-      <div style="flex:1;border-top:1px solid #000;padding-top:8px">
-        <div style="font-size:14pt;font-weight:bold">/s/ Wesley R. Williams</div>
-        <div style="font-size:9pt;color:#555">ATTORNEY — Wesley R. Williams, Esq.</div>
-        <div style="font-size:9pt;color:#555">CA Bar No. 269157 — Countersignature pending</div>
+      <div class="sig-line-block">
+        <div class="sig-name-atty">/s/ Wesley R. Williams</div>
+        <div class="sig-caption">
+          <strong>ATTORNEY — Countersignature</strong><br/>
+          Wesley R. Williams, Esq.<br/>
+          CA State Bar No. 269157<br/>
+          Date: ${dateStr}
+        </div>
       </div>
     </div>
   </div>
 
   <div class="disclaimer">
-    This document constitutes a legally binding attorney-client retainer agreement executed electronically pursuant to the California Uniform Electronic Transactions Act and the federal Electronic Signatures in Global and National Commerce Act. Retain this document for your records. Wesley R. Williams, Esq. is licensed to practice law in the State of California only. This website constitutes attorney advertising. Prior results do not guarantee a similar outcome.
+    This document constitutes a fully executed, legally binding attorney-client retainer agreement executed electronically by both parties pursuant to the California Uniform Electronic Transactions Act (Cal. Civ. Code §§ 1633.1 et seq.) and the federal Electronic Signatures in Global and National Commerce Act (15 U.S.C. § 7001 et seq.). Both parties should retain a copy of this document for their records. Wesley R. Williams, Esq. is licensed to practice law in the State of California only. This website constitutes attorney advertising under California Rules of Professional Conduct Rule 7.1. Prior results do not guarantee a similar outcome.
   </div>
 
 </div>
@@ -2128,38 +2243,99 @@ function RetainerPage({ setPage }) {
         <div className="neon-green" style={{ fontSize: "12px", letterSpacing: "3px",
           marginBottom: "16px" }}>RETAINER EXECUTED</div>
         <div style={{ fontFamily: "'Courier New', monospace", fontSize: "13px",
-          color: "#88cc88", lineHeight: "2", marginBottom: "24px" }}>
+          color: "#88cc88", lineHeight: "2", marginBottom: "16px" }}>
           Congratulations, {signForm.name}.<br />
-          Your retainer agreement has been executed electronically.<br /><br />
+          Your retainer agreement has been fully executed electronically.<br />
+          <span style={{ color: C.yellow }}>Tier: {tierLabel} — ${tierPrice}/mo</span>
+        </div>
+        <div style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
+          color: "#667755", lineHeight: "1.9", marginBottom: "24px" }}>
+          Both parties' signatures are recorded above.<br />
           Wesley R. Williams, Esq. will be in touch within one business day.
         </div>
         <div style={{ fontSize: "7px", color: C.dim, letterSpacing: "2px", marginBottom: "28px" }}>
           EXECUTION TIMESTAMP: {execTimestamp.toISOString()}<br />
-          CA BAR NO. 269157 · ELECTRONIC SIGNATURE VALID UNDER UETA
+          CA BAR NO. 269157 · ELECTRONIC SIGNATURE VALID UNDER UETA &amp; ESIGN ACT
         </div>
 
         {/* PDF Download CTA */}
         <div style={{ border: `3px solid ${C.yellow}`, background: `${C.yellow}0a`,
-          padding: "20px", marginBottom: "24px", boxShadow: `0 0 20px ${C.yellow}33` }}>
+          padding: "20px", marginBottom: "16px", boxShadow: `0 0 20px ${C.yellow}33` }}>
           <div style={{ fontSize: "8px", color: C.yellow, letterSpacing: "2px",
             marginBottom: "10px", textShadow: `0 0 8px ${C.yellow}` }}>
-            ── SAVE YOUR COPY ──
+            ── SAVE YOUR FULLY EXECUTED COPY ──
           </div>
           <div style={{ fontFamily: "'Courier New', monospace", fontSize: "11px",
             color: "#aaaa66", lineHeight: "1.8", marginBottom: "16px" }}>
-            Download a PDF copy of your signed retainer agreement for your records.
-            When the document opens, press <strong style={{ color: C.yellow }}>Ctrl+P</strong> (Windows)
-            or <strong style={{ color: C.yellow }}>Cmd+P</strong> (Mac) and select
+            Both the client and Wesley R. Williams, Esq. should save this PDF for their records.
+            Press <strong style={{ color: C.yellow }}>Ctrl+P</strong> (Windows)
+            or <strong style={{ color: C.yellow }}>Cmd+P</strong> (Mac) → select
             <strong style={{ color: C.yellow }}> "Save as PDF"</strong>.
           </div>
-          <button className="btn-arcade btn-yellow" onClick={handleDownloadPDF}
-            style={{ fontSize: "9px", padding: "12px 28px" }}>
-            ⬇ DOWNLOAD SIGNED RETAINER PDF
-          </button>
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center" }}>
+            <div style={{ textAlign: "center" }}>
+              <div style={{ fontSize: "6px", color: C.dim, letterSpacing: "1px", marginBottom: "6px" }}>CLIENT COPY</div>
+              <button className="btn-arcade btn-yellow" onClick={handleDownloadPDF}
+                style={{ fontSize: "8px", padding: "12px 20px" }}>
+                ⬇ CLIENT PDF
+              </button>
+            </div>
+            <div style={{ textAlign: "center" }}>
+              <div style={{ fontSize: "6px", color: C.cyan, letterSpacing: "1px", marginBottom: "6px" }}>ATTORNEY COPY</div>
+              <button className="btn-arcade btn-cyan" onClick={handleDownloadPDF}
+                style={{ fontSize: "8px", padding: "12px 20px" }}>
+                ⬇ ATTORNEY PDF
+              </button>
+            </div>
+          </div>
         </div>
 
         <button className="btn-arcade btn-cyan" onClick={() => setPage("contact")}
           style={{ fontSize: "8px" }}>CONTACT ATTORNEY</button>
+      </div>
+    </div>
+  );
+
+  // ── STEP 0: Tier selection ──
+  if (!selectedTierObj) return (
+    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "120px 32px 80px" }}>
+      <div style={{ textAlign: "center", marginBottom: "40px" }}>
+        <div style={{ fontSize: "7px", color: C.yellow, letterSpacing: "4px",
+          marginBottom: "12px", textShadow: `0 0 10px ${C.yellow}` }}>── LEGAL CONTRACT ──</div>
+        <h1 className="neon-yellow" style={{ fontSize: "clamp(12px, 2.5vw, 20px)",
+          letterSpacing: "3px", marginBottom: "8px" }}>ATTORNEY RETAINER AGREEMENT</h1>
+        <div style={{ fontSize: "7px", color: C.dim, letterSpacing: "2px", marginBottom: "20px" }}>
+          STEP 1 OF 2 — SELECT YOUR SUBSCRIPTION TIER
+        </div>
+        <div style={{ fontFamily: "'Courier New', monospace", fontSize: "12px",
+          color: "#778899", lineHeight: "1.8", maxWidth: "520px", margin: "0 auto" }}>
+          Select the tier that matches your subscription. The retainer agreement will be customized to your tier's scope and fee. If you have not yet subscribed, <button onClick={() => setPage("pricing")} style={{ background: "none", border: "none", color: C.cyan, fontFamily: "'Courier New', monospace", fontSize: "12px", cursor: "crosshair", textDecoration: "underline", padding: 0 }}>visit the pricing page first</button>.
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px", marginBottom: "28px" }}>
+        {TIERS.map(tier => (
+          <button key={tier.id} onClick={() => { setSelectedTierObj(tier); setSignForm(f => ({ ...f, tier: tier.label })); }}
+            style={{
+              background: `${tier.color}0a`, border: `3px solid ${tier.color}`,
+              color: tier.color, padding: "24px 16px", cursor: "crosshair",
+              fontFamily: "'Press Start 2P', monospace", textAlign: "center",
+              boxShadow: `0 0 16px ${tier.color}44`,
+              display: "flex", flexDirection: "column", gap: "10px", alignItems: "center",
+            }}>
+            <div style={{ fontSize: "24px" }}>{tier.emoji}</div>
+            <div style={{ fontSize: "8px", letterSpacing: "1px" }}>{tier.label}</div>
+            <div style={{ fontSize: "7px", color: C.dim }}>{tier.sublabel}</div>
+            <div style={{ fontSize: "11px", fontWeight: "700", color: tier.color,
+              textShadow: `0 0 10px ${tier.color}` }}>${tier.price}/mo</div>
+          </button>
+        ))}
+      </div>
+
+      <div style={{ border: `2px solid ${C.yellow}33`, padding: "14px 18px",
+        background: C.surface, fontSize: "7px", color: C.dim, letterSpacing: "1px",
+        lineHeight: "2.2", textAlign: "center" }}>
+        NOT SURE WHICH TIER? <button onClick={() => setPage("pricing")} style={{ background: "none", border: "none", color: C.yellow, fontFamily: "'Press Start 2P', monospace", fontSize: "7px", cursor: "crosshair", textDecoration: "underline", letterSpacing: "1px", padding: "0 4px" }}>COMPARE TIERS</button> · ALREADY SUBSCRIBED? SELECT YOUR TIER ABOVE TO PROCEED.
       </div>
     </div>
   );
@@ -2175,8 +2351,20 @@ function RetainerPage({ setPage }) {
           letterSpacing: "3px", marginBottom: "8px" }}>
           ATTORNEY RETAINER AGREEMENT
         </h1>
-        <div style={{ fontSize: "7px", color: C.dim, letterSpacing: "2px" }}>
+        <div style={{ fontSize: "7px", color: C.dim, letterSpacing: "2px", marginBottom: "8px" }}>
           WESLEY R. WILLIAMS, ESQ. · CA BAR NO. 269157
+        </div>
+        {/* Tier badge */}
+        <div style={{ display: "inline-block", padding: "6px 16px", marginTop: "8px",
+          border: `2px solid ${selectedTierObj.color}`, background: `${selectedTierObj.color}15`,
+          fontSize: "7px", color: selectedTierObj.color, letterSpacing: "2px",
+          textShadow: `0 0 8px ${selectedTierObj.color}` }}>
+          {selectedTierObj.emoji} {selectedTierObj.label} — ${selectedTierObj.price}/MO
+          <button onClick={() => { setSelectedTierObj(null); setScrolled(false); setAgreed(false); setJuryWaived(false); }}
+            style={{ background: "none", border: "none", color: C.dim, fontFamily: "'Press Start 2P', monospace",
+              fontSize: "6px", cursor: "crosshair", marginLeft: "12px", letterSpacing: "1px" }}>
+            [CHANGE]
+          </button>
         </div>
       </div>
 
@@ -2186,7 +2374,7 @@ function RetainerPage({ setPage }) {
           padding: "12px", marginBottom: "16px", fontSize: "7px",
           color: C.yellow, textAlign: "center", letterSpacing: "1px",
           animation: "neonPulse 2s infinite" }}>
-          ▼ SCROLL TO READ FULL AGREEMENT BEFORE SIGNING ▼
+          ▼ SCROLL TO BOTTOM OF AGREEMENT TO ENABLE SIGNATURE ▼
         </div>
       )}
 
@@ -2202,52 +2390,59 @@ California State Bar No. 269157{"\n"}
 weswilliamsesq@gmail.com | 619.305.6485{"\n"}
 San Diego, California{"\n\n"}
 
+<div style={{ background: `${selectedTierObj.color}12`, border: `2px solid ${selectedTierObj.color}44`,
+  padding: "10px 14px", marginBottom: "16px", fontFamily: "'Courier New', monospace", fontSize: "11px",
+  color: selectedTierObj.color, lineHeight: "1.9" }}>
+  SUBSCRIPTION TIER: {selectedTierObj.label.toUpperCase()} — ${selectedTierObj.price}/MONTH{"\n"}
+  Automatic Renewal Amount: ${selectedTierObj.autoRenew} per month
+</div>
+
 This Agreement is made between the Client identified below ("Client") and Wesley R. Williams, Esq. ("Attorney"). In consideration of the mutual promises herein, the parties agree as follows:{"\n\n"}
 
 <strong style={{ color: C.yellow }}>1. SCOPE OF REPRESENTATION</strong>{"\n\n"}
-Attorney agrees to represent Client in connection with the specific matter described by Client at the time of engagement ("the Matter"), within the following practice areas: gaming law and video game commerce, real estate and title insurance, fintech, and digital assets. This Agreement covers only the Matter or Subscription scope expressly identified. Any additional matters outside the defined scope require a separate written agreement or amendment.{"\n\n"}
+Attorney agrees to represent Client in connection with the specific matter described by Client at the time of engagement (the "Matter"), within the following practice areas: gaming law and video game commerce, real estate and title insurance, fintech, and digital assets. This Agreement covers only the Matter or Subscription scope expressly identified. Any additional matters outside the defined scope require a separate written agreement or amendment.{"\n\n"}
 
 Attorney's services may include, as applicable and agreed: legal research and analysis; drafting, reviewing, and negotiating contracts and agreements; regulatory compliance advice; and correspondence and communications on Client's behalf. Attorney will keep Client informed of the progress of the Matter and will respond within a reasonable time to Client's inquiries.{"\n\n"}
 
-This Agreement will not become binding on either party, and Attorney will not begin providing legal services, until Client has executed this Agreement electronically and payment, if applicable, has been processed.{"\n\n"}
+This Agreement will not become binding on either party, and Attorney will not begin providing legal services, until Client has executed this Agreement electronically and any required payment has been processed.{"\n\n"}
 
-<strong style={{ color: C.pink, fontSize: "12px" }}>EXCLUSION — NO LITIGATION SERVICES:</strong>{" "}
-<strong style={{ color: "#ffaaaa" }}>Attorney does not provide litigation services, court appearances, or representation in administrative, regulatory, arbitration, or judicial proceedings of any kind. This Agreement expressly excludes all litigation, government enforcement defense, and any matter requiring court or tribunal appearance. Clients requiring litigation services must retain separate litigation counsel. Nothing in this Agreement shall be construed to create an obligation on the part of Attorney to appear in any court or proceeding.</strong>{"\n\n"}
+<strong style={{ color: "#ffaaaa" }}>EXCLUSION — NO LITIGATION SERVICES:</strong>{" "}Attorney does not provide litigation services, court appearances, or representation in administrative, regulatory, arbitration, or judicial proceedings of any kind. This Agreement expressly excludes all litigation, government enforcement defense, and any matter requiring court or tribunal appearance. Clients requiring litigation services must retain separate litigation counsel. Nothing in this Agreement shall be construed to create an obligation on the part of Attorney to appear in any court or proceeding.{"\n\n"}
 
 <strong style={{ color: C.yellow }}>2. FEES, BILLING, AND TRUST ACCOUNT DISCLOSURE</strong>{"\n\n"}
 
-<strong style={{ color: "#aabbcc" }}>A. Fee Structure.</strong>{" "}Attorney's fees are charged on a flat fee or monthly subscription basis as agreed at engagement. No hourly billing applies unless separately agreed in writing for overage services. Attorney will provide Client with the applicable fee structure in writing at or before commencement of representation.{"\n\n"}
+<strong style={{ color: "#aabbcc" }}>A. Fee Structure.</strong>{" "}Attorney's fees for this engagement are charged under the <strong style={{ color: selectedTierObj.color }}>{selectedTierObj.label} Subscription</strong> at <strong style={{ color: selectedTierObj.color }}>${selectedTierObj.price} per month</strong>, as further described in Section 5. No hourly billing applies unless separately agreed in writing for overage services.{"\n\n"}
 
-<strong style={{ color: "#aabbcc" }}>B. No Client Trust Account — Important Disclosure.</strong>{" "}
-<strong style={{ color: "#ffdd88" }}>CLIENT IS ADVISED THAT ATTORNEY DOES NOT MAINTAIN A CLIENT TRUST ACCOUNT (IOLTA ACCOUNT). Attorney does not hold client funds in trust. All fees are earned upon receipt or as services are rendered per the agreed fee structure. For Subscription clients, invoices are generated and delivered automatically by Stripe, Inc. on Attorney's behalf prior to each monthly charge. For non-subscription matters, Attorney will submit invoices to Client for all fees and expenses as described in this Agreement.</strong>{"\n\n"}
+<strong style={{ color: "#aabbcc" }}>B. No Client Trust Account — Important Disclosure (California Rule of Professional Conduct 1.15(b)).</strong>{"\n"}
+<strong style={{ color: "#ffdd88" }}>Attorney does not maintain a client trust account (IOLTA). All fees paid under this Agreement, including monthly Subscription fees, will be deposited directly into Attorney's operating account.</strong>{"\n\n"}
 
-<strong style={{ color: "#aabbcc" }}>C. Invoicing and Payment.</strong>{" "}For Subscription clients, Stripe, Inc. automatically generates and emails a PDF invoice to Client before each monthly charge and a receipt upon successful payment. No manual invoice submission is required for recurring Subscription fees. For non-subscription flat fee or overage matters, Attorney will issue invoices which are due within thirty (30) days of the invoice date. Unpaid fees and expenses not paid within thirty (30) days of the statement date shall bear interest at the rate of twelve percent (12%) per annum until paid.{"\n\n"}
+CLIENT ACKNOWLEDGMENT AND CONSENT: Client understands and agrees that: (i) Client has the right to require that any flat-fee or Subscription payment be deposited into a client trust account until the fee is earned; and (ii) Client is entitled to a refund of any portion of a fee paid in advance that has not been earned in the event the representation terminates. By signing this Agreement, Client expressly consents to the deposit of all fees directly into Attorney's operating account.{"\n\n"}
 
-<strong style={{ color: "#aabbcc" }}>D. Rate Changes.</strong>{" "}Attorney shall give Client thirty (30) days written notice of any change to the fee schedule. If Client does not agree to the new rate schedule, Client may terminate this Agreement and Attorney may withdraw from representation.{"\n\n"}
+<strong style={{ color: "#aabbcc" }}>C. Invoicing and Payment.</strong>{" "}For Subscription clients, Stripe, Inc. automatically generates and emails a PDF invoice to Client before each monthly charge and a receipt upon successful payment. For non-subscription flat fee or overage matters, Attorney will issue invoices due within thirty (30) days. Unpaid balances bear interest at ten percent (10%) per annum or the maximum rate permitted by law.{"\n\n"}
 
-<strong style={{ color: "#aabbcc" }}>E. No Guarantees.</strong>{" "}No promises or guarantees as to the outcome of any matter have been made to Client by Attorney. No other representations have been made to Client except those set out in this Agreement.{"\n\n"}
+<strong style={{ color: "#aabbcc" }}>D. Rate Changes.</strong>{" "}Attorney shall give Client thirty (30) days written notice of any change to the fee schedule. If Client does not agree, Client may terminate this Agreement.{"\n\n"}
+
+<strong style={{ color: "#aabbcc" }}>E. No Guarantees.</strong>{" "}No promises or guarantees as to the outcome of any matter have been made to Client by Attorney.{"\n\n"}
 
 <strong style={{ color: C.yellow }}>3. EXPENSES</strong>{"\n\n"}
-All reasonable expenses incurred by Attorney in handling Client's matter shall be paid by Client as incurred. Expenses include but are not limited to: filing fees, postage, overnight fees, state regulatory filing fees, copy costs, certified copies, transcripts, records, travel, parking, and any other case expenses. Online research fees are charged at service provider standard fee. Filing fees are charged at service provider standard fee. Mileage is charged at the IRS standard mileage rate. Each billing will reflect the legal services rendered and expenses, if any, incurred during the billing period.{"\n\n"}
+All reasonable expenses incurred by Attorney in handling Client's matter shall be paid by Client as incurred. Expenses include but are not limited to: filing fees, postage, overnight fees, state regulatory filing fees, copy costs, certified copies, transcripts, records, travel, parking, and any other case expenses. Mileage is charged at the IRS standard mileage rate.{"\n\n"}
 
 <strong style={{ color: C.yellow }}>4. NEGOTIATION AUTHORITY</strong>{"\n\n"}
-<strong style={{ color: "#aabbcc" }}>A. Authority to Negotiate.</strong>{" "}Attorney is authorized to enter into negotiations on behalf of Client in connection with the Matter as Attorney deems appropriate, including contract negotiations, regulatory inquiries, and commercial disputes within the scope of this Agreement. Client grants to Attorney authority to handle negotiations and discussions regarding Client's legal matter to the same extent as Client could do so in person, subject to the limitation in Section 4(B) below.{"\n\n"}
-
-<strong style={{ color: "#aabbcc" }}>B. No Settlement Without Approval.</strong>{" "}Notwithstanding the foregoing, <strong style={{ color: "#ffdd88" }}>no binding settlement, resolution, or agreement that affects Client's legal rights or financial obligations shall be entered into without Client's prior written approval.</strong> Attorney will present all material settlement or resolution proposals to Client before any commitment is made.{"\n\n"}
+Attorney is authorized to enter into negotiations on behalf of Client in connection with the Matter as Attorney deems appropriate, including contract negotiations, regulatory inquiries, and commercial disputes within the scope of this Agreement. Notwithstanding the foregoing, no binding settlement, resolution, or agreement that affects Client's legal rights or financial obligations shall be entered into without Client's prior written approval. Attorney will present all material settlement or resolution proposals to Client before any commitment is made.{"\n\n"}
 
 <strong style={{ color: C.yellow }}>5. SUBSCRIPTION TERMS AND AUTOMATIC RENEWAL</strong>{"\n\n"}
-If Client has enrolled in the General Counsel Subscription at $2,500 per month ("Subscription"), the following terms apply:{"\n\n"}
 
-<strong style={{ color: "#aabbcc" }}>Scope of Subscription.</strong>{" "}The monthly Subscription fee covers the following services within the defined practice areas: (a) unlimited email and messaging access for legal questions, with responses within one business day; (b) one monthly strategy call of up to 45 minutes; (c) up to three standard commercial contract reviews per month; and (d) full access to the GameCompliance™ compliance platform and regulatory alert service. Subscription services are subject to the litigation exclusion in Section 1 above.{"\n\n"}
+Client has enrolled in the <strong style={{ color: selectedTierObj.color }}>{selectedTierObj.label} Subscription</strong> at <strong style={{ color: selectedTierObj.color }}>${selectedTierObj.price} per month</strong> (the "Subscription"). The monthly Subscription fee covers the following services within the defined practice areas: (a) {tierEmailAccess}; (b) {tierCallSchedule}; (c) up to {tierContractReviews} standard commercial contract review(s) per month; and (d) full access to the GameCompliance™ compliance platform and regulatory alert service. Subscription services are subject to the litigation exclusion in Section 1 above.{"\n\n"}
 
 <strong style={{ color: "#aabbcc" }}>Automatic Renewal Disclosure — Required by California Business & Professions Code §17601 et seq.</strong>{"\n"}
-<strong style={{ color: "#ffdd88" }}>THE SUBSCRIPTION WILL AUTOMATICALLY RENEW EACH MONTH AT $2,500 UNLESS CANCELLED. Your subscription will be charged to the payment method on file on the same calendar date each month. To cancel, Client must provide written notice to Attorney at weswilliamsesq@gmail.com at least thirty (30) days before the next billing date. Cancellation takes effect at the end of the then-current billing period. No partial refunds are issued for mid-period cancellations.</strong>{"\n\n"}
+<strong style={{ color: "#ffdd88" }}>THE SUBSCRIPTION WILL AUTOMATICALLY RENEW EACH MONTH AT ${selectedTierObj.price} UNLESS CANCELLED. Your subscription will be charged to the payment method on file on the same calendar date each month. To cancel, Client must provide written notice to Attorney at weswilliamsesq@gmail.com at least thirty (30) days before the next billing date. Cancellation takes effect at the end of the then-current billing period. No partial refunds are issued for mid-period cancellations except as required by law.</strong>{"\n\n"}
 
-<strong style={{ color: "#aabbcc" }}>Overage Services.</strong>{" "}Work outside the Subscription scope — including matters exceeding three contract reviews per month, complex transactions, M&A, and government enforcement matters not requiring court appearance — is available at $350/hr, billed separately under a written engagement agreement. All litigation remains excluded regardless of fee arrangement.{"\n\n"}
+<strong style={{ color: "#aabbcc" }}>Overage Services.</strong>{" "}Work outside the Subscription scope — including matters exceeding the included contract review allotment, complex transactions, M&A, and government enforcement matters not requiring court appearance — is available at $350/hr, billed separately under a written engagement agreement. All litigation remains excluded regardless of fee arrangement.{"\n\n"}
 
 <strong style={{ color: "#aabbcc" }}>Modification of Subscription Terms.</strong>{" "}Attorney reserves the right to modify Subscription pricing or scope upon sixty (60) days written notice. Client may cancel without penalty during the notice period.{"\n\n"}
 
-<strong style={{ color: "#aabbcc" }}>Payment Processing and Recurring Charge Authorization.</strong>{" "}Subscription payments are processed by Stripe, Inc. Attorney does not store Client's payment card information. <strong style={{ color: "#ffdd88" }}>By executing this Agreement and enrolling in the Subscription, Client expressly authorizes Stripe, Inc. to charge Client's payment method on file the amount of $2,500.00 on a recurring monthly basis, on the same calendar date each month, until the Subscription is cancelled in accordance with the cancellation terms above. This authorization remains in effect until Client provides written cancellation notice as specified herein.</strong> Failed payments result in a 7-day grace period before Subscription suspension.{"\n\n"}
+<strong style={{ color: "#aabbcc" }}>Payment Processing and Recurring Charge Authorization.</strong>{" "}<strong style={{ color: "#ffdd88" }}>By executing this Agreement and enrolling in the Subscription, Client expressly authorizes Stripe, Inc. to charge Client's payment method on file the amount of ${selectedTierObj.autoRenew} on a recurring monthly basis, on the same calendar date each month, until the Subscription is cancelled in accordance with the cancellation terms above.</strong>{" "}Failed payments result in a 7-day grace period before further action, including possible suspension or withdrawal as provided in Section 9.{"\n\n"}
+
+<strong style={{ color: "#aabbcc" }}>Earned Fee / Refund on Termination.</strong>{" "}The monthly Subscription fee is earned on a pro-rata daily basis throughout each billing month. If this Agreement terminates mid-month, Attorney will refund the unearned portion of that month's fee (calculated as the number of unused days divided by total days in the month, multiplied by the monthly fee), unless the parties agree otherwise in writing.{"\n\n"}
 
 <strong style={{ color: C.yellow }}>6. ELECTRONIC SIGNATURE AND COMMUNICATIONS</strong>{"\n\n"}
 The parties agree that this Agreement may be executed electronically. An electronic signature constitutes a valid and binding signature under the California Uniform Electronic Transactions Act (Cal. Civ. Code §§ 1633.1 et seq.) and the federal Electronic Signatures in Global and National Commerce Act (15 U.S.C. § 7001 et seq.). Client's affirmative click-through assent constitutes Client's electronic signature and is legally equivalent to a handwritten signature. The parties consent to communicate by electronic mail, which satisfies any writing requirements under the California Rules of Professional Conduct.{"\n\n"}
@@ -2258,41 +2453,39 @@ Attorney will maintain the confidentiality of all information Client discloses i
 <strong style={{ color: C.yellow }}>8. CONFLICTS OF INTEREST</strong>{"\n\n"}
 Attorney has conducted a conflicts check based on information available at the time of engagement. If a conflict of interest arises during the representation, Attorney will promptly notify Client and address the conflict in accordance with the California Rules of Professional Conduct.{"\n\n"}
 
-<strong style={{ color: C.yellow }}>9. CLIENT RESPONSIBILITIES AND COOPERATION</strong>{"\n\n"}
-Client agrees to: (a) provide Attorney with timely, accurate, and complete information necessary to the representation; (b) cooperate fully with Attorney; (c) keep Attorney advised of Client's current address, phone number, and contact information at all times; (d) notify Attorney of any changes in business affiliation during the period Attorney's services are required; (e) pay invoices in accordance with this Agreement; and (f) make decisions on matters requiring Client's authorization. Client shall comply with all reasonable requests of Attorney in connection with the preparation and presentation of Client's legal matter.{"\n\n"}
+<strong style={{ color: C.yellow }}>9. DISCHARGE AND WITHDRAWAL</strong>{"\n\n"}
 
-Attorney may withdraw from the case and cease to represent Client for any reason permitted by the California Rules of Professional Conduct, including without limitation: Client's failure to timely pay fees and expenses in accordance with this Agreement, Client's failure to cooperate or communicate with Attorney, or any fact or circumstance that would render Attorney's representation unlawful or unethical.{"\n\n"}
+<strong style={{ color: "#aabbcc" }}>Client's Right to Discharge.</strong>{" "}Client may discharge Attorney at any time, with or without cause, by providing written notice to Attorney.{"\n\n"}
+
+<strong style={{ color: "#aabbcc" }}>Attorney's Right to Withdraw.</strong>{" "}Attorney may withdraw from the representation only as permitted by the California Rules of Professional Conduct (including Rule 1.16) and applicable law. Attorney may withdraw if Client breaches a material term of this Agreement, including failure to pay the monthly Subscription fee when due. Attorney will first provide Client with reasonable written notice of the breach and at least ten (10) days to cure. If the breach is not cured, Attorney may cease providing further services and withdraw.{"\n\n"}
+
+Upon any termination (by discharge, withdrawal, or otherwise), Attorney will: (a) take all reasonable steps to avoid foreseeable prejudice to Client's interests; (b) promptly return to Client all Client files, papers, and documents in Attorney's possession; (c) promptly refund any unearned portion of fees paid in advance, calculated on a pro-rata daily basis; and (d) deliver a final accounting of any amounts still owed.{"\n\n"}
 
 <strong style={{ color: C.yellow }}>10. ASSOCIATION OF OTHER ATTORNEYS OR SERVICES</strong>{"\n\n"}
-Attorney may, at Attorney's sole discretion, employ any other person or service that Attorney believes is necessary to assist in this representation. Should it become advisable to refer this matter or any part thereof, or to associate or consult with another attorney or law firm of established competence, Attorney will provide Client with information regarding any division of fee arrangement, including: (a) the identity of all lawyers or law firms who will participate; (b) the basis upon which fees will be divided; and (c) the share of the fee each lawyer or law firm will receive. Attorney will request Client's written consent to any such arrangement before it is made.{"\n\n"}
+Attorney may, at Attorney's sole discretion, employ any other person or service necessary to assist in this representation. Should it become advisable to refer this matter or associate or consult with another attorney or law firm, Attorney will provide Client with information regarding any division of fee arrangement, including the identity of all participating lawyers, the basis for fee division, and each party's share. Attorney will request Client's written consent before any such arrangement is made.{"\n\n"}
 
-<strong style={{ color: C.yellow }}>11. DISCHARGE AND WITHDRAWAL</strong>{"\n\n"}
-Client may discharge Attorney at any time with written notice. Attorney may withdraw with Client's consent, or for good cause, which includes Client's breach of this Agreement, refusal to cooperate or communicate with Attorney, or any fact or circumstance that would render Attorney's representation unlawful or unethical. Upon termination, Attorney will deliver Client's file and property in Attorney's possession, unless subject to lien for unpaid fees, whether or not Client has completed payment for all services rendered.{"\n\n"}
-
-<strong style={{ color: C.yellow }}>12. DISPUTE RESOLUTION AND FEE ARBITRATION</strong>{"\n\n"}
-Client has the right to request mandatory fee arbitration through the State Bar of California Fee Arbitration Program before filing a lawsuit, pursuant to California Business and Professions Code §§ 6200–6206. Client may exercise this right by notifying Attorney in writing within thirty (30) days of receiving a final billing statement.{"\n\n"}
-
-If, after receiving notice of this right to arbitrate, Client elects not to proceed under the State Bar fee arbitration procedures by not filing a request for fee arbitration within thirty (30) days, any dispute over fees, charges, costs, expenses, or any other dispute between Client and Attorney will be resolved via judicial reference without jury. Any matter within the jurisdiction of the probate, small claims, or bankruptcy court shall be excluded from the requirement of judicial reference. The sole and exclusive venue for fee arbitration and any legal dispute shall be San Diego County, California, and/or the Southern District of California (if Federal Court).{"\n\n"}
+<strong style={{ color: C.yellow }}>11. DISPUTE RESOLUTION AND FEE ARBITRATION</strong>{"\n\n"}
+Client has the right to request mandatory fee arbitration through the State Bar of California Fee Arbitration Program before filing a lawsuit, pursuant to California Business and Professions Code §§ 6200–6206. Client may exercise this right by notifying Attorney in writing within thirty (30) days of receiving a final billing statement. If Client elects not to proceed under the State Bar fee arbitration procedures within thirty (30) days, any dispute over fees, charges, costs, expenses, or any other dispute between Client and Attorney will be resolved via judicial reference without jury. The sole and exclusive venue shall be San Diego County, California, and/or the Southern District of California (if Federal Court).{"\n\n"}
 
 <strong style={{ color: "#ffdd88" }}>JURY TRIAL WAIVER: By executing this Agreement, Client confirms that Client has read and understands the dispute resolution provisions above and voluntarily agrees to resolution by judicial reference or other court proceeding as warranted in the event Client does not elect State Bar fee arbitration procedures. In doing so, Client and Attorney voluntarily waive important constitutional rights to trial by jury. Client is advised that Client has the right to have an independent attorney review this dispute resolution provision and this entire Agreement prior to signing.</strong>{"\n\n"}
 
-<strong style={{ color: C.yellow }}>13. PREVAILING PARTY ATTORNEY FEES</strong>{"\n\n"}
+<strong style={{ color: C.yellow }}>12. PREVAILING PARTY ATTORNEY FEES</strong>{"\n\n"}
 In the event either party brings an action to enforce any provision of this Agreement, the prevailing party shall be entitled to recover reasonable attorney fees and costs incurred in such action.{"\n\n"}
 
-<strong style={{ color: C.yellow }}>14. TAX DISCLOSURE AND ACKNOWLEDGMENT</strong>{"\n\n"}
-<strong style={{ color: "#ffdd88" }}>CLIENT IS ADVISED TO OBTAIN INDEPENDENT AND COMPETENT TAX ADVICE REGARDING THESE LEGAL MATTERS SINCE LEGAL TRANSACTIONS CAN GIVE RISE TO TAX CONSEQUENCES. ATTORNEY HAS NOT AGREED TO RENDER ANY TAX ADVICE AND IS NOT RESPONSIBLE FOR ANY ADVICE REGARDING TAX MATTERS OR PREPARATION OF TAX RETURNS OR OTHER FILINGS, INCLUDING BUT NOT LIMITED TO STATE AND FEDERAL INCOME AND INHERITANCE TAX RETURNS. CLIENT SHOULD OBTAIN PROFESSIONAL HELP REGARDING THE VALUATION AND LOCATION OF ALL ASSETS WHICH MAY BE THE SUBJECT OF A LEGAL MATTER.</strong>{"\n\n"}
+<strong style={{ color: C.yellow }}>13. TAX DISCLOSURE AND ACKNOWLEDGMENT</strong>{"\n\n"}
+<strong style={{ color: "#ffdd88" }}>CLIENT IS ADVISED TO OBTAIN INDEPENDENT AND COMPETENT TAX ADVICE REGARDING THESE LEGAL MATTERS SINCE LEGAL TRANSACTIONS CAN GIVE RISE TO TAX CONSEQUENCES. ATTORNEY HAS NOT AGREED TO RENDER ANY TAX ADVICE AND IS NOT RESPONSIBLE FOR ANY ADVICE REGARDING TAX MATTERS OR PREPARATION OF TAX RETURNS OR OTHER FILINGS, INCLUDING BUT NOT LIMITED TO STATE AND FEDERAL INCOME AND INHERITANCE TAX RETURNS.</strong>{"\n\n"}
 
-<strong style={{ color: C.yellow }}>15. DISCLAIMER — GAMECOMPLIANCE™</strong>{"\n\n"}
+<strong style={{ color: C.yellow }}>14. DISCLAIMER — GAMECOMPLIANCE™</strong>{"\n\n"}
 If Client was referred through the GameCompliance™ platform, Client acknowledges that: (a) use of the GameCompliance™ tool did not create an attorney-client relationship; (b) the analysis generated by GameCompliance™ constituted legal issue-spotting only and did not constitute legal advice; and (c) this Retainer Agreement, once executed, establishes the attorney-client relationship for the specific Matter or Subscription identified herein.{"\n\n"}
 
-<strong style={{ color: C.yellow }}>16. CALIFORNIA LAW — GOVERNING LAW AND CONSTRUCTION</strong>{"\n\n"}
-This Agreement shall be construed under the laws of California. All obligations of the parties created hereunder are performable in San Diego County, California. If any provision of this Agreement is held invalid, illegal, or unenforceable for any reason, such invalidity shall not affect any other provision, and this Agreement shall be construed as if such provision had never been contained herein.{"\n\n"}
+<strong style={{ color: C.yellow }}>15. CALIFORNIA LAW — GOVERNING LAW AND CONSTRUCTION</strong>{"\n\n"}
+This Agreement shall be construed under the laws of California. All obligations of the parties created hereunder are performable in San Diego County, California. If any provision of this Agreement is held invalid, illegal, or unenforceable for any reason, such invalidity shall not affect any other provision.{"\n\n"}
 
-<strong style={{ color: C.yellow }}>17. PARTIES BOUND — ENTIRE AGREEMENT</strong>{"\n\n"}
+<strong style={{ color: C.yellow }}>16. PARTIES BOUND — ENTIRE AGREEMENT</strong>{"\n\n"}
 This Agreement shall be binding upon and inure to the benefit of the parties and their respective heirs, executors, administrators, legal representatives, successors, and assigns where permitted. This Agreement constitutes the sole and entire agreement between the parties, supersedes all prior understandings or written or oral agreements concerning the subject matter hereof, and may be modified only by a written instrument signed by both parties.{"\n\n"}
 
-<strong style={{ color: C.yellow }}>18. EFFECTIVE DATE</strong>{"\n\n"}
-This Agreement will govern all legal services beginning on the date that Attorney began performing work for Client. The date of electronic execution is used for reference only. <strong style={{ color: "#ffdd88" }}>Client will be required to pay Attorney the reasonable value of services performed by Attorney, even if this Agreement never formally takes effect.</strong> Attorney will not begin providing legal services, however, until Client has executed this Agreement electronically and any required payment has been processed.{"\n\n"}
+<strong style={{ color: C.yellow }}>17. EFFECTIVE DATE AND DUPLICATE COPY</strong>{"\n\n"}
+This Agreement will govern all legal services beginning on the date that Attorney began performing work for Client. The date of electronic execution is used for reference only. <strong style={{ color: "#ffdd88" }}>Client will be required to pay Attorney the reasonable value of services performed by Attorney, even if this Agreement never formally takes effect.</strong> Attorney will not begin providing legal services until Client has executed this Agreement electronically and any required payment has been processed. Attorney will provide Client with a fully executed duplicate copy of this Agreement as required by Business and Professions Code § 6148.{"\n\n"}
 
 <em style={{ color: "#778866", fontSize: "11px" }}>
 This Agreement is governed by the California Rules of Professional Conduct and applicable provisions of the California Business and Professions Code, including Business and Professions Code §§ 6200–6206 (fee arbitration) and §§ 17601 et seq. (automatic renewal). Wesley R. Williams, Esq. · CA Bar No. 269157 · Attorney Advertising.
@@ -2340,6 +2533,15 @@ This Agreement is governed by the California Rules of Professional Conduct and a
               value={signForm.matter} onChange={e => setSignForm(f => ({ ...f, matter: e.target.value }))} />
           </div>
 
+          {/* Trust account disclosure acknowledgment */}
+          <div style={{ border: `2px solid ${C.yellow}33`, background: `${C.yellow}06`,
+            padding: "12px 16px", marginBottom: "16px", fontFamily: "'Courier New', monospace",
+            fontSize: "11px", color: "#887744", lineHeight: "1.8" }}>
+            <strong style={{ color: C.yellow, fontFamily: "'Press Start 2P', monospace", fontSize: "7px",
+              letterSpacing: "1px" }}>NO TRUST ACCOUNT DISCLOSURE — § 2(B)</strong>{"\n\n"}
+            Attorney does not maintain a client trust account (IOLTA). Fees are deposited directly into Attorney's operating account. You have the right to require funds be held in trust; by proceeding you expressly waive that right.
+          </div>
+
           <div onClick={() => setAgreed(v => !v)} style={{
             display: "flex", gap: "14px", alignItems: "flex-start",
             cursor: "crosshair", padding: "16px",
@@ -2357,7 +2559,7 @@ This Agreement is governed by the California Rules of Professional Conduct and a
               <div style={{ fontSize: "6px", color: C.dim, letterSpacing: "2px",
                 marginBottom: "4px" }}>CHECKBOX 1 OF 2 — GENERAL AGREEMENT</div>
               <div style={{ fontSize: "7px", color: agreed ? C.yellow : C.dim, lineHeight: "2.2" }}>
-                I HAVE READ AND UNDERSTAND THE ENTIRE RETAINER AGREEMENT ABOVE.
+                I HAVE READ AND UNDERSTAND THE ENTIRE RETAINER AGREEMENT ABOVE, INCLUDING THE NO TRUST ACCOUNT DISCLOSURE IN SECTION 2(B) AND THE AUTOMATIC RENEWAL TERMS IN SECTION 5.
                 I AGREE TO BE BOUND BY ITS TERMS AND ACKNOWLEDGE THAT MY ELECTRONIC
                 SIGNATURE BELOW IS LEGALLY BINDING UNDER THE CALIFORNIA UETA AND
                 FEDERAL ESIGN ACT.
@@ -2365,14 +2567,13 @@ This Agreement is governed by the California Rules of Professional Conduct and a
             </div>
           </div>
 
-          {/* ── JURY WAIVER — SEPARATE ACKNOWLEDGMENT ── */}
+          {/* ── JURY WAIVER ── */}
           <div style={{
             border: `3px solid ${juryWaived ? C.pink : C.darker}`,
             background: juryWaived ? `${C.pink}0a` : "#0e0008",
             padding: "4px", marginBottom: "16px",
             boxShadow: juryWaived ? `0 0 15px ${C.pink}44` : "none",
           }}>
-            {/* Warning header */}
             <div style={{
               background: juryWaived ? `${C.pink}22` : "#1a0010",
               borderBottom: `2px solid ${juryWaived ? C.pink : C.darker}`,
@@ -2386,12 +2587,11 @@ This Agreement is governed by the California Rules of Professional Conduct and a
                   CHECKBOX 2 OF 2 — JURY TRIAL WAIVER
                 </div>
                 <div style={{ fontSize: "6px", color: "#664455", letterSpacing: "1px", marginTop: "3px" }}>
-                  THIS IS A SEPARATE REQUIRED ACKNOWLEDGMENT · SECTION 12 OF AGREEMENT
+                  THIS IS A SEPARATE REQUIRED ACKNOWLEDGMENT · SECTION 11 OF AGREEMENT
                 </div>
               </div>
             </div>
 
-            {/* Waiver quote from agreement */}
             <div style={{
               padding: "12px 14px",
               borderBottom: `2px solid ${juryWaived ? C.pink : C.darker}`,
@@ -2409,11 +2609,10 @@ This Agreement is governed by the California Rules of Professional Conduct and a
                 and this entire Agreement prior to signing."
               </em>
               <div style={{ marginTop: "8px", fontSize: "10px", color: "#664455" }}>
-                — Section 12, Attorney-Client Retainer Agreement · Wesley R. Williams, Esq.
+                — Section 11, Attorney-Client Retainer Agreement · Wesley R. Williams, Esq.
               </div>
             </div>
 
-            {/* The checkbox itself */}
             <div onClick={() => setJuryWaived(v => !v)} style={{
               display: "flex", gap: "14px", alignItems: "flex-start",
               cursor: "crosshair", padding: "14px",
@@ -2431,13 +2630,23 @@ This Agreement is governed by the California Rules of Professional Conduct and a
               <div style={{ fontSize: "7px", color: juryWaived ? C.pink : "#886677",
                 lineHeight: "2.2", textShadow: juryWaived ? `0 0 6px ${C.pink}` : "none" }}>
                 I SEPARATELY AND SPECIFICALLY ACKNOWLEDGE THAT I HAVE READ AND
-                UNDERSTOOD THE JURY TRIAL WAIVER IN SECTION 12 OF THIS AGREEMENT.
+                UNDERSTOOD THE JURY TRIAL WAIVER IN SECTION 11 OF THIS AGREEMENT.
                 I VOLUNTARILY WAIVE MY CONSTITUTIONAL RIGHT TO A JURY TRIAL AND
                 AGREE TO THE DISPUTE RESOLUTION PROCEDURES DESCRIBED THEREIN.
                 I UNDERSTAND I MAY HAVE AN INDEPENDENT ATTORNEY REVIEW THIS
                 PROVISION BEFORE SIGNING.
               </div>
             </div>
+          </div>
+
+          {/* Attorney countersignature notice */}
+          <div style={{ border: `2px solid ${C.green}44`, background: `${C.green}08`,
+            padding: "14px 16px", marginBottom: "16px",
+            fontFamily: "'Courier New', monospace", fontSize: "11px",
+            color: "#557755", lineHeight: "1.8" }}>
+            <strong style={{ color: C.green, fontFamily: "'Press Start 2P', monospace", fontSize: "6px",
+              letterSpacing: "1px" }}>ATTORNEY COUNTERSIGNATURE</strong>{"\n\n"}
+            Upon your execution below, Wesley R. Williams, Esq. (CA Bar No. 269157) countersigns this Agreement effective the same date and time. The fully executed agreement with both signatures will be available for download immediately.
           </div>
 
           <div style={{ fontSize: "7px", color: C.dim, marginBottom: "16px",
@@ -2480,6 +2689,7 @@ This Agreement is governed by the California Rules of Professional Conduct and a
     </div>
   );
 }
+
 
 // ═══════════════════════════════════════════════════════════
 // CONTACT — HIGH SCORE ENTRY
@@ -2719,187 +2929,148 @@ function Footer({ setPage }) {
 }
 
 // ═══════════════════════════════════════════════════════════
-// PRICING PAGE — SUBSCRIPTION ARCADE SHOP
+// PRICING PAGE — SUBSCRIPTION ARCADE SHOP (TIERED)
 // ═══════════════════════════════════════════════════════════
 
-// ⚠️  SETUP INSTRUCTION FOR YOUR FREELANCER:
-// 1. Log into stripe.com → Products → Add Product
-// 2. Name: "General Counsel Subscription" · Price: $2,500/month recurring
-// 3. Click "Payment Link" → Copy the URL
-// 4. Replace the STRIPE_PAYMENT_LINK value below with your real link
-const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/5kQ4gz46xfGx5iQbvtb3q00";
-
 function PricingPage({ setPage }) {
-  const [hover, setHover] = useState(false);
-
-  const included = [
-    { icon: "📧", label: "UNLIMITED EMAIL & MESSAGING",     desc: "Legal questions answered within 1 business day" },
-    { icon: "📞", label: "MONTHLY STRATEGY CALL (45 MIN)", desc: "One scheduled call per month to discuss your legal landscape" },
-    { icon: "📋", label: "CONTRACT REVIEW (3/MONTH)",       desc: "Standard commercial agreements reviewed and redlined" },
-    { icon: "🎮", label: "GAMECOMPLIANCE™ FULL ACCESS",     desc: "Unlimited compliance analyses + priority regulatory alerts" },
-    { icon: "⚡", label: "REGULATORY ALERTS",               desc: "Notified when laws change that affect your business" },
-    { icon: "⚖️", label: "SCOPE: GAMING · RE · FINTECH",   desc: "Matters within gaming law, real estate, and digital assets" },
-  ];
-
-  const notIncluded = [
-    "Litigation or court appearances",
-    "Government enforcement defense",
-    "More than 3 contract reviews/month*",
-    "M&A or complex transactions*",
-  ];
+  const [selectedTier, setSelectedTier] = useState(null);
 
   return (
-    <div style={{ maxWidth: "900px", margin: "0 auto", padding: "120px 32px 80px" }}>
+    <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "120px 32px 80px" }}>
 
       {/* Header */}
-      <div style={{ textAlign: "center", marginBottom: "48px" }}>
+      <div style={{ textAlign: "center", marginBottom: "52px" }}>
         <div style={{ fontSize: "8px", color: C.mcGold, letterSpacing: "4px",
           marginBottom: "12px", textShadow: `0 0 10px ${C.mcGold}` }}>
-          ── ARCADE SHOP ──
+          ── ARCADE SHOP ── SELECT YOUR TIER ──
         </div>
         <h1 style={{ fontSize: "clamp(14px, 3vw, 26px)", letterSpacing: "3px",
           marginBottom: "12px", color: C.mcGold,
           textShadow: `0 0 20px ${C.mcGold}, 0 0 40px ${C.mcGold}` }}>
-          GENERAL COUNSEL<br />SUBSCRIPTION
+          CHOOSE YOUR LEVEL
         </h1>
-        <div style={{ fontSize: "7px", color: C.dim, letterSpacing: "2px" }}>
-          ONE PRICE · EVERYTHING INCLUDED · CANCEL ANYTIME
+        <div style={{ fontSize: "7px", color: C.dim, letterSpacing: "2px", marginBottom: "8px" }}>
+          MONTHLY SUBSCRIPTIONS · CANCEL ANYTIME · NO ANNUAL COMMITMENT
         </div>
+        <div style={{ height: "2px", background: `linear-gradient(90deg, transparent, ${C.mcGold}, transparent)`,
+          margin: "20px auto", maxWidth: "300px" }} />
       </div>
 
-      {/* Main price card */}
-      <div style={{
-        border: `4px solid ${C.mcGold}`,
-        background: `linear-gradient(135deg, #1a1400 0%, #0f0a00 100%)`,
-        boxShadow: `0 0 40px ${C.mcGold}55, inset 0 0 40px rgba(0,0,0,0.5)`,
-        marginBottom: "32px", overflow: "hidden",
-      }}>
-
-        {/* Gold shimmer header */}
-        <div style={{
-          background: `linear-gradient(90deg, #8b6200, ${C.mcGold}, #f5d060, ${C.mcGold}, #8b6200)`,
-          padding: "20px 32px",
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          borderBottom: `4px solid #000`,
-        }}>
-          <div style={{ fontFamily: "'Press Start 2P'", fontSize: "10px",
-            color: "#1a0e00", textShadow: "1px 1px 0 rgba(255,255,255,0.4)",
-            letterSpacing: "2px" }}>
-            ★ PREMIUM TIER · GENERAL COUNSEL ★
-          </div>
-          <div style={{ fontSize: "8px", color: "#1a0e00",
-            fontFamily: "'Press Start 2P'" }}>BEST VALUE</div>
-        </div>
-
-        <div style={{ padding: "40px 36px" }}>
-
-          {/* Price display */}
-          <div style={{ textAlign: "center", marginBottom: "40px" }}>
-            <div style={{ display: "flex", alignItems: "flex-start",
-              justifyContent: "center", gap: "4px", marginBottom: "8px" }}>
-              <span style={{ fontSize: "16px", color: C.mcGold, marginTop: "12px",
-                textShadow: `0 0 10px ${C.mcGold}` }}>$</span>
-              <span style={{ fontSize: "clamp(48px, 8vw, 72px)", fontWeight: "700",
-                color: C.mcGold, letterSpacing: "-4px", lineHeight: 1,
-                textShadow: `0 0 30px ${C.mcGold}, 0 0 60px ${C.mcGold}44` }}>2,500</span>
-            </div>
-            <div style={{ fontSize: "8px", color: C.dim, letterSpacing: "3px" }}>
-              PER MONTH · BILLED MONTHLY
-            </div>
-            <div style={{ height: "2px", background: `linear-gradient(90deg, transparent, ${C.mcGold}, transparent)`,
-              margin: "20px auto", maxWidth: "200px" }} />
-            <div style={{ fontSize: "7px", color: "#887744", letterSpacing: "1px", lineHeight: "2" }}>
-              NO SETUP FEE · NO ANNUAL COMMITMENT · CANCEL WITH 30 DAYS NOTICE
-            </div>
-          </div>
-
-          {/* What's included */}
-          <div style={{ marginBottom: "32px" }}>
-            <div style={{ fontSize: "7px", color: C.mcGold, letterSpacing: "3px",
-              marginBottom: "20px", textShadow: `0 0 8px ${C.mcGold}` }}>
-              ── WHAT'S IN THE BOX ──
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
-              {included.map((item, i) => (
-                <div key={i} style={{
-                  display: "flex", gap: "12px", alignItems: "flex-start",
-                  padding: "14px", background: `${C.mcGold}08`,
-                  border: `2px solid ${C.mcGold}33`,
-                }}>
-                  <div style={{ fontSize: "20px", flexShrink: 0 }}>{item.icon}</div>
-                  <div>
-                    <div style={{ fontSize: "7px", color: C.mcGold, letterSpacing: "1px",
-                      marginBottom: "6px", textShadow: `0 0 6px ${C.mcGold}` }}>
-                      {item.label}
-                    </div>
-                    <div style={{ fontFamily: "'Courier New', monospace", fontSize: "11px",
-                      color: "#887744", lineHeight: "1.6" }}>{item.desc}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Not included */}
-          <div style={{ marginBottom: "36px", padding: "16px 20px",
-            border: `2px solid ${C.darker}`, background: `rgba(0,0,0,0.3)` }}>
-            <div style={{ fontSize: "7px", color: C.dim, letterSpacing: "2px",
-              marginBottom: "12px" }}>NOT INCLUDED (AVAILABLE AT $350/HR OVERAGE):</div>
-            {notIncluded.map((n, i) => (
-              <div key={i} style={{ fontSize: "7px", color: "#555577",
-                padding: "5px 0", letterSpacing: "0.5px",
-                borderBottom: i < notIncluded.length - 1 ? `1px solid ${C.darker}` : "none",
-                display: "flex", gap: "10px" }}>
-                <span style={{ color: C.pink }}>✕</span> {n}
+      {/* Tier Cards Grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", marginBottom: "48px" }}>
+        {TIERS.map(tier => (
+          <div key={tier.id} style={{
+            border: `4px solid ${tier.color}`,
+            background: `linear-gradient(160deg, ${tier.color}10 0%, #050508 60%)`,
+            boxShadow: selectedTier === tier.id
+              ? `0 0 50px ${tier.color}99, inset 0 0 30px ${tier.color}11`
+              : `0 0 20px ${tier.color}33`,
+            overflow: "hidden",
+            display: "flex", flexDirection: "column",
+            transition: "box-shadow 0.2s steps(4)",
+            cursor: "crosshair",
+          }}>
+            {/* Tier header bar */}
+            <div style={{
+              background: tier.color,
+              padding: "14px 20px",
+              display: "flex", justifyContent: "space-between", alignItems: "center",
+              borderBottom: `4px solid #000`,
+            }}>
+              <div style={{ fontFamily: "'Press Start 2P'", fontSize: "9px",
+                color: tier.id === "counsel" ? "#1a0e00" : "#000",
+                letterSpacing: "1px" }}>
+                {tier.emoji} {tier.label}
               </div>
-            ))}
-            <div style={{ fontFamily: "'Courier New', monospace", fontSize: "10px",
-              color: "#444466", marginTop: "10px", fontStyle: "italic" }}>
-              * Overage work billed at $350/hr by separate written agreement.
+              <div style={{ fontSize: "7px", color: tier.id === "counsel" ? "#1a0e00" : "#000",
+                fontFamily: "'Press Start 2P'", background: "rgba(0,0,0,0.2)",
+                padding: "3px 8px" }}>{tier.badge}</div>
             </div>
-          </div>
 
-          {/* CTA Button */}
-          <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: "7px", color: C.dim, letterSpacing: "2px",
-              marginBottom: "16px", animation: "neonPulse 2s infinite",
-              color: C.mcGold }}>
-              ► SECURE CHECKOUT VIA STRIPE ◄
-            </div>
-            <a
-              href={STRIPE_PAYMENT_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
-              style={{
-                display: "inline-block",
-                background: hover ? "#f5d060" : C.mcGold,
-                color: "#1a0e00",
-                padding: "18px 48px",
-                fontSize: "11px",
-                fontFamily: "'Press Start 2P', monospace",
-                letterSpacing: "2px",
-                textDecoration: "none",
-                boxShadow: hover
-                  ? `6px 6px 0 #5a3d00, 0 0 40px ${C.mcGold}`
-                  : `4px 4px 0 #5a3d00, 0 0 20px ${C.mcGold}88`,
-                transition: "all 0.1s steps(2)",
-                transform: hover ? "translate(-1px, -1px)" : "none",
-                cursor: "crosshair",
-              }}>
-              ► SUBSCRIBE NOW — $2,500/MO ◄
-            </a>
-            <div style={{ fontSize: "6px", color: C.dim, marginTop: "16px",
-              letterSpacing: "1px", lineHeight: "2.5" }}>
-              POWERED BY STRIPE · 256-BIT ENCRYPTION · ALL MAJOR CARDS ACCEPTED<br />
-              VISA · MASTERCARD · AMEX · DISCOVER · ACH BANK TRANSFER
+            <div style={{ padding: "28px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
+
+              {/* Sub-label */}
+              <div style={{ fontSize: "7px", color: tier.color, letterSpacing: "2px",
+                marginBottom: "8px", textShadow: `0 0 8px ${tier.color}` }}>{tier.sublabel}</div>
+
+              {/* Price */}
+              <div style={{ display: "flex", alignItems: "flex-start", gap: "4px", marginBottom: "6px" }}>
+                <span style={{ fontSize: "13px", color: tier.color, marginTop: "8px" }}>$</span>
+                <span style={{ fontSize: "clamp(36px, 5vw, 52px)", fontWeight: "700",
+                  color: tier.color, letterSpacing: "-2px", lineHeight: 1,
+                  textShadow: `0 0 20px ${tier.color}88` }}>{tier.price}</span>
+              </div>
+              <div style={{ fontSize: "7px", color: C.dim, letterSpacing: "2px", marginBottom: "16px" }}>
+                PER MONTH · BILLED MONTHLY
+              </div>
+
+              {/* Description */}
+              <div style={{ fontFamily: "'Courier New', monospace", fontSize: "11px",
+                color: "#8899aa", lineHeight: "1.7", marginBottom: "20px",
+                paddingBottom: "16px", borderBottom: `1px solid ${tier.color}33` }}>
+                {tier.desc}
+              </div>
+
+              {/* Included */}
+              <div style={{ marginBottom: "16px", flex: 1 }}>
+                {tier.included.map((item, i) => (
+                  <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start",
+                    padding: "8px 0", borderBottom: i < tier.included.length - 1
+                      ? `1px solid ${tier.color}22` : "none" }}>
+                    <span style={{ fontSize: "14px", flexShrink: 0 }}>{item.icon}</span>
+                    <div>
+                      <div style={{ fontSize: "6px", color: tier.color, letterSpacing: "1px",
+                        marginBottom: "2px" }}>{item.label}</div>
+                      <div style={{ fontFamily: "'Courier New', monospace", fontSize: "10px",
+                        color: "#556677", lineHeight: "1.5" }}>{item.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Not included */}
+              <div style={{ padding: "12px", border: `2px solid ${C.darker}`,
+                background: "rgba(0,0,0,0.3)", marginBottom: "20px" }}>
+                <div style={{ fontSize: "6px", color: C.dim, letterSpacing: "1px",
+                  marginBottom: "8px" }}>NOT INCLUDED:</div>
+                {tier.notIncluded.map((n, i) => (
+                  <div key={i} style={{ fontSize: "6px", color: "#445566",
+                    padding: "3px 0", display: "flex", gap: "8px", letterSpacing: "0.5px" }}>
+                    <span style={{ color: C.pink }}>✕</span> {n}
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <a href={STRIPE_LINKS[tier.id]} target="_blank" rel="noopener noreferrer"
+                onClick={() => setSelectedTier(tier.id)}
+                style={{
+                  display: "block", textAlign: "center",
+                  background: tier.color, color: tier.id === "counsel" ? "#1a0e00" : "#000",
+                  padding: "14px 20px", fontSize: "9px",
+                  fontFamily: "'Press Start 2P', monospace", letterSpacing: "1px",
+                  textDecoration: "none",
+                  boxShadow: `4px 4px 0 ${tier.colorDark}, 0 0 20px ${tier.color}88`,
+                  cursor: "crosshair",
+                }}>
+                ► SELECT {tier.label} ◄
+              </a>
             </div>
           </div>
-        </div>
+        ))}
       </div>
 
-      {/* Post-payment instructions */}
+      {/* Comparison note */}
+      <div style={{ border: `2px solid ${C.cyan}33`, background: C.surface,
+        padding: "20px 24px", marginBottom: "28px",
+        fontFamily: "'Courier New', monospace", fontSize: "11px",
+        color: "#667788", lineHeight: "1.9" }}>
+        <div style={{ fontSize: "7px", color: C.cyan, letterSpacing: "2px",
+          marginBottom: "12px" }}>── OVERAGE & UPGRADES ──</div>
+        All tiers include overage at <span style={{ color: C.yellow }}>$350/hr</span> for work outside the scope, billed under a separate written engagement. Upgrade or downgrade at any time with 30 days notice. Need something custom? <button onClick={() => setPage("contact")} style={{ background: "none", border: "none", color: C.cyan, fontFamily: "'Courier New', monospace", fontSize: "11px", cursor: "crosshair", textDecoration: "underline", padding: 0 }}>Contact attorney directly.</button>
+      </div>
+
+      {/* After subscribe steps */}
       <div style={{ border: `3px solid ${C.cyan}44`, background: C.surface,
         padding: "24px 28px", marginBottom: "28px" }}>
         <div style={{ fontSize: "7px", color: C.cyan, letterSpacing: "3px",
@@ -2908,7 +3079,7 @@ function PricingPage({ setPage }) {
           { step: "01", label: "PAYMENT CONFIRMED",   desc: "Stripe sends you a receipt instantly. Your subscription is active." },
           { step: "02", label: "SIGN YOUR RETAINER",  desc: "Click CONTRACT in the nav to sign your attorney-client retainer agreement electronically.", action: () => setPage("retainer") },
           { step: "03", label: "BOOK YOUR FIRST CALL",desc: "Email weswilliamsesq@gmail.com to schedule your onboarding strategy call." },
-          { step: "04", label: "YOU'RE COVERED",      desc: "Send legal questions anytime. Responses within 1 business day." },
+          { step: "04", label: "YOU'RE COVERED",      desc: "Send legal questions anytime within your tier's scope." },
         ].map((s, i) => (
           <div key={i} style={{ display: "flex", gap: "16px", alignItems: "flex-start",
             padding: "12px 0", borderBottom: i < 3 ? `1px solid ${C.darker}` : "none" }}>
@@ -2939,11 +3110,7 @@ function PricingPage({ setPage }) {
       <div style={{ border: `2px solid ${C.darker}`, padding: "16px",
         fontSize: "6px", color: "#444455", lineHeight: "2.2",
         background: C.surface, letterSpacing: "0.5px" }}>
-        ⚠ SUBSCRIPTION TERMS: This subscription constitutes a general retainer for legal services
-        within the defined scope. It does not guarantee any specific outcome. Subscription renews
-        automatically each month until cancelled with 30 days written notice per the Retainer
-        Agreement. Overage services billed at $350/hr. California Rules of Professional Conduct
-        apply. Wesley R. Williams, Esq. · CA Bar No. 269157 · Attorney Advertising.
+        ⚠ SUBSCRIPTION TERMS: Each subscription constitutes a general retainer for legal services within the defined scope. Subscriptions renew automatically each month at the stated price unless cancelled with 30 days written notice per the Retainer Agreement. Overage services billed at $350/hr by separate written engagement agreement. Litigation excluded at all tiers. California Rules of Professional Conduct apply. Wesley R. Williams, Esq. · CA Bar No. 269157 · Attorney Advertising.
       </div>
     </div>
   );
