@@ -1125,10 +1125,10 @@ function ArcadeCheckItem({ label, checked, onClick, color = C.cyan }) {
 }
 
 // ─────────────────────────────────────────────────────────
-// GAMECOMPLIANCE — FREE, UNLIMITED, NO PAYWALL
-// Tool is a client acquisition funnel for indie developers.
+// GAMECOMPLIANCE — ONE FREE ANALYSIS PER DEVICE
+// After one use, client is prompted to retain counsel.
 // ─────────────────────────────────────────────────────────
-const FREE_LIMIT = Infinity;
+const FREE_LIMIT = 1;
 const STORAGE_KEY_USAGE  = "gc_usage_count";
 
 function GameCompliancePage({ setPage }) {
@@ -1143,10 +1143,12 @@ function GameCompliancePage({ setPage }) {
   const [error, setError] = useState(null);
   const [blinkOn, setBlinkOn] = useState(true);
 
-  // Usage tracking
+  // Usage tracking — persists across sessions via localStorage
   const [usageCount, setUsageCount] = useState(() => {
     try { return parseInt(localStorage.getItem(STORAGE_KEY_USAGE) || "0", 10); } catch { return 0; }
   });
+
+  const atLimit = usageCount >= FREE_LIMIT;
 
   const incrementUsage = () => {
     const next = usageCount + 1;
@@ -1279,6 +1281,44 @@ function GameCompliancePage({ setPage }) {
   const sev_color = s => s === "HIGH" ? C.pink : s === "MEDIUM" ? C.yellow : C.cyan;
 
   // GATE SCREEN
+  // GAME OVER — shown when usage limit reached
+  if (atLimit && toolScreen !== "results") return (
+    <div style={{ maxWidth: "640px", margin: "0 auto", padding: "120px 32px 80px", textAlign: "center" }}>
+      <div style={{ border: `4px solid ${C.pink}`, background: `linear-gradient(135deg, #1a0008 0%, #0a0005 100%)`,
+        padding: "48px 32px", boxShadow: `0 0 40px ${C.pink}55` }}>
+        <div style={{ fontSize: "48px", marginBottom: "20px",
+          animation: "float 2s ease-in-out infinite" }}>🪙</div>
+        <div className="neon-pink" style={{ fontSize: "clamp(18px, 4vw, 28px)",
+          letterSpacing: "4px", marginBottom: "8px",
+          animation: "neonPulse 1.5s ease-in-out infinite" }}>
+          GAME OVER
+        </div>
+        <div style={{ fontSize: "8px", color: C.dim, letterSpacing: "3px", marginBottom: "28px" }}>
+          YOU'VE USED YOUR FREE ANALYSIS
+        </div>
+        <div style={{ fontFamily: "'Courier New', monospace", fontSize: "13px",
+          color: "#bb8899", lineHeight: "1.9", maxWidth: "460px",
+          margin: "0 auto 32px" }}>
+          Your GameCompliance™ report is complete. To discuss your results and get actionable legal counsel, book a free 30-minute consultation with Wesley R. Williams, Esq.
+        </div>
+        <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
+          <button className="btn-arcade btn-pink" onClick={() => setPage("contact")}
+            style={{ fontSize: "9px", padding: "14px 28px" }}>
+            ► BOOK FREE CONSULT
+          </button>
+          <button className="btn-arcade btn-yellow" onClick={() => setPage("retainer")}
+            style={{ fontSize: "9px", padding: "14px 24px" }}>
+            SIGN RETAINER →
+          </button>
+        </div>
+        <div style={{ marginTop: "28px", fontSize: "7px", color: "#444455",
+          letterSpacing: "1px", lineHeight: "2" }}>
+          WESLEY R. WILLIAMS, ESQ. · CA BAR NO. 269157 · weswilliamsesq@gmail.com · 619.305.6485
+        </div>
+      </div>
+    </div>
+  );
+
   if (gateScreen) return (
     <div style={{ maxWidth: "640px", margin: "0 auto", padding: "120px 32px 80px" }}>
       <div style={{ textAlign: "center", marginBottom: "32px" }}>
