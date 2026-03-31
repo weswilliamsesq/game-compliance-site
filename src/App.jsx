@@ -1281,8 +1281,8 @@ function GameCompliancePage({ setPage }) {
   const sev_color = s => s === "HIGH" ? C.pink : s === "MEDIUM" ? C.yellow : C.cyan;
 
   // GATE SCREEN
-  // GAME OVER — shown when usage limit reached
-  if (atLimit && toolScreen !== "results") return (
+  // GAME OVER — only shown when they try to access the gate again after prior use
+  if (atLimit && gateScreen) return (
     <div style={{ maxWidth: "640px", margin: "0 auto", padding: "120px 32px 80px", textAlign: "center" }}>
       <div style={{ border: `4px solid ${C.pink}`, background: `linear-gradient(135deg, #1a0008 0%, #0a0005 100%)`,
         padding: "48px 32px", boxShadow: `0 0 40px ${C.pink}55` }}>
